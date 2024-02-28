@@ -12,9 +12,10 @@ int main() {
     //test_ordered_array_set();
 
     vector v = vector_create(1);
-
-
     vector_delete(&v);
+
+    test_pushBack_emptyVector();
+    test_pushBack_fullVector();
 
     return 0;
 }

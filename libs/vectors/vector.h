@@ -4,6 +4,7 @@
 
 #include <malloc.h>
 #include <assert.h>
+#include <stdbool.h>
 
 
 typedef struct vector {
@@ -12,12 +13,22 @@ typedef struct vector {
     size_t capacity;
 } vector;
 
-void print_mem_error();
+//void print_mem_error();
+//void print_mem_index_out();
+void error_alert(char *msg);
+//-------------
 vector vector_create(size_t size);
 void vector_reserve(vector *v, size_t new_cap);
 void vector_clear(vector *v);
 void vector_shrink_to_fit(vector *v);
 void vector_delete(vector *v);
+//------------
+bool isEmpty(vector v);
+bool isFull(vector v);
+//------------
+int vector_get_value_by_pos (vector v, size_t pos);
+void vector_pushBack(vector *v, int x);
+void vector_popBack(vector *v);
 
 
 #endif //PROJECT_LIBS_VECTOR_H

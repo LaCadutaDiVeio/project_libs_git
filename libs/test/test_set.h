@@ -40,6 +40,11 @@ void test_ordered_array_set_intersection();
 void test_ordered_array_set_difference();
 void test_ordered_array_set_sym_difference();
 void test_ordered_array_set_complement();
+//-----------------------------------
+void create_vectors_for_tests();
+void test_vectors();
+void test_pushBack_emptyVector();
+void test_pushBack_fullVector();
 
 
 
