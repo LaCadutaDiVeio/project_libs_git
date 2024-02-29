@@ -350,6 +350,7 @@ void test_vectors() {
     test_pushBack_fullVector();
     test_popBack_notEmptyVector();
     test_vector_pointers();
+    test_vector_data_funcs();
 }
 
 void test_pushBack_emptyVector() {
@@ -387,4 +388,28 @@ void test_vector_pointers() {
 
     vector_pushBack(&v, 2);
     assert(vector_get_value_by_pos(v, 1) == 2);
+}
+
+void test_vector_data_funcs() {
+    vector v = vector_create(0);
+    assert(v.data == NULL);
+
+    v = vector_create(1);
+    assert(v.capacity == 1);
+
+    vector_reserve(&v, 3);
+    assert(v.capacity == 3);
+
+    v.size = 1;
+    vector_clear(&v);
+    assert(v.size == 0);
+    assert(v.data != NULL); //так как по условию в мет. clear не трогает содержимое!
+
+
+    v.size = 2;
+    vector_shrink_to_fit(&v);
+    assert(v.capacity == 2);
+
+    vector_delete(&v);
+    assert(v.data == NULL);
 }

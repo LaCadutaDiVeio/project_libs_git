@@ -32,7 +32,9 @@ void vector_popBack(vector *v);
 int *vector_at(vector *v, size_t index);
 int *vector_back(vector *v);
 int *vector_front(vector *v);
+void test_vector_data_funcs();
 void vector_print(vector v);
+
 
 
 #endif //PROJECT_LIBS_VECTOR_H

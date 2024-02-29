@@ -95,8 +95,7 @@ void vector_pushBack(vector *v, int value) {
     if (v->size >= v->capacity)
         vector_reserve(v, v->capacity * 2);
 
-    v->data[v->size] = value;
-    v->size++;
+    v->data[v->size++] = value;
 }
 
 void vector_popBack(vector *v) {
@@ -104,8 +103,7 @@ void vector_popBack(vector *v) {
         error_alert("something wrong with vector's data");
     if (!v->size)
         error_alert("vector is empty");
-    v->data[v->size] = 0;
-    v->size--;
+    v->data[v->size--] = 0;
 }
 
 int *vector_at(vector *v, size_t index) {
