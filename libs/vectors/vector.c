@@ -1,6 +1,7 @@
 #include <vectors/vector.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <array/array.h>
 
 /*
 void print_mem_error() {
@@ -78,7 +79,7 @@ bool isFull(vector v) {
 }
 //--------------
 
-int vector_get_value_by_pos (vector v, size_t pos) {
+int vector_get_value_by_pos(vector v, size_t pos) {
     //Методичка хочет 1 строчку, а преподаватель хочет проверку неадекватности юзера :/
     if (!v.data)
         error_alert("something wrong with vector's data");
@@ -98,7 +99,7 @@ void vector_pushBack(vector *v, int value) {
     v->size++;
 }
 
-void popBack(vector *v) {
+void vector_popBack(vector *v) {
     if (!v->data)
         error_alert("something wrong with vector's data");
     if (!v->size)
@@ -106,3 +107,35 @@ void popBack(vector *v) {
     v->data[v->size] = 0;
     v->size--;
 }
+
+int *vector_at(vector *v, size_t index) {
+    if (!v->data)
+        error_alert("something wrong with vector's data");
+    if (index >= v->size)
+        error_alert("index out of vector's data range");
+    //формулировка из методички мне не нравится, она не отражает смысл ошибки
+
+    return v->data + index;
+}
+
+int *vector_back(vector *v) {
+    if (!v->data)
+        error_alert("something wrong with vector's data");
+    return v->data + (v->size - 1);
+}
+
+int *vector_front(vector *v) {
+    if (!v->data)
+        error_alert("something wrong with vector's data");
+    return v->data;
+}
+
+//хз, чё в методичке не предложили сделать print, ну да ладно
+void vector_print(vector v) {
+    if (!v.data)
+        error_alert("something wrong with vector's data");
+    outputArray_(v.data, v.size);
+}
+
+
+

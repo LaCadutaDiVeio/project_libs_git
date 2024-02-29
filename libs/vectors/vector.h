@@ -29,6 +29,10 @@ bool isFull(vector v);
 int vector_get_value_by_pos (vector v, size_t pos);
 void vector_pushBack(vector *v, int x);
 void vector_popBack(vector *v);
+int *vector_at(vector *v, size_t index);
+int *vector_back(vector *v);
+int *vector_front(vector *v);
+void vector_print(vector v);
 
 
 #endif //PROJECT_LIBS_VECTOR_H

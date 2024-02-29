@@ -45,6 +45,8 @@ void create_vectors_for_tests();
 void test_vectors();
 void test_pushBack_emptyVector();
 void test_pushBack_fullVector();
+void test_popBack_notEmptyVector();
+void test_vector_pointers();
 
 
 

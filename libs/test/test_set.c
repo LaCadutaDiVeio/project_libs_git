@@ -345,6 +345,13 @@ void test_ordered_array_set_complement() {
 
 //--------------------------------------------
 
+void test_vectors() {
+    test_pushBack_emptyVector();
+    test_pushBack_fullVector();
+    test_popBack_notEmptyVector();
+    test_vector_pointers();
+}
+
 void test_pushBack_emptyVector() {
     vector a = vector_create(0);
     assert(a.capacity == 0);
@@ -369,4 +376,15 @@ void test_popBack_notEmptyVector() {
     vector_popBack(&a);
     assert(a.size == 0);
     assert(a.capacity == 1);
+}
+
+void test_vector_pointers() {
+    vector v = vector_create(2);
+    vector_pushBack(&v, 1);
+    assert(*vector_front(&v) == 1);
+    assert(*vector_back(&v) == 1);
+    assert(*vector_at(&v, 0) == 1);
+
+    vector_pushBack(&v, 2);
+    assert(vector_get_value_by_pos(v, 1) == 2);
 }

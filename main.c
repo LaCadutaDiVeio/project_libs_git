@@ -14,8 +14,7 @@ int main() {
     vector v = vector_create(1);
     vector_delete(&v);
 
-    test_pushBack_emptyVector();
-    test_pushBack_fullVector();
+    test_vectors();
 
     return 0;
 }
