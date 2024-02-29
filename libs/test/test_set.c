@@ -2,6 +2,7 @@
 #include <unordered_set/unordered_set.h>
 #include <ordered_set/ordered_set.h>
 #include <vectors/vector.h>
+#include <vectors_void/void_vector.h>
 #include <test/test_set.h>
 
 bitset bitset1;
@@ -412,4 +413,102 @@ void test_vector_data_funcs() {
 
     vector_delete(&v);
     assert(v.data == NULL);
+}
+
+
+//---------------------------------
+
+void test_void_vector_from_lab_1() {
+    int n;
+    scanf("%d", &n);
+
+    void_vector v = void_vector_create(0, sizeof(int));
+    for (int i = 0; i < n; i++) {
+        int x;
+        scanf("%d", &x);
+        void_vector_pushBack(&v, &x);
+    }
+    for (int i = 0; i < n; i++) {
+        int x;
+        void_vector_getValueByPos(&v, i, &x);
+        printf("%d ", x);
+    }
+}
+
+void test_void_vector_from_lab_2() {
+    size_t n;
+    scanf("%zd", &n);
+
+    void_vector v = void_vector_create(0, sizeof(float));
+    for (int i = 0; i < n; i++) {
+        int x;
+        scanf("%d", &x);
+        void_vector_pushBack(&v, &x);
+    }
+    for (int i = 0; i < n; i++) {
+        float x;
+        void_vector_getValueByPos(&v, i, &x);
+        printf("%f ", x);
+    }
+}
+
+void test_void_vector() {
+    void_vector v = void_vector_create(0, sizeof(int));
+    assert(v.data == NULL);
+    assert(v.size_of_type == sizeof(int));
+
+    v = void_vector_create(1, sizeof(char));
+    assert(v.capacity == 1);
+    assert(v.size_of_type == sizeof(char));
+
+    void_vector_reserve(&v, 2);
+    assert(v.capacity == 2);
+
+    v.size = 1;
+    void_vector_clear(&v);
+    assert(v.size == 0);
+    assert(v.data != NULL);
+
+    void_vector_reserve(&v, 4);
+    v.size = 2;
+    void_vector_shrink_to_fit(&v);
+    assert(v.capacity == 2);
+
+    void_vector_delete(&v);
+    assert(v.data == NULL);
+
+    v = void_vector_create(2, sizeof(double));
+    char a = 'a';
+    char b = 'b';
+    void_vector_pushBack(&v, &a);
+    void_vector_pushBack(&v, &b);
+    assert(void_vector_isFull(v) == 1);
+    assert(void_vector_isEmpty(v) == 0);
+
+
+    char aa;
+    char bb;
+    void_vector_getValueByPos(&v, 0, &aa);
+    void_vector_getValueByPos(&v, 0, &bb);
+    assert(aa == a && bb == b);
+
+    void_vector_clear(&v);
+    assert(void_vector_isFull(v) == 0);
+    assert(void_vector_isEmpty(v) == 1);
+
+
+    void_vector_pushBack(&v, &a);
+    void_vector_pushBack(&v, &b);
+    assert(void_vector_isFull(v) == 1);
+
+    void_vector_popBack(&v);
+    void_vector_popBack(&v);
+    assert(void_vector_isEmpty(v) == 1);
+
+    void_vector_pushBack(&v, &a);
+    void_vector_setValue(&v, 0, &b);
+
+    char aaa;
+    void_vector_getValueByPos(&v, 0, &aaa);
+    assert(aaa == 'a');
 }

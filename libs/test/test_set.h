@@ -48,6 +48,10 @@ void test_pushBack_fullVector();
 void test_popBack_notEmptyVector();
 void test_vector_pointers();
 
+void test_void_vector_from_lab_1();
+void test_void_vector_from_lab_2();
+void test_void_vector();
+
 
 
 

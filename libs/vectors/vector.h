@@ -1,11 +1,9 @@
-
 #ifndef PROJECT_LIBS_VECTOR_H
 #define PROJECT_LIBS_VECTOR_H
 
 #include <malloc.h>
 #include <assert.h>
 #include <stdbool.h>
-
 
 typedef struct vector {
     int *data;
@@ -34,7 +32,5 @@ int *vector_back(vector *v);
 int *vector_front(vector *v);
 void test_vector_data_funcs();
 void vector_print(vector v);
-
-
 
 #endif //PROJECT_LIBS_VECTOR_H

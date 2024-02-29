@@ -13,7 +13,5 @@ int main() {
     //test_ordered_array_set();
     //test_vectors();
 
-    void_vector test_vector;
-
-    return 0;
+    test_void_vector();
 }
