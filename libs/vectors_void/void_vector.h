@@ -3,6 +3,7 @@
 
 #include <assert.h>
 #include <malloc.h>
+#include <stdbool.h>
 
 typedef struct void_vector {
     void *data;
@@ -12,25 +13,17 @@ typedef struct void_vector {
 } void_vector;
 
 void_vector vdvector_create(size_t size, const size_t type_size);
-
 void void_vector_reserve(void_vector *v, size_t new_capacity);
-
 void void_vector_clear(void_vector *v);
-
-void void_vector_shrinkToFit(void_vector *v);
-
-void void_vector_free(void_vector *v);
-
-int void_vector_isEmpty(void_vector v);
-
-int void_vector_isFull(void_vector v);
-
-void void_vector_get(void_vector *v, size_t slot, void *dst);
-
-void void_vector_set(void_vector *v, size_t slot, void *src);
-
+void void_vector_shrink_to_fit(void_vector *v);
+void void_vector_delete(void_vector *v);
+//-----------------
+bool void_vector_isEmpty(void_vector v);
+bool void_vector_isFull(void_vector v);
+//---------------
+void void_vector_getValueByPos(void_vector *v, size_t pos, void *destination);
+void void_vector_setValue(void_vector *v, size_t slot, void *src);
 void void_vector_pushBack(void_vector *v, void *src);
-
 void void_vector_popBack(void_vector *v);
 
 
