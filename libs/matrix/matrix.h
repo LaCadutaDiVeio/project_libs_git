@@ -20,7 +20,11 @@ matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols);
 void freeMemMatrix(matrix *m);
 void freeMemMatrices(matrix *m, size_t matrices);
 void inputMatrix(matrix *m);
+void inputMatrices(matrix *m, int matrices);
 void outputMatrix(matrix m);
+void outputMatrices(const matrix *m, int matrices);
+void swapRows(matrix m, size_t i, size_t j);
+void swapColumns(matrix m, size_t i, size_t j);
 
 
 
