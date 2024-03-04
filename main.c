@@ -17,8 +17,7 @@ int main() {
 
     matrix m = getMemMatrix(3, 3);
     inputMatrix(&m);
-    //swapRows(m, 0, 1);
-    insertionSortRowsMatrixByRowCriteria(m,getSum);
+
     outputMatrix(m);
 
     freeMemMatrix(&m);

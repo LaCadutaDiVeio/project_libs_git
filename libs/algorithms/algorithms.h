@@ -16,4 +16,9 @@ void swap( void *a, void *b );
 void ascan( int *array, const size_t size );
 
 void aprint( const int *array, const size_t size );
+
+void swapByMem( void *a, void *b, const size_t type_size );
+
+void swapInt( int *a, int *b );
+
 #endif //PROJECT_LIBS_ALGPRITHMS_H

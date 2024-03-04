@@ -26,6 +26,7 @@ void outputMatrices(const matrix *m, int matrices);
 void swapRows(matrix m, size_t i, size_t j);
 void swapColumns(matrix m, size_t i, size_t j);
 void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int*, int));
+void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int*, int));
 
 //----
 int getSum(int *a, int n);

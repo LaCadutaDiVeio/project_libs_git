@@ -1,4 +1,6 @@
 #include <algorithms/algorithms.h>
+#include <memory.h>
+#include <malloc.h>
 
 size_t binarySearch( const int *array, const size_t size, const int x ) {
     if ( !size )
@@ -38,6 +40,20 @@ void swap( void *a, void *b ) {
     void *tmp = a;
     a = b;
     b = tmp;
+}
+
+void swapByMem( void *a, void *b, const size_t type_size ) {
+    char *src = malloc( type_size );
+
+    memcpy( src, a, type_size );
+    memcpy( a, b, type_size );
+    memcpy( b, src, type_size );
+
+    free( src );
+}
+
+void swapInt( int *a, int *b ) {
+    swapByMem( a, b, sizeof( int ) );
 }
 
 

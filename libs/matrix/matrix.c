@@ -5,6 +5,8 @@
 #include <algorithms/algorithms.h>
 #include <float.h>
 
+#include <array/array.h>
+
 matrix getMemMatrix(int nRows, int nCols) {
     int **values = (int **) malloc(sizeof(int *) * nRows);
     for (int i = 0; i < nRows; i++)
@@ -61,12 +63,12 @@ void outputMatrices(const matrix *m, int matrices) {
 
 void swapRows(matrix m, size_t i, size_t j) {
     int *temp = m.values[i]; //т.к. values - это по сути строки
-    memcpy(&m.values[i], &m.values[j], sizeof(int*));
-    memcpy(&m.values[j], &temp, sizeof(int*));
+    memcpy(&m.values[i], &m.values[j], sizeof(int *));
+    memcpy(&m.values[j], &temp, sizeof(int *));
 }
 
 void swapColumns(matrix m, size_t i, size_t j) {
-    for (size_t k = 0; k <  m.nRows; k++) {
+    for (size_t k = 0; k < m.nRows; k++) {
         int temp = m.values[k][i];
 
         memcpy(&m.values[k][i], &m.values[k][j], sizeof(int));
@@ -74,7 +76,7 @@ void swapColumns(matrix m, size_t i, size_t j) {
     }
 }
 
-void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int*, int)) {
+void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int)) {
     int *values_by_criteria = malloc(sizeof(int) * m.nRows);
     for (size_t i = 0; i < m.nRows; i++)
         values_by_criteria[i] = criteria(m.values[i], m.nCols);
@@ -83,13 +85,44 @@ void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int*, int)) 
     for (int i = 1; i < m.nRows; i++) {
         int k = values_by_criteria[i];
         int j = i; //column
-        while ((k < values_by_criteria[j-1]) && j > 0) {
-            values_by_criteria[j] = values_by_criteria[j-1];
-            swapRows(m, j, j-1);
+        while ((k < values_by_criteria[j - 1]) && j > 0) {
+            values_by_criteria[j] = values_by_criteria[j - 1];
+            swapRows(m, j, j - 1);
             j--;
         }
         values_by_criteria[j] = k;
     }
+}
+
+void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int)) {
+    int *values_by_criteria = malloc(sizeof(int) * m.nCols);
+    for (size_t i = 0; i < m.nCols; i++) {
+        int *column = malloc(sizeof(int) * m.nRows);
+        for (size_t j = 0; j < m.nRows; j++) {
+            column[j] = m.values[j][i];
+        }
+        values_by_criteria[i] = criteria(column, m.nRows);
+    }
+    for (int i = 1; i < m.nRows; i++) {
+        int k = values_by_criteria[i];
+        int j = i;
+        while ((k < values_by_criteria[j - 1]) && j > 0) {
+            values_by_criteria[j] = values_by_criteria[j - 1];
+            swapColumns(m, j, j - 1);
+            j--;
+        }
+        values_by_criteria[j] = k;
+    }
+    /*for ( int i = m.nCols - 1; i > 0; i-- ) {
+        int minPos;
+        for (int k = 0; k < m.nCols; k++)
+        if ( max != i ) {
+            swapInt( values_by_criteria + max, values_by_criteria + i );
+            for ( size_t j = 0u; j < m.nRows; ++j )
+                swapInt( &m.values[ j ][ max ], &m.values[ j ][ i ] );
+        }
+    }*/
+
 }
 
 //------------------------
