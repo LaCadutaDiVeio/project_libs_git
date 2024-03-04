@@ -73,3 +73,31 @@ void swapColumns(matrix m, size_t i, size_t j) {
         memcpy(&m.values[k][j], &temp, sizeof(int));
     }
 }
+
+void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int*, int)) {
+    int *values_by_criteria = malloc(sizeof(int) * m.nRows);
+    for (size_t i = 0; i < m.nRows; i++)
+        values_by_criteria[i] = criteria(m.values[i], m.nCols);
+
+    //insertionSort
+    for (int i = 1; i < m.nRows; i++) {
+        int k = values_by_criteria[i];
+        int j = i; //column
+        while ((k < values_by_criteria[j-1]) && j > 0) {
+            values_by_criteria[j] = values_by_criteria[j-1];
+            swapRows(m, j, j-1);
+            j--;
+        }
+        values_by_criteria[j] = k;
+    }
+}
+
+//------------------------
+int getSum(int *a, int n) {
+    int sum = 0;
+    for (size_t i = 0; i < n; i++) {
+        sum += a[i];
+    }
+    return sum;
+}
+//------------------------
