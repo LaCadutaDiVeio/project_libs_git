@@ -15,11 +15,12 @@ int main() {
     //test_vectors();
     //test_void_vector();
 
-    matrix m = getMemMatrix(2, 3);
+    matrix m = getMemMatrix(2, 2);
     inputMatrix(&m);
-    transposeMatrix(&m);
 
-    outputMatrix(m);
+
+    //outputMatrix(m);
+    printf("%d", isSymmetricMatrix(&m));
 
     freeMemMatrix(&m);
 }

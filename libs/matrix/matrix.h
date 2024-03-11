@@ -23,6 +23,7 @@ void inputMatrix(matrix *m);
 void inputMatrices(matrix *m, int matrices);
 void outputMatrix(matrix m);
 void outputMatrices(const matrix *m, int matrices);
+void copyMatrix(const matrix m1, matrix *m2);
 void swapRows(matrix m, size_t i, size_t j);
 void swapColumns(matrix m, size_t i, size_t j);
 void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int*, int));
@@ -30,6 +31,7 @@ void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int*, int));
 int isSquareMatrix(matrix *m);
 int areTwoMatricesEqual(matrix *m1, matrix *m2);
 int isEMatrix(matrix *m);
+int isSymmetricMatrix(matrix *m);
 void transposeSquareMatrix(matrix *m);
 void transposeMatrix(matrix *m);
 

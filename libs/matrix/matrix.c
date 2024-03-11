@@ -62,6 +62,10 @@ void outputMatrices(const matrix *m, int matrices) {
         outputMatrix(m[i]);
 }
 
+void copyMatrix(const matrix m1, matrix *m2) {
+    memcpy(m2, &m1, sizeof(matrix));
+}
+
 void swapRows(matrix m, size_t i, size_t j) {
     int *temp = m.values[i]; //т.к. values - это по сути строки
     memcpy(&m.values[i], &m.values[j], sizeof(int *));
@@ -168,7 +172,11 @@ int isEMatrix(matrix *m) {
 }
 
 int isSymmetricMatrix(matrix *m) {
+    matrix transpose;
+    copyMatrix(*m, &transpose);
+    transposeMatrix(&transpose);
 
+    return areTwoMatricesEqual(m, &transpose);
 }
 
 void transposeSquareMatrix(matrix *m) {
@@ -191,3 +199,5 @@ void transposeMatrix(matrix *m) {
     }
     memcpy(m, &transpose, sizeof(matrix));
 }
+
+
