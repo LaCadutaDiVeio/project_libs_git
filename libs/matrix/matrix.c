@@ -4,6 +4,7 @@
 #include <memory.h>
 #include <algorithms/algorithms.h>
 #include <float.h>
+#include <stdbool.h>
 
 #include <array/array.h>
 
@@ -134,3 +135,59 @@ int getSum(int *a, int n) {
     return sum;
 }
 //------------------------
+
+int isSquareMatrix(matrix *m) {
+    return m->nRows == m->nCols;
+}
+
+int areTwoMatricesEqual(matrix *m1, matrix *m2) {
+    if (m1->nRows != m2->nRows || m1->nCols != m2->nCols)
+        return 0;
+    for (size_t i = 0; i < m1->nRows; i++) {
+        if (memcmp(m1->values[i], m2->values[i], sizeof(int) * m1->nCols))
+            return 0;
+    }
+
+    return 1;
+}
+
+int isEMatrix(matrix *m) {
+    //единичной может быть только квадратная матрица
+    if (!isSquareMatrix(m))
+        return 0;
+
+    for (size_t i = 0; i < m->nRows; i++) {
+        if (m->values[i][i] != 1)
+            return 0;
+        for (size_t j = 0; j < m->nCols; j++) {
+            if (i != j && m->values[i][j] != 0)
+                return 0;
+        }
+    }
+    return 1;
+}
+
+int isSymmetricMatrix(matrix *m) {
+
+}
+
+void transposeSquareMatrix(matrix *m) {
+    if (!isSquareMatrix(m))
+        return;
+
+    for (size_t i = 0; i < m->nRows - 1; i++) {
+        for (size_t j = i + 1; j < m->nRows; j++) {
+            swapInt(&m->values[i][j], &m->values[j][i]);
+        }
+    }
+}
+
+void transposeMatrix(matrix *m) {
+    matrix transpose = getMemMatrix(m->nCols, m->nRows);
+    for (int column = 0; column < m->nCols; column++) {
+        for (int i = 0; i < m->nRows; i++) {
+            transpose.values[column][i] = m->values[i][column];
+        }
+    }
+    memcpy(m, &transpose, sizeof(matrix));
+}
