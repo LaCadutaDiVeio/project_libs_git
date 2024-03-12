@@ -546,5 +546,65 @@ void testMatrix () {
     insertionSortRowsMatrixByRowCriteria(uns1, getSum);
     insertionSortColsMatrixByColCriteria(uns2, getSum);
     assert(areTwoMatricesEqual(&uns1, &sorted) && areTwoMatricesEqual(&uns2, &sorted));
+    freeMemMatrix(&sorted);
+    freeMemMatrix(&uns1);
+    freeMemMatrix(&uns2);
 
+    mat = createMatrixFromArray(
+            (int[]) {
+                1, 2,
+                2, 1
+            }, 2, 2
+            );
+    assert(isSquareMatrix(&mat));
+
+    matrix E = createMatrixFromArray(
+            (int[]) {
+                1, 0,
+                0, 1
+            }, 2, 2
+            );
+    assert(isEMatrix(&E) && !isEMatrix(&mat));
+    assert(isSymmetricMatrix(&mat));
+    freeMemMatrix(&E);
+
+    mat = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9
+            }, 3, 3
+    );
+    transposeSquareMatrix(&mat);
+
+    matrix transpose = createMatrixFromArray(
+            (int[]) {
+                    1, 4, 7,
+                    2, 5, 8,
+                    3, 6, 9
+            }, 3, 3
+    );
+    assert(areTwoMatricesEqual(&mat, &transpose));
+
+    freeMemMatrix(&mat);
+    freeMemMatrix(&transpose);
+
+    mat = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+            }, 2, 3
+    );
+    transposeMatrix(&mat);
+
+    transpose = createMatrixFromArray(
+            (int[]) {
+                    1, 4,
+                    2, 5,
+                    3, 6,
+            }, 3, 2
+    );
+    assert(areTwoMatricesEqual(&mat, &transpose));
+    freeMemMatrix(&mat);
+    freeMemMatrix(&transpose);
 }
