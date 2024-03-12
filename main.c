@@ -14,13 +14,14 @@ int main() {
     //test_ordered_array_set();
     //test_vectors();
     //test_void_vector();
+    testMatrix();
 
-    matrix m = getMemMatrix(2, 2);
-    inputMatrix(&m);
+    //matrix m = getMemMatrix(2, 2);
+    //inputMatrix(&m);
 
 
     //outputMatrix(m);
-    printf("%d", isSymmetricMatrix(&m));
+    //printf("%d %d", getMinValuePos(m).rowIndex, getMinValuePos(m).colIndex);
 
-    freeMemMatrix(&m);
+    //freeMemMatrix(&m);
 }

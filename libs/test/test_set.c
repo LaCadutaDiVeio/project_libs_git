@@ -3,6 +3,7 @@
 #include <ordered_set/ordered_set.h>
 #include <vectors/vector.h>
 #include <vectors_void/void_vector.h>
+#include <matrix/matrix.h>
 #include <test/test_set.h>
 
 bitset bitset1;
@@ -511,4 +512,39 @@ void test_void_vector() {
     char aaa;
     void_vector_getValueByPos(&v, 0, &aaa);
     assert(aaa == 'a');
+}
+
+//-----------------------------
+
+void testMatrix () {
+    matrix mat = getMemMatrix(3, 3);
+    assert (mat.values != NULL && mat.nRows == 3 && mat.nCols == 3);
+    freeMemMatrix(&mat);
+
+    matrix sorted = createMatrixFromArray(
+            (int[]) {
+                1, 2, 3,
+                4, 5, 6,
+                7, 8, 9
+            }, 3, 3
+            );
+
+    matrix uns1 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    7, 8, 9,
+                    4, 5, 6
+            }, 3, 3
+    );
+    matrix uns2 = createMatrixFromArray(
+            (int[]) {
+                    3, 1, 2,
+                    6, 4, 5,
+                    9, 7, 8
+            }, 3, 3
+    );
+    insertionSortRowsMatrixByRowCriteria(uns1, getSum);
+    insertionSortColsMatrixByColCriteria(uns2, getSum);
+    assert(areTwoMatricesEqual(&uns1, &sorted) && areTwoMatricesEqual(&uns2, &sorted));
+
 }
