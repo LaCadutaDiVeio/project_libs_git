@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <array/array.h>
+#include <algorithms/algorithms.h>
 
 /*
 void print_mem_error() {
@@ -13,11 +14,11 @@ void print_mem_index_out() {
     exit(1);
 }
 Сначала думал делать по отдельности, но понял, что лучше сделать универсальную
-*/
+
 void error_alert(char *msg) {
     fprintf(stderr, "%s\n", msg);
     exit(1);
-}
+}*/
 
 
 vector vector_create(size_t size) {

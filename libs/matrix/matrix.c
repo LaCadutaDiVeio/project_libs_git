@@ -8,6 +8,8 @@
 
 #include <array/array.h>
 
+
+
 matrix getMemMatrix(int nRows, int nCols) {
     int **values = (int **) malloc(sizeof(int *) * nRows);
     for (int i = 0; i < nRows; i++)
@@ -130,15 +132,6 @@ void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int))
 
 }
 
-//------------------------
-int getSum(int *a, int n) {
-    int sum = 0;
-    for (size_t i = 0; i < n; i++) {
-        sum += a[i];
-    }
-    return sum;
-}
-//------------------------
 
 int isSquareMatrix(matrix *m) {
     return m->nRows == m->nCols;
@@ -249,3 +242,109 @@ matrix *createArrayOfMatrixFromArray(const int *values, size_t nMatrices, size_t
     return ms;
 }
 
+
+//LAB_16 functions
+
+void swapColsWithMinMaxElements(matrix *m) {
+    int min_val = m->values[0][0];
+    int max_val = m->values[0][0];
+    int min_row = 0;
+    int max_row = 0;
+
+    for (int i = 0; i < m->nRows; ++i) {
+        for (int j = 0; j < m->nCols; ++j) {
+            if (m->values[i][j] > max_val) {
+                max_val = m->values[i][j];
+                max_row = i;
+            } else if (m->values[i][j] < min_val) {
+                min_val = m->values[i][j];
+                min_row = i;
+            }
+        }
+    }
+    swapRows(*m, min_row, max_row);
+}
+
+void sortRowsByMinElement(matrix m) {
+    insertionSortRowsMatrixByRowCriteria(m, getMax);
+}
+
+void sortColsByMinElement(matrix m) {
+    int *values = malloc(sizeof(int) * m.nCols);
+    for (size_t i = 0; i < m.nCols; i++) {
+        int *col = malloc(sizeof(int) * m.nRows);
+        for (size_t j = 0; j < m.nRows; j++)
+            col[j] = m.values[j][i];
+
+        values[i] = getMin(col, m.nRows);
+    }
+
+    outputArray_(values, 6);
+
+    for (int i = 0; i < m.nCols - 1; i++) {
+        int minPos = i;
+        for (int j = i + 1; j < m.nCols; j++)
+            if (values[j] < values[minPos])
+                minPos = j;
+        swapInt(&values[i], &values[minPos]);
+        swapColumns(m, i, minPos);
+    }
+
+    outputArray_(values, 6);
+    outputMatrix(m);
+}
+
+matrix mulMatrices(matrix m1, matrix m2) {
+    if (m1.nCols != m1.nRows)
+        error_alert("can't multiple this matrices");
+
+    matrix result = getMemMatrix(m1.nRows, m2.nCols);
+
+    for (size_t i = 0; i < result.nRows; i++) {
+        for (size_t j = 0; j < result.nCols; j++) {
+            result.values[i][j] = 0;
+            for (size_t k = 0; k < m1.nCols; k++) {
+                result.values[i][j] += m1.values[i][k] * m2.values[k][j];
+            }
+        }
+    }
+
+    return result;
+}
+
+void getSquareOfMatrixIfSymmetric(matrix *m) {
+    if (isSymmetricMatrix(m))
+        *m = mulMatrices(*m, *m);
+    else
+        *m = *m;
+}
+
+
+//------------------------
+int getSum(int *a, int n) {
+    int sum = 0;
+    for (size_t i = 0; i < n; i++) {
+        sum += a[i];
+    }
+    return sum;
+}
+
+int getMax(int *a, int n) {
+    int max = a[0];
+    for (size_t i = 1u; i < n; ++i)
+        if (a[i] > max)
+            max = a[i];
+
+    return max;
+}
+
+int getMin(int *a, int n) {
+    int min = a[0];
+    for (size_t i = 1u; i < n; ++i)
+        if (min >= a[i])
+            min = a[i];
+
+    return min;
+}
+
+//------------------------

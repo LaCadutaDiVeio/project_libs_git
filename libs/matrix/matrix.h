@@ -4,6 +4,8 @@
 
 #include <malloc.h>
 
+//void error_alert(char *msg);
+
 typedef struct matrix {
     int **values; // элементы матрицы
     int nRows; // количество рядов
@@ -37,9 +39,18 @@ void transposeMatrix(matrix *m);
 position getMinValuePos(matrix m);
 position getMaxValuePos(matrix m);
 matrix createMatrixFromArray(const int *a, int nRows, int nCols);
+matrix *createArrayOfMatrixFromArray(const int *values, size_t nMatrices, size_t nRows, size_t nCols);
+//-------------------------------
+void swapColsWithMinMaxElements(matrix *m);
+void sortRowsByMinElement(matrix m);
+void sortColsByMinElement(matrix m);
+matrix mulMatrices(matrix m1, matrix m2);
+void getSquareOfMatrixIfSymmetric(matrix *m);
 
 //----
 int getSum(int *a, int n);
+int getMax( int *a, int n );
+int getMin( int *a, int n );
 //----
 
 

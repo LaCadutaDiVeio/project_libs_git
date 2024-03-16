@@ -14,10 +14,13 @@ int main() {
     //test_ordered_array_set();
     //test_vectors();
     //test_void_vector();
-    testMatrix();
+    testMatrix_1();
+    testMatrix_2();
 
     //matrix m = getMemMatrix(2, 2);
     //inputMatrix(&m);
+
+    //getSquareOfMatrixIfSymmetric(&m);
 
 
     //outputMatrix(m);

@@ -516,7 +516,7 @@ void test_void_vector() {
 
 //-----------------------------
 
-void testMatrix () {
+void testMatrix_1 () {
     matrix mat = getMemMatrix(3, 3);
     assert (mat.values != NULL && mat.nRows == 3 && mat.nCols == 3);
     freeMemMatrix(&mat);
@@ -607,4 +607,48 @@ void testMatrix () {
     assert(areTwoMatricesEqual(&mat, &transpose));
     freeMemMatrix(&mat);
     freeMemMatrix(&transpose);
+}
+
+
+void testMatrix_2 () {
+    //__1__
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9
+            }, 3, 3
+    );
+    matrix swapped = createMatrixFromArray(
+            (int[]) {
+                    7, 8, 9,
+                    4, 5, 6,
+                    1, 2, 3
+            }, 3, 3
+    );
+    swapColsWithMinMaxElements(&m);
+    assert(areTwoMatricesEqual(&m, &swapped));
+    freeMemMatrix(&m);
+    freeMemMatrix(&swapped);
+    //__2__
+    m = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2,
+                    1, 8, 1,
+                    3, 2, 3
+            }, 3, 3
+    );
+    swapped = createMatrixFromArray(
+            (int[]) {
+                    3, 2, 3,
+                    7, 1, 2,
+                    1, 8, 1
+            }, 3, 3
+    );
+    sortRowsByMinElement(m);
+    assert(areTwoMatricesEqual(&m, &swapped));
+    freeMemMatrix(&m);
+    freeMemMatrix(&swapped);
+    //__3__
+
 }

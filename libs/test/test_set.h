@@ -53,7 +53,8 @@ void test_void_vector_from_lab_2();
 void test_void_vector();
 
 //-----------------
-void testMatrix ();
+void testMatrix_1 ();
+void testMatrix_2 ();
 
 
 
