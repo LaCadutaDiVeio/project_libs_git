@@ -1,3 +1,5 @@
+#include <stdbool.h>
+
 #include <bitset/bitset.h>
 #include <unordered_set/unordered_set.h>
 #include <ordered_set/ordered_set.h>
@@ -650,5 +652,109 @@ void testMatrix_2 () {
     freeMemMatrix(&m);
     freeMemMatrix(&swapped);
     //__3__
+    m = createMatrixFromArray(
+            (int[]) {
+                3,5,2,4,3,3,
+                2,5,1,8,2,7,
+                6,1,4,4,8,3
+            }, 3, 6
+    );
+    swapped = createMatrixFromArray(
+            (int[]) {
+                    5,2,3,3,3,4,
+                    5,1,2,2,7,8,
+                    1,4,6,8,3,4
+            }, 3, 6
+    );
+    sortColsByMinElement(m);
+    assert(areTwoMatricesEqual(&m, &swapped));
+    //freeMemMatrix(&m);
+    //freeMemMatrix(&swapped);
+    freeMemMatrices_(2, &m, &swapped);
+    //__4__
+    m = createMatrixFromArray(
+            (int[]) {
+                1,2,
+                3,4
+            }, 2, 2
+    );
+    matrix m_mul_m = createMatrixFromArray(
+            (int[]) {
+                    7,10,
+                    15,22
+            }, 2, 2
+    );
+    matrix mm = createMatrixFromArray(
+            (int[]) {
+                    1,2,
+                    2,1
+            }, 2, 2
+    );
+    matrix square_if_sym = createMatrixFromArray(
+            (int[]) {
+                    5,4,
+                    4,5
+            }, 2, 2
+    );
+    getSquareOfMatrixIfSymmetric(&mm);
+    assert(areTwoMatricesEqual(&square_if_sym, &mm));
+    getSquareOfMatrixIfSymmetric(&m);
+    assert(!areTwoMatricesEqual(&m, &m_mul_m));
+    m = mulMatrices(m, m);
+    assert(areTwoMatricesEqual(&m, &m_mul_m));
+    freeMemMatrices_(4, &m, &mm, &m_mul_m, &square_if_sym);
+    //__5__
+    m = createMatrixFromArray(
+            (int[]) {
+                    2,4,
+                    2,3
+            }, 2, 2
+    );
+    mm = createMatrixFromArray(
+            (int[]) {
+                    2,2,
+                    4,3
+            }, 2, 2
+    );
+    transposeIfMatrixHasNotEqualSumOfRows(&m);
+    assert(areTwoMatricesEqual(&m, &mm));
+    freeMemMatrices_(2, &m, &mm);
+
+    m = createMatrixFromArray(
+            (int[]) {
+                    2,4,
+                    1,5
+            }, 2, 2
+    );
+    mm = createMatrixFromArray(
+            (int[]) {
+                    2,4,
+                    1,5
+            }, 2, 2
+    );
+    transposeIfMatrixHasNotEqualSumOfRows(&m);
+    assert(areTwoMatricesEqual(&m, &mm));
+    freeMemMatrices_(2, &m, &mm);
+    //__6__
+    m = createMatrixFromArray(
+            (int[]) {
+                    3,-5,
+                    1,-2
+            }, 2, 2
+    );
+    mm = createMatrixFromArray(
+            (int[]) {
+                    2,-5,
+                    1,-3
+            }, 2, 2
+    );
+    matrix mmm = createMatrixFromArray(
+            (int[]) {
+                    2,1,
+                    1,-3
+            }, 2, 2
+    );
+    assert(isMutuallyInverseMatrices(m, mm));
+    assert(!isMutuallyInverseMatrices(m, mmm));
 
 }

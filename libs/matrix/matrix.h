@@ -3,6 +3,7 @@
 #define PROJECT_LIBS_MATRIX_H
 
 #include <malloc.h>
+#include <stdbool.h>
 
 //void error_alert(char *msg);
 
@@ -21,6 +22,7 @@ matrix getMemMatrix(int nRows, int nCols);
 matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols);
 void freeMemMatrix(matrix *m);
 void freeMemMatrices(matrix *m, size_t matrices);
+void freeMemMatrices_(size_t num, ...);
 void inputMatrix(matrix *m);
 void inputMatrices(matrix *m, int matrices);
 void outputMatrix(matrix m);
@@ -46,6 +48,10 @@ void sortRowsByMinElement(matrix m);
 void sortColsByMinElement(matrix m);
 matrix mulMatrices(matrix m1, matrix m2);
 void getSquareOfMatrixIfSymmetric(matrix *m);
+int isUnique(long long *a, int n);
+long long getLongSum( int *a, int n );
+void transposeIfMatrixHasNotEqualSumOfRows(matrix *m);
+bool isMutuallyInverseMatrices(matrix m1, matrix m2);
 
 //----
 int getSum(int *a, int n);

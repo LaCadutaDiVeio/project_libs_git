@@ -3,11 +3,11 @@
 #include <stdio.h>
 #include <memory.h>
 #include <algorithms/algorithms.h>
+#include <stdarg.h>
 #include <float.h>
 #include <stdbool.h>
 
 #include <array/array.h>
-
 
 
 matrix getMemMatrix(int nRows, int nCols) {
@@ -37,6 +37,16 @@ void freeMemMatrices(matrix *m, size_t matrices) {
     for (size_t i = 0; i < matrices; i++) {
         freeMemMatrix(&m[i]);
     }
+}
+
+void freeMemMatrices_(size_t num, ...) {
+    va_list valist;
+    va_start(valist, num);
+    for (size_t i = 0; i < num; i++) {
+        matrix *mat = va_arg(valist, matrix*);
+        freeMemMatrix(mat);
+    }
+    va_end(valist);
 }
 
 void inputMatrix(matrix *m) {
@@ -278,9 +288,6 @@ void sortColsByMinElement(matrix m) {
 
         values[i] = getMin(col, m.nRows);
     }
-
-    outputArray_(values, 6);
-
     for (int i = 0; i < m.nCols - 1; i++) {
         int minPos = i;
         for (int j = i + 1; j < m.nCols; j++)
@@ -289,9 +296,6 @@ void sortColsByMinElement(matrix m) {
         swapInt(&values[i], &values[minPos]);
         swapColumns(m, i, minPos);
     }
-
-    outputArray_(values, 6);
-    outputMatrix(m);
 }
 
 matrix mulMatrices(matrix m1, matrix m2) {
@@ -319,6 +323,36 @@ void getSquareOfMatrixIfSymmetric(matrix *m) {
         *m = *m;
 }
 
+void transposeIfMatrixHasNotEqualSumOfRows(matrix *m) {
+    long long *values = (long long *)malloc(sizeof(long long) * m->nRows);
+    for (size_t i = 0; i < m->nRows; i++) {
+        values[i] = getLongSum(m->values[i], m->nCols);
+    }
+    if (isUnique(values, m->nRows)) {
+        transposeMatrix(m);
+    }
+}
+
+bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
+    if (m1.nRows != m2.nRows && m1.nCols != m2.nCols)
+        return false;
+    for (size_t i = 0; i < m1.nRows; i++) {
+        for (size_t j = 0; j < m2.nCols; j++) {
+            int sum = 0;
+            for (size_t k = 0; k < m1.nCols; k++)
+                sum += (m1.values[i][k] * m2.values[k][j]);
+
+            if ((i == j) && (sum != 1))
+                return false;
+        }
+    }
+
+    return true;
+}
+
+
+
+
 
 //------------------------
 int getSum(int *a, int n) {
@@ -345,6 +379,23 @@ int getMin(int *a, int n) {
             min = a[i];
 
     return min;
+}
+
+int isUnique(long long *a, int n) {
+    for (size_t i = 0; i < n; ++i)
+        for (size_t j = i + 1; j < n; ++j)
+            if (a[i] == a[j])
+                return 0;
+
+    return 1;
+}
+
+long long getLongSum( int *a, int n ) {
+    long long res = 0;
+    for ( size_t i = 0; i < n; ++i )
+        res += a[ i ];
+
+    return res;
 }
 
 //------------------------
