@@ -324,7 +324,7 @@ void getSquareOfMatrixIfSymmetric(matrix *m) {
 }
 
 void transposeIfMatrixHasNotEqualSumOfRows(matrix *m) {
-    long long *values = (long long *)malloc(sizeof(long long) * m->nRows);
+    long long *values = (long long *) malloc(sizeof(long long) * m->nRows);
     for (size_t i = 0; i < m->nRows; i++) {
         values[i] = getLongSum(m->values[i], m->nCols);
     }
@@ -342,7 +342,7 @@ bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
             for (size_t k = 0; k < m1.nCols; k++)
                 sum += (m1.values[i][k] * m2.values[k][j]);
 
-            if ((i == j) && (sum != 1))
+            if (((i == j) && (sum != 1)) || ((i != j) && (sum != 0)))
                 return false;
         }
     }
@@ -350,8 +350,69 @@ bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
     return true;
 }
 
+//функция раюотает только для квадратных матриц 3x3
+//можно немного изменить для любых квадратныых матриц
+long long findSumOfMaxesOfPseudoDiagonal_forSquaresONLY(matrix m) {
+    int n = 3;
+    int max_diagonals[5] = {0};
+    long long sum = 0;
 
+    for (size_t i = 0; i < n; i++)
+        m.values[i][i] = 0;
 
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            int diag_ind = i - j + (n - 1);
+            max_diagonals[diag_ind] = max_(max_diagonals[diag_ind], m.values[i][j]);
+        }
+    }
+    for (int i = 0; i < 2 * n - 1; i++) {
+        sum += max_diagonals[i];
+    }
+
+    return sum;
+}
+
+long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
+    //исключаем главную диагональ
+    for (size_t i = 0; i < m.nRows; i++)
+        m.values[i][i] = 0;
+
+    long long sum = 0;
+    for (size_t i = 0; i < m.nCols + m.nRows - 1; ++i) {
+        int row = max_(0, m.nRows - i - 1);
+        int col = max_(0, i - m.nRows + 1);
+
+        int max_value = INT_MIN;
+        while (row < m.nRows && col < m.nCols) {
+            max_value = max_(max_value, m.values[row][col]);
+            row++;
+            col++;
+        }
+        sum += max_value;
+    }
+
+    return sum;
+}
+
+//короче, я хз, как выбирается область, но буду думать,
+//что это область конусом с вершиной в максимальном элементе матрицы
+int getMinInArea(matrix m) {
+    position max_el = getMaxValuePos(m);
+    int min_el = INT_MAX;
+    for (size_t i = 0; max_el.rowIndex; i++) {
+        for (size_t j = 0; j < max_el.colIndex; j++) {
+            if (abs(max_el.rowIndex - i) >= abs(max_el.colIndex - j))
+                /*
+                 * эта проверка основана на визуальном представлении
+                 * модуля линейной функции
+                 */
+                min_el = min_(min_el, m.values[i][j]);
+        }
+    }
+
+    return min_el;
+}
 
 
 //------------------------
@@ -390,12 +451,26 @@ int isUnique(long long *a, int n) {
     return 1;
 }
 
-long long getLongSum( int *a, int n ) {
+long long getLongSum(int *a, int n) {
     long long res = 0;
-    for ( size_t i = 0; i < n; ++i )
-        res += a[ i ];
+    for (size_t i = 0; i < n; ++i)
+        res += a[i];
 
     return res;
+}
+
+int max_(int a, int b) {
+    if (a > b)
+        return a;
+    else
+        return b;
+}
+
+int min_(int a, int b) {
+    if (a < b)
+        return a;
+    else
+        return b;
 }
 
 //------------------------

@@ -17,9 +17,10 @@ int main() {
     testMatrix_1();
     testMatrix_2();
 
-    //matrix m = getMemMatrix(2, 2);
+    //matrix m = getMemMatrix(3, 3);
     //inputMatrix(&m);
 
+    //printf("%lld", findSumOfMaxesOfPseudoDiagonal_forSquaresONLY(m));
     //getSquareOfMatrixIfSymmetric(&m);
 
 
@@ -27,4 +28,5 @@ int main() {
     //printf("%d %d", getMinValuePos(m).rowIndex, getMinValuePos(m).colIndex);
 
     //freeMemMatrix(&m);
+    return 0;
 }

@@ -49,14 +49,19 @@ void sortColsByMinElement(matrix m);
 matrix mulMatrices(matrix m1, matrix m2);
 void getSquareOfMatrixIfSymmetric(matrix *m);
 int isUnique(long long *a, int n);
-long long getLongSum( int *a, int n );
 void transposeIfMatrixHasNotEqualSumOfRows(matrix *m);
 bool isMutuallyInverseMatrices(matrix m1, matrix m2);
+long long findSumOfMaxesOfPseudoDiagonal_forSquaresONLY(matrix m);
+long long findSumOfMaxesOfPseudoDiagonal(matrix m);
+int getMinInArea(matrix m);
 
 //----
 int getSum(int *a, int n);
 int getMax( int *a, int n );
 int getMin( int *a, int n );
+long long getLongSum( int *a, int n );
+int max_(int a, int b);
+int min_(int a, int b);
 //----
 
 
