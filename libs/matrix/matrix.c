@@ -6,6 +6,7 @@
 #include <stdarg.h>
 #include <float.h>
 #include <stdbool.h>
+#include <math.h>
 
 #include <array/array.h>
 
@@ -399,19 +400,87 @@ long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
 //что это область конусом с вершиной в максимальном элементе матрицы
 int getMinInArea(matrix m) {
     position max_el = getMaxValuePos(m);
+    //printf("%d %d", max_el.rowIndex, max_el.colIndex);
     int min_el = INT_MAX;
-    for (size_t i = 0; max_el.rowIndex; i++) {
-        for (size_t j = 0; j < max_el.colIndex; j++) {
-            if (abs(max_el.rowIndex - i) >= abs(max_el.colIndex - j))
-                /*
-                 * эта проверка основана на визуальном представлении
-                 * модуля линейной функции
-                 */
+    for (int i = 0; i < max_el.rowIndex + 1; i++) {
+        //printf(" a ");
+        for (int j = 0; j < max_el.colIndex + 1; j++) {
+            if (abs(max_el.colIndex - j) <= abs(max_el.rowIndex - i)) {
                 min_el = min_(min_el, m.values[i][j]);
+            }
+            /*
+             * эта проверка основана на визуальном представлении
+             * модуля линейной функции
+             */
         }
     }
 
     return min_el;
+}
+
+void insertionSortRowsMatrixByRowCriteriaF(matrix m, float (*criteria)(int *, int)) {
+    float *values_by_criteria = malloc(sizeof(int) * m.nRows);
+    for (size_t i = 0; i < m.nRows; i++)
+        values_by_criteria[i] = criteria(m.values[i], m.nCols);
+
+    //insertionSort
+    for (int i = 1; i < m.nRows; i++) {
+        float k = values_by_criteria[i];
+        int j = i; //column
+        while ((k < values_by_criteria[j - 1]) && j > 0) {
+            values_by_criteria[j] = values_by_criteria[j - 1];
+            swapRows(m, j, j - 1);
+            j--;
+        }
+        values_by_criteria[j] = k;
+    }
+}
+
+void sortByDistances(matrix *mat) {
+    insertionSortRowsMatrixByRowCriteriaF(*mat, getDistance);
+}
+
+int countEqClassesByRowsSum(matrix m) {
+    long long *sums = (long long *) malloc(sizeof(long long) * m.nRows);
+    for (size_t i = 0; i < m.nRows; ++i) {
+        long long sum = 0;
+        for (size_t j = 0; j < m.nCols; ++j)
+            sum += m.values[i][j];
+
+        sums[i] = sum;
+    }
+    qsort(sums, m.nRows, sizeof(long long), cmp_long_long);
+
+    return countNUnique(sums, m.nRows);
+}
+
+int getNSpecialElement(matrix m) {
+    int res = 0;
+
+    for (size_t i = 0; i < m.nCols; i++) {
+        int sum = 0;
+        for (size_t j = 0; j < m.nRows; j++) {
+            sum += m.values[j][i];
+        }
+        for (size_t j = 0; j < m.nRows; j++) {
+            if (m.values[j][i] > (sum - m.values[j][i]))
+                res++;
+        }
+    }
+
+
+    return res;
+}
+
+//в getLeftMin(matrix m) нет смысла, так как есть getMinValuePos
+void swapPenultimateRow(matrix *m) {
+    position pos = getMinValuePos(*m);
+
+    const int temp = m->values[m->nRows - 2][0];
+    for (size_t i = 0; i < m->nCols; i++)
+        m->values[m->nRows - 2][i] = m->values[i][pos.colIndex];
+
+    m->values[m->nRows - 2][m->nRows - 2] = temp;
 }
 
 
@@ -471,6 +540,35 @@ int min_(int a, int b) {
         return a;
     else
         return b;
+}
+
+float getDistance(int *array, int size) {
+    float ret = 0;
+    for (size_t i = 0; i < size; i++)
+        ret += (array[i] * array[i]);
+
+    return sqrtf(ret);
+}
+
+//Честно, не могу понять работу qsort со всеми этими их compare
+//функция любезно позаимствована у коллеги ^.^
+int cmp_long_long(const void *a, const void *b) {
+    return *(const int *) a - *(const int *) b;
+}
+
+int countNUnique(long long *array, const size_t size) {
+    int count = 1;
+
+    //раз массив будет отсортирован, моэно позволить себе максимально топорную реализацию
+    long long record = array[0];
+    for (size_t i = 1; i < size; ++i) {
+        if (array[i] != record) {
+            ++count;
+            record = array[i];
+        }
+    }
+
+    return count;
 }
 
 //------------------------

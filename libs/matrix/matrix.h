@@ -54,6 +54,13 @@ bool isMutuallyInverseMatrices(matrix m1, matrix m2);
 long long findSumOfMaxesOfPseudoDiagonal_forSquaresONLY(matrix m);
 long long findSumOfMaxesOfPseudoDiagonal(matrix m);
 int getMinInArea(matrix m);
+void insertionSortRowsMatrixByRowCriteriaF(matrix m, float (*criteria)(int *, int));
+void sortByDistances(matrix *mat);
+int cmp_long_long(const void *a, const void *b);
+int countNUnique(long long *array, const size_t size);
+int countEqClassesByRowsSum(matrix m);
+int getNSpecialElement(matrix m);
+void swapPenultimateRow(matrix *m);
 
 //----
 int getSum(int *a, int n);
@@ -62,6 +69,7 @@ int getMin( int *a, int n );
 long long getLongSum( int *a, int n );
 int max_(int a, int b);
 int min_(int a, int b);
+float getDistance(int *array, int size);
 //----
 
 

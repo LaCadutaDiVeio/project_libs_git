@@ -782,7 +782,70 @@ void testMatrix_2 () {
                 10,11,5,1
             }, 3, 4
     );
-    assert(getMinInArea(m) == 5 && getMinInArea(mm) == 6);
+    assert(getMinInArea(m) == 5);
+    assert(getMinInArea(mm) == 6);
+    freeMemMatrices_(2, &m, &mm);
+    //__9__
+    m = createMatrixFromArray(
+            (int[]) {
+                    5,11,
+                    2,12,
+                    11,3,
+                    4,2
+            }, 4, 2
+    );
+    mm = createMatrixFromArray(
+            (int[]) {
+                    4,2,
+                    11,3,
+                    5,11,
+                    2,12
+            }, 4, 2
+    );
+    sortByDistances(&m);
+    assert(areTwoMatricesEqual(&m, &mm));
+    freeMemMatrices_(2, &m, &mm);
+    //__10__
+    m = createMatrixFromArray(
+            ( int[ ] ) {
+                    7, 1,
+                    2, 7,
+                    5, 4,
+                    4, 3,
+                    1, 6,
+                    8, 0
+            }, 6, 2
+    );
+    assert(countEqClassesByRowsSum(m) == 3);
+    freeMemMatrices_(1, &m);
+    //__11__
+    m = createMatrixFromArray(
+            ( int[ ] ) {
+                    3,5,5,4,
+                    2,3,6,7,
+                    12,2,1,1
+            }, 3, 4
+    );
+    assert(getNSpecialElement(m) == 2);
+    freeMemMatrices_(1, &m);
+    //__12__
+    m = createMatrixFromArray(
+            ( int[ ] ) {
+                    1,2,3,
+                    4,5,6,
+                    7,8,1
+            }, 3, 3
+    );
+    mm = createMatrixFromArray(
+            ( int[ ] ) {
+                    1,2,3,
+                    1,4,7,
+                    7,8,1
+            }, 3, 3
+    );
+    swapPenultimateRow(&m);
+    assert(areTwoMatricesEqual(&m, &mm));
+    freeMemMatrices_(2, &m, &mm);
 
 
 }
