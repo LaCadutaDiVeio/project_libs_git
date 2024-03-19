@@ -70,6 +70,11 @@ void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix);
 int getMatrixNorm(const matrix m);
 void printMatrixWithMinNorm(matrix *ms, int nMatrix);
 int getNSpecialElement2(matrix m);
+double getScalarProduct(int *a, int *b, int n);
+double getCosine(int *a, int *b, int n);
+int getVectorIndexWithMaxAngle(matrix mat, int *b);
+long long getScalarProductRowAndCol(matrix mat, int row, int col);
+long long getSpecialScalarProduct(matrix m, int n);
 
 //----
 int getSum(int *a, int n);

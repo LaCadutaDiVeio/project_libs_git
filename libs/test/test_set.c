@@ -518,18 +518,18 @@ void test_void_vector() {
 
 //-----------------------------
 
-void testMatrix_1 () {
+void testMatrix_1() {
     matrix mat = getMemMatrix(3, 3);
     assert (mat.values != NULL && mat.nRows == 3 && mat.nCols == 3);
     freeMemMatrix(&mat);
 
     matrix sorted = createMatrixFromArray(
             (int[]) {
-                1, 2, 3,
-                4, 5, 6,
-                7, 8, 9
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9
             }, 3, 3
-            );
+    );
 
     matrix uns1 = createMatrixFromArray(
             (int[]) {
@@ -554,18 +554,18 @@ void testMatrix_1 () {
 
     mat = createMatrixFromArray(
             (int[]) {
-                1, 2,
-                2, 1
+                    1, 2,
+                    2, 1
             }, 2, 2
-            );
+    );
     assert(isSquareMatrix(&mat));
 
     matrix E = createMatrixFromArray(
             (int[]) {
-                1, 0,
-                0, 1
+                    1, 0,
+                    0, 1
             }, 2, 2
-            );
+    );
     assert(isEMatrix(&E) && !isEMatrix(&mat));
     assert(isSymmetricMatrix(&mat));
     freeMemMatrix(&E);
@@ -612,7 +612,7 @@ void testMatrix_1 () {
 }
 
 
-void testMatrix_2 () {
+void testMatrix_2() {
     //__1__
     matrix m = createMatrixFromArray(
             (int[]) {
@@ -654,16 +654,16 @@ void testMatrix_2 () {
     //__3__
     m = createMatrixFromArray(
             (int[]) {
-                3,5,2,4,3,3,
-                2,5,1,8,2,7,
-                6,1,4,4,8,3
+                    3, 5, 2, 4, 3, 3,
+                    2, 5, 1, 8, 2, 7,
+                    6, 1, 4, 4, 8, 3
             }, 3, 6
     );
     swapped = createMatrixFromArray(
             (int[]) {
-                    5,2,3,3,3,4,
-                    5,1,2,2,7,8,
-                    1,4,6,8,3,4
+                    5, 2, 3, 3, 3, 4,
+                    5, 1, 2, 2, 7, 8,
+                    1, 4, 6, 8, 3, 4
             }, 3, 6
     );
     sortColsByMinElement(m);
@@ -674,26 +674,26 @@ void testMatrix_2 () {
     //__4__
     m = createMatrixFromArray(
             (int[]) {
-                1,2,
-                3,4
+                    1, 2,
+                    3, 4
             }, 2, 2
     );
     matrix m_mul_m = createMatrixFromArray(
             (int[]) {
-                    7,10,
-                    15,22
+                    7, 10,
+                    15, 22
             }, 2, 2
     );
     matrix mm = createMatrixFromArray(
             (int[]) {
-                    1,2,
-                    2,1
+                    1, 2,
+                    2, 1
             }, 2, 2
     );
     matrix square_if_sym = createMatrixFromArray(
             (int[]) {
-                    5,4,
-                    4,5
+                    5, 4,
+                    4, 5
             }, 2, 2
     );
     getSquareOfMatrixIfSymmetric(&mm);
@@ -706,14 +706,14 @@ void testMatrix_2 () {
     //__5__
     m = createMatrixFromArray(
             (int[]) {
-                    2,4,
-                    2,3
+                    2, 4,
+                    2, 3
             }, 2, 2
     );
     mm = createMatrixFromArray(
             (int[]) {
-                    2,2,
-                    4,3
+                    2, 2,
+                    4, 3
             }, 2, 2
     );
     transposeIfMatrixHasNotEqualSumOfRows(&m);
@@ -722,14 +722,14 @@ void testMatrix_2 () {
 
     m = createMatrixFromArray(
             (int[]) {
-                    2,4,
-                    1,5
+                    2, 4,
+                    1, 5
             }, 2, 2
     );
     mm = createMatrixFromArray(
             (int[]) {
-                    2,4,
-                    1,5
+                    2, 4,
+                    1, 5
             }, 2, 2
     );
     transposeIfMatrixHasNotEqualSumOfRows(&m);
@@ -738,20 +738,20 @@ void testMatrix_2 () {
     //__6__
     m = createMatrixFromArray(
             (int[]) {
-                    3,-5,
-                    1,-2
+                    3, -5,
+                    1, -2
             }, 2, 2
     );
     mm = createMatrixFromArray(
             (int[]) {
-                    2,-5,
-                    1,-3
+                    2, -5,
+                    1, -3
             }, 2, 2
     );
     matrix mmm = createMatrixFromArray(
             (int[]) {
-                    2,1,
-                    1,-3
+                    2, 1,
+                    1, -3
             }, 2, 2
     );
     assert(isMutuallyInverseMatrices(m, mm));
@@ -760,9 +760,9 @@ void testMatrix_2 () {
     //__7__
     m = createMatrixFromArray(
             (int[]) {
-                    3,2,5,4,
-                    1,3,6,3,
-                    3,2,1,2
+                    3, 2, 5, 4,
+                    1, 3, 6, 3,
+                    3, 2, 1, 2
             }, 3, 4
     );
     assert(20 == findSumOfMaxesOfPseudoDiagonal(m));
@@ -770,16 +770,16 @@ void testMatrix_2 () {
     //__8__
     m = createMatrixFromArray(
             (int[]) {
-                10,7,5,6,
-                3,11,8,9,
-                4,1,12,2
+                    10, 7, 5, 6,
+                    3, 11, 8, 9,
+                    4, 1, 12, 2
             }, 3, 4
     );
     mm = createMatrixFromArray(
             (int[]) {
-                6,8,9,2,
-                7,12,3,4,
-                10,11,5,1
+                    6, 8, 9, 2,
+                    7, 12, 3, 4,
+                    10, 11, 5, 1
             }, 3, 4
     );
     assert(getMinInArea(m) == 5);
@@ -788,18 +788,18 @@ void testMatrix_2 () {
     //__9__
     m = createMatrixFromArray(
             (int[]) {
-                    5,11,
-                    2,12,
-                    11,3,
-                    4,2
+                    5, 11,
+                    2, 12,
+                    11, 3,
+                    4, 2
             }, 4, 2
     );
     mm = createMatrixFromArray(
             (int[]) {
-                    4,2,
-                    11,3,
-                    5,11,
-                    2,12
+                    4, 2,
+                    11, 3,
+                    5, 11,
+                    2, 12
             }, 4, 2
     );
     sortByDistances(&m);
@@ -807,7 +807,7 @@ void testMatrix_2 () {
     freeMemMatrices_(2, &m, &mm);
     //__10__
     m = createMatrixFromArray(
-            ( int[ ] ) {
+            (int[]) {
                     7, 1,
                     2, 7,
                     5, 4,
@@ -820,27 +820,27 @@ void testMatrix_2 () {
     freeMemMatrices_(1, &m);
     //__11__
     m = createMatrixFromArray(
-            ( int[ ] ) {
-                    3,5,5,4,
-                    2,3,6,7,
-                    12,2,1,1
+            (int[]) {
+                    3, 5, 5, 4,
+                    2, 3, 6, 7,
+                    12, 2, 1, 1
             }, 3, 4
     );
     assert(getNSpecialElement(m) == 2);
     freeMemMatrices_(1, &m);
     //__12__
     m = createMatrixFromArray(
-            ( int[ ] ) {
-                    1,2,3,
-                    4,5,6,
-                    7,8,1
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 1
             }, 3, 3
     );
     mm = createMatrixFromArray(
-            ( int[ ] ) {
-                    1,2,3,
-                    1,4,7,
-                    7,8,1
+            (int[]) {
+                    1, 2, 3,
+                    1, 4, 7,
+                    7, 8, 1
             }, 3, 3
     );
     swapPenultimateRow(&m);
@@ -848,7 +848,7 @@ void testMatrix_2 () {
     freeMemMatrices_(2, &m, &mm);
     //__13__
     matrix *ms = createArrayOfMatrixFromArray(
-            ( int[ ] ) {
+            (int[]) {
                     7, 1,
                     1, 1,
                     1, 6,
@@ -857,13 +857,13 @@ void testMatrix_2 () {
                     2, 3,
                     1, 3,
                     7, 9
-            },4,2, 2
+            }, 4, 2, 2
     );
     assert(countNonDescendingRowsMatrices(ms, 4) == 2);
     freeMemMatrices(ms, 4);
     //__14__
     ms = createArrayOfMatrixFromArray(
-            ( int[ ] ) {
+            (int[]) {
                     0, 1,
                     1, 0,
                     0, 0,
@@ -880,13 +880,13 @@ void testMatrix_2 () {
                     0, 2,
                     0, 3,
             },
-            5,3, 2
+            5, 3, 2
     );
     //printMatrixWithMaxZeroRows(ms, 5);
     freeMemMatrices(ms, 5);
 //    __15__
     ms = createArrayOfMatrixFromArray(
-            ( int[ ] ) {
+            (int[]) {
                     1, 4,
                     5, 7,
                     2, 4,
@@ -896,20 +896,38 @@ void testMatrix_2 () {
                     1, 1,
                     1, 1
             },
-            4,2, 2
+            4, 2, 2
     );
     //printMatrixWithMinNorm(ms, 4);
     freeMemMatrices(ms, 4);
     //__16__
     m = createMatrixFromArray(
-            ( int[ ] ) {
-                    2,3,5,5,4,
-                    6,2,3,8,12,
-                    12,12,2,1,2
+            (int[]) {
+                    2, 3, 5, 5, 4,
+                    6, 2, 3, 8, 12,
+                    12, 12, 2, 1, 2
             }, 3, 5
     );
     assert(getNSpecialElement2(m) == 4);
     //__17__
-
-
+    m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9
+            }, 3, 3
+    );
+    int b[] = {1, 4, 7};
+    assert(getVectorIndexWithMaxAngle(m, b) == 0);
+    freeMemMatrices_(1, &m);
+    //__18__
+    m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9
+            }, 3, 3
+    );
+    assert(getSpecialScalarProduct(m, 3) == 102);
+    freeMemMatrices_(1, &m);
 }

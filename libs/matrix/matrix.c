@@ -595,6 +595,62 @@ int getNSpecialElement2(matrix m) {
     return res;
 }
 
+double getScalarProduct(int *a, int *b, int n) {
+    double res = 0;
+    for (int i = 0; i < n; i++) {
+        res += (a[i] * b[i]);
+    }
+
+    return res;
+}
+
+double getCosine(int *a, int *b, int n) {
+    double res = getScalarProduct(a, b, n);
+    float a_len = getDistance(a, n);
+    float b_len = getDistance(b, n);
+
+    if ((a_len * b_len) == 0) {
+        error_alert("can`t process division by zero.");
+    }
+
+    return res / (a_len * b_len);
+}
+
+int getVectorIndexWithMaxAngle(matrix mat, int *b) {
+    int res = INT_MIN;
+    double max_ang = DBL_MIN;
+
+    for (size_t i = 0; i < mat.nRows; i++) {
+        double ang = getCosine(b, mat.values[i], mat.nCols);
+        if (ang > max_ang) {
+            res = i;
+            max_ang = ang;
+        }
+    }
+
+    return res;
+}
+
+long long getScalarProductRowAndCol(matrix mat, int row, int col) {
+    long long res = 0;
+
+    for (size_t i = 0; i < mat.nCols; ++i)
+        res += (mat.values[row][i] * mat.values[i][col]);
+
+    return res;
+}
+
+long long getSpecialScalarProduct(matrix m, int n) {
+    position min = getMinValuePos(m);
+    position max = getMaxValuePos(m);
+
+    /* min.rowIndex -= 1;
+     min.colIndex -= 1;
+     max.rowIndex -= 1;
+     max.colIndex -= 1;*/
+
+    return getScalarProductRowAndCol(m, max.rowIndex, min.colIndex);
+}
 
 
 //------------------------
