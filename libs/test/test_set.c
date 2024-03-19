@@ -846,6 +846,44 @@ void testMatrix_2 () {
     swapPenultimateRow(&m);
     assert(areTwoMatricesEqual(&m, &mm));
     freeMemMatrices_(2, &m, &mm);
-
-
+    //__13__
+    matrix *ms = createArrayOfMatrixFromArray(
+            ( int[ ] ) {
+                    7, 1,
+                    1, 1,
+                    1, 6,
+                    2, 2,
+                    5, 4,
+                    2, 3,
+                    1, 3,
+                    7, 9
+            },4,2, 2
+    );
+    assert(countNonDescendingRowsMatrices(ms, 4) == 2);
+    freeMemMatrices(ms, 4);
+    //__14__
+    ms = createArrayOfMatrixFromArray(
+            ( int[ ] ) {
+                    0, 1,
+                    1, 0,
+                    0, 0,
+                    1, 1,
+                    2, 1,
+                    1, 1,
+                    0, 0,
+                    0, 0,
+                    4, 7,
+                    0, 0,
+                    1, 0,
+                    0, 0,
+                    0, 1,
+                    0, 2,
+                    0, 3,
+            },
+            5,3, 2
+    );
+    //printMatrixWithMaxZeroRows(ms, 5);
+    freeMemMatrices(ms, 5);
+//    __15__
+    
 }

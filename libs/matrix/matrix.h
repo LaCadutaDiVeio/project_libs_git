@@ -61,6 +61,12 @@ int countNUnique(long long *array, const size_t size);
 int countEqClassesByRowsSum(matrix m);
 int getNSpecialElement(matrix m);
 void swapPenultimateRow(matrix *m);
+int isNonDescendingSorted(int *array, int size);
+int hasAllNonDescendingRows(matrix m);
+int countNonDescendingRowsMatrices(matrix *ms, int nMatrix);
+int countValues(const int *a, int n, int value);
+int countZeroRows(matrix m);
+void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix);
 
 //----
 int getSum(int *a, int n);
