@@ -67,6 +67,9 @@ int countNonDescendingRowsMatrices(matrix *ms, int nMatrix);
 int countValues(const int *a, int n, int value);
 int countZeroRows(matrix m);
 void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix);
+int getMatrixNorm(const matrix m);
+void printMatrixWithMinNorm(matrix *ms, int nMatrix);
+int getNSpecialElement2(matrix m);
 
 //----
 int getSum(int *a, int n);

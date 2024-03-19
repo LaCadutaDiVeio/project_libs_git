@@ -885,5 +885,31 @@ void testMatrix_2 () {
     //printMatrixWithMaxZeroRows(ms, 5);
     freeMemMatrices(ms, 5);
 //    __15__
-    
+    ms = createArrayOfMatrixFromArray(
+            ( int[ ] ) {
+                    1, 4,
+                    5, 7,
+                    2, 4,
+                    6, 9,
+                    5, 5,
+                    9, 1,
+                    1, 1,
+                    1, 1
+            },
+            4,2, 2
+    );
+    //printMatrixWithMinNorm(ms, 4);
+    freeMemMatrices(ms, 4);
+    //__16__
+    m = createMatrixFromArray(
+            ( int[ ] ) {
+                    2,3,5,5,4,
+                    6,2,3,8,12,
+                    12,12,2,1,2
+            }, 3, 5
+    );
+    assert(getNSpecialElement2(m) == 4);
+    //__17__
+
+
 }

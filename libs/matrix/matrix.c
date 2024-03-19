@@ -545,6 +545,57 @@ void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
     }
 }
 
+//Я так понял, имеется ввиду максимальный модуль числел
+int getMatrixNorm(const matrix m) {
+    //т.к. имеем дело с модулем - min значение = 0
+    int max_el = 0;
+    for (size_t i = 0; i < m.nRows; i++) {
+        for (size_t j = 0; j < m.nCols; j++) {
+            int norm = abs(m.values[i][j]);
+            max_el = max_(max_el, norm);
+        }
+    }
+
+    return max_el;
+}
+
+void printMatrixWithMinNorm(matrix *ms, int nMatrix) {
+    int min_norm = INT_MAX;
+    int norms_arr[nMatrix];
+
+    for (size_t i = 0; i < nMatrix; i++) {
+        norms_arr[i] = getMatrixNorm(ms[i]);
+        min_norm = min_(min_norm, norms_arr[i]);
+    }
+
+    for (size_t i = 0; i < nMatrix; i++) {
+        if (norms_arr[i] == min_norm)
+            outputMatrix(ms[i]);
+    }
+}
+
+int getNSpecialElement2(matrix m) {
+    int res = 0;
+    for (size_t i = 0; i < m.nRows; i++) {
+        for (size_t j = 0; j < m.nCols; j++) {
+            bool is_decreasing_left = true;
+            bool is_increasing_right = true;
+
+            for (size_t k = 0; k < m.nCols; k++) {
+                if (k > j && m.values[i][j] > m.values[i][k])
+                    is_increasing_right = false;
+                if (k < j && m.values[i][j] < m.values[i][k])
+                    is_decreasing_left = false;
+            }
+            if (is_decreasing_left && is_increasing_right)
+                res++;
+        }
+    }
+
+    return res;
+}
+
+
 
 //------------------------
 int getSum(int *a, int n) {
