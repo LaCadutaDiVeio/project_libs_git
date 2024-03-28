@@ -56,6 +56,10 @@ void test_void_vector();
 void testMatrix_1 ();
 void testMatrix_2 ();
 
+//-------------------
+void test_string();
+void test_len ();
+
 
 
 

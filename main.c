@@ -14,18 +14,10 @@ int main() {
     //test_ordered_array_set();
     //test_vectors();
     //test_void_vector();
-    testMatrix_1();
-    testMatrix_2();
+    //testMatrix_1();
+    //testMatrix_2();
+    test_string();
 
-    /*matrix m = createMatrixFromArray(
-            ( int[ ] ) {
-                    3,5,5,4,
-                    2,3,6,7,
-                    12,2,1,1
-            }, 3, 4
-    );
-    printf("%d", getNSpecialElement(m));*/
 
-    //freeMemMatrix(&m);
     return 0;
 }

@@ -6,6 +6,7 @@
 #include <vectors/vector.h>
 #include <vectors_void/void_vector.h>
 #include <matrix/matrix.h>
+#include <string_/string_.h>
 #include <test/test_set.h>
 
 bitset bitset1;
@@ -930,4 +931,15 @@ void testMatrix_2() {
     );
     assert(getSpecialScalarProduct(m, 3) == 102);
     freeMemMatrices_(1, &m);
+}
+
+void test_string() {
+    test_len();
+}
+
+void test_len () {
+    const char *s1 = "Hello, world!";
+    const char *s2 = "Hello, world!\t";
+    assert(strlen_(s1) == 13 && strlen_(s2) == 14);
+
 }

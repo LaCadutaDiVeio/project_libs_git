@@ -9,6 +9,8 @@ file (GLOB_RECURSE src_files_test_set ${CMAKE_CURRENT_LIST_DIR}/test/*.[ch])
 file (GLOB_RECURSE src_files_vectors ${CMAKE_CURRENT_LIST_DIR}/vectors/*.[ch])
 file (GLOB_RECURSE src_files_vectors_void ${CMAKE_CURRENT_LIST_DIR}/vectors_void/*.[ch])
 file (GLOB_RECURSE src_files_matrix ${CMAKE_CURRENT_LIST_DIR}/matrix/*.[ch])
+file (GLOB_RECURSE src_files_string ${CMAKE_CURRENT_LIST_DIR}/string_/*.[ch])
+
 
 #message(STATUS "$src_files_unordered_set")
 
@@ -21,5 +23,6 @@ set (src_libs
         ${src_files_vectors}
         ${src_files_vectors_void}
         ${src_files_matrix}
+        ${src_files_string}
         ${src_files_test_set}
 )
