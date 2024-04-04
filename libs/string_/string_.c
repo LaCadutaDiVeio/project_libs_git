@@ -45,3 +45,52 @@ char *findSpaceReverse(char *rbegin, const char *rend) {
     return rbegin;
 }
 
+int strcmp(const char *lhs, const char *rhs) {
+    while (*lhs == *rhs && *lhs != '\0' && *rhs != '\0') {
+        *lhs++;
+        *rhs++;
+    }
+
+    return *lhs - *rhs;
+}
+
+char *strcopy(const char *beginSource, const char *endSource, char *beginDestination) {
+    size_t size = endSource - beginSource;
+    memcpy(beginDestination, beginSource, size);
+    //*(beginDestination + size) = '\0';
+
+    return beginDestination + size;
+}
+
+char *copyIf(char *beginSource, const char *endSource, char *beginDestination, int ( *f )(int)) {
+    while (beginSource != endSource) {
+        if (f(*beginSource)) {
+            *beginDestination = *beginSource;
+            ++beginDestination;
+        }
+
+        ++beginSource;
+    }
+
+    //*beginDestination = '\0';
+
+    return beginDestination;
+}
+
+char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int)) {
+    char *rbegin_dst = beginDestination;
+    while ( *rbeginSource >= -1 && *rbeginSource <= 255 && rbeginSource >= rendSource ) {
+        if ( f( *rbeginSource ) ) {
+            *rbegin_dst = *rbeginSource;
+            ++rbegin_dst;
+        }
+
+        --rbeginSource;
+    }
+
+    //*rbegin_dst = '\0';
+
+    return rbegin_dst;
+}
+
+

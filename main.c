@@ -18,6 +18,11 @@ int main() {
     //testMatrix_2();
     test_string();
 
+    //printf("%d", strcmp("amoga", "amoga"));
+    //printf("%d", *"amoga");
+    //printf("%d", *"amoga");
+
+
 
     return 0;
 }

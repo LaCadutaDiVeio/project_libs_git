@@ -933,13 +933,53 @@ void testMatrix_2() {
     freeMemMatrices_(1, &m);
 }
 
+
+//-----------------------------------------
+
+
 void test_string() {
     test_len();
+    test_nonSpace();
 }
 
-void test_len () {
+void test_len() {
     const char *s1 = "Hello, world!";
     const char *s2 = "Hello, world!\t";
-    assert(strlen_(s1) == 13 && strlen_(s2) == 14);
+    const char *s3 = "";
+    assert(strlen_(s1) == 13 && strlen_(s2) == 14 && strlen(s3) == 0);
+}
 
+void test_nonSpace() {
+    const char *s1 = "asmogus";
+    const char *s2 = "\n";
+    const char *s3= "";
+
+    assert(*findNonSpace(s1) == 'a');
+    assert(*findNonSpace(s2) == '\0');
+    assert(*findNonSpace(s3) == '\0');
+
+    assert(*findNonSpaceReverse(&s1[strlen_(s1) - 1], s1) == 's');
+    assert(*findNonSpaceReverse(&s2[strlen_(s2) - 1], s2) == '\0');
+    assert(*findNonSpaceReverse(&s3[strlen_(s3) - 1], s3) == '\0');
+}
+
+void test_space() {
+    const char *s1 = "asmogus\t";
+    const char *s2 = "\t\n";
+    const char *s3= "";
+    const char *s4= "a a";
+
+    assert(*findSpaceReverse(&s1[strlen_(s1) - 1], s1) == '\t');
+    assert(*findSpaceReverse(&s2[strlen_(s2) - 1], s2) == '\n');
+    assert(*findSpaceReverse(&s3[strlen_(s3) - 1], s3) == '\0');
+    assert(*findSpaceReverse(&s4[strlen_(s4) - 1], s4) == ' ');
+
+    assert(*findSpace(s1) == '\0');
+    assert(*findSpace(s2) == '\t');
+    assert(*findSpace(s3) == '\0');
+    assert(*findSpace(s4) == ' ');
+}
+
+void test_copy() {
+    
 }

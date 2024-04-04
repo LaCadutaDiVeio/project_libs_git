@@ -59,6 +59,8 @@ void testMatrix_2 ();
 //-------------------
 void test_string();
 void test_len ();
+void test_nonSpace();
+void test_space();
 
 
 
