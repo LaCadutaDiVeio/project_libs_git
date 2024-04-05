@@ -61,6 +61,10 @@ void test_string();
 void test_len ();
 void test_nonSpace();
 void test_space();
+void test_compare();
+void test_copy();
+void test_copyIf();
+void test_copyIfReverse();
 
 
 

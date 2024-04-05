@@ -2,6 +2,8 @@
 #include <string_/string_.h>
 #include <stdio.h>
 
+
+
 size_t strlen_(const char *begin) {
     char *end = begin;
     while (*end != '\0')
@@ -39,7 +41,7 @@ char *findNonSpaceReverse(char *rbegin, const char *rend) {
 }
 
 char *findSpaceReverse(char *rbegin, const char *rend) {
-    while (rbegin >= rend && isspace(*rbegin))
+    while (rbegin >= rend && !isspace(*rbegin))
         rbegin--;
 
     return rbegin;
@@ -57,7 +59,7 @@ int strcmp(const char *lhs, const char *rhs) {
 char *strcopy(const char *beginSource, const char *endSource, char *beginDestination) {
     size_t size = endSource - beginSource;
     memcpy(beginDestination, beginSource, size);
-    //*(beginDestination + size) = '\0';
+    *(beginDestination + size) = '\0';
 
     return beginDestination + size;
 }
@@ -72,7 +74,7 @@ char *copyIf(char *beginSource, const char *endSource, char *beginDestination, i
         ++beginSource;
     }
 
-    //*beginDestination = '\0';
+    *beginDestination = '\0';
 
     return beginDestination;
 }
@@ -89,8 +91,19 @@ char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDesti
     }
 
     //*rbegin_dst = '\0';
-
     return rbegin_dst;
+}
+
+void assertString(const char *expected, char *got,
+                  char const *fileName, char const *funcName,
+                  int line) {
+    if (strcmp(expected, got)) {
+        fprintf(stderr, "File %s\n", fileName);
+        fprintf(stderr, "%s - failed on line %d\n", funcName, line);
+        fprintf(stderr, "Expected: \"%s\"\n", expected);
+        fprintf(stderr, "Got: \"%s\"\n\n", got);
+    } else
+        fprintf(stderr, "%s - OK\n", funcName);
 }
 
 

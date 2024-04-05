@@ -940,6 +940,11 @@ void testMatrix_2() {
 void test_string() {
     test_len();
     test_nonSpace();
+    test_space();
+    test_compare();
+    test_copy();
+    test_copyIf();
+    test_copyIfReverse();
 }
 
 void test_len() {
@@ -952,7 +957,7 @@ void test_len() {
 void test_nonSpace() {
     const char *s1 = "asmogus";
     const char *s2 = "\n";
-    const char *s3= "";
+    const char *s3 = "";
 
     assert(*findNonSpace(s1) == 'a');
     assert(*findNonSpace(s2) == '\0');
@@ -966,20 +971,52 @@ void test_nonSpace() {
 void test_space() {
     const char *s1 = "asmogus\t";
     const char *s2 = "\t\n";
-    const char *s3= "";
-    const char *s4= "a a";
+    const char *s3 = "";
+    const char *s4 = "a a";
 
     assert(*findSpaceReverse(&s1[strlen_(s1) - 1], s1) == '\t');
     assert(*findSpaceReverse(&s2[strlen_(s2) - 1], s2) == '\n');
     assert(*findSpaceReverse(&s3[strlen_(s3) - 1], s3) == '\0');
     assert(*findSpaceReverse(&s4[strlen_(s4) - 1], s4) == ' ');
 
-    assert(*findSpace(s1) == '\0');
+    assert(*findSpace(s1) == '\t');
     assert(*findSpace(s2) == '\t');
     assert(*findSpace(s3) == '\0');
     assert(*findSpace(s4) == ' ');
 }
 
-void test_copy() {
-    
+void test_compare() {
+    const char *s1 = "string";
+    const char *s2 = "string";
+    const char *s3 = "str";
+    const char *s4 = " ";
+
+    assert(strcmp(s1, s2) == 0);
+    assert(strcmp(s1, s3) > 0);
+    assert(strcmp(s1, s4) > 0);
 }
+
+void test_copy() {
+    char *source = "source text";
+    char destination[64];
+    char *end = strcopy(source, source + strlen_(source), destination);
+    assert(strcmp(source, destination) == 0);
+}
+
+void test_copyIf() {
+    char *source = "1a2 3 b";
+    char destination[3];
+    char *end = copyIf(source, source + strlen_(source), destination, isalpha);
+    //printf("%s", destination);
+    assert(strcmp(destination, "ab") == 0);
+}
+
+void test_copyIfReverse() {
+    char *source = "1a2 3 b";
+    char destination[3];
+    char *end = copyIfReverse(source + strlen_(source),source, destination, isalpha);
+    //printf("%s", destination);
+    assert(strcmp(destination, "ba") == 0);
+}
+
+//--------------

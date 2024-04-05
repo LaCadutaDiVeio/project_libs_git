@@ -4,6 +4,11 @@
 #include <malloc.h>
 #include <memory.h>
 #include <ctype.h>
+#include <stdlib.h>
+
+
+#define ASSERT_STRING(expected, got) assertString(expected, got, \
+	__FILE__, __FUNCTION__, __LINE__ )
 
 typedef struct WordDescriptor {
     char *m_begin;
@@ -29,5 +34,9 @@ char *strcopy(const char *beginSource, const char *endSource, char *beginDestina
 char *copyIf(char *beginSource, const char *endSource, char *beginDestination, int ( *f )(int));
 
 char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int));
+
+void assertString(const char *expected, char *got,
+                  char const *fileName, char const *funcName,
+                  int line);
 
 #endif //PROJECT_LIBS_STRING__H
