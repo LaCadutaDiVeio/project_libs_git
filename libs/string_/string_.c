@@ -106,4 +106,13 @@ void assertString(const char *expected, char *got,
         fprintf(stderr, "%s - OK\n", funcName);
 }
 
+//------------------------------------
+
+void removeAdjacentEqualLetters(char *s) {
+
+}
+
+void removeExtraSpaces(char *s) {
+
+}
 

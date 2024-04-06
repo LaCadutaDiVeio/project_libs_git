@@ -1019,4 +1019,20 @@ void test_copyIfReverse() {
     assert(strcmp(destination, "ba") == 0);
 }
 
-//--------------
+//------------------------
+
+void test_removeExtraSpaces() {
+    char *s1 = "  more  spaces  ";
+    removeExtraSpaces(s1);
+    ASSERT_STRING(" more spaces ", s1);
+}
+
+void test_removeAdjacentEqualLetters() {
+    char *s1 = "aaaamonnguss";
+    removeAdjacentEqualLetters(s1);
+    ASSERT_STRING("amongus", s1);
+
+    char *s2 = "hoot tubs";
+    removeAdjacentEqualLetters(s2);
+    ASSERT_STRING("hot tubs", s2);
+}

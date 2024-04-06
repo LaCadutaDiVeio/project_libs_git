@@ -35,8 +35,14 @@ char *copyIf(char *beginSource, const char *endSource, char *beginDestination, i
 
 char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int));
 
+//------------------------------------
+
 void assertString(const char *expected, char *got,
                   char const *fileName, char const *funcName,
                   int line);
+
+void removeAdjacentEqualLetters(char *s);
+
+void removeExtraSpaces(char *s);
 
 #endif //PROJECT_LIBS_STRING__H
