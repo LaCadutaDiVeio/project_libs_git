@@ -945,6 +945,9 @@ void test_string() {
     test_copy();
     test_copyIf();
     test_copyIfReverse();
+    test_removeExtraSpaces();
+    test_removeAdjacentEqualLetters();
+    testWordsWithDigits();
 }
 
 void test_len() {
@@ -1022,17 +1025,25 @@ void test_copyIfReverse() {
 //------------------------
 
 void test_removeExtraSpaces() {
-    char *s1 = "  more  spaces  ";
+    char s1[] = "  more  spaces  ";
     removeExtraSpaces(s1);
     ASSERT_STRING(" more spaces ", s1);
 }
 
+
 void test_removeAdjacentEqualLetters() {
-    char *s1 = "aaaamonnguss";
+    char s1[] = "aaaamonnguss";
     removeAdjacentEqualLetters(s1);
     ASSERT_STRING("amongus", s1);
 
-    char *s2 = "hoot tubs";
+    char s2[] = "hoot tubs";
     removeAdjacentEqualLetters(s2);
     ASSERT_STRING("hot tubs", s2);
+}
+
+void testWordsWithDigits() {
+    char s[] = "a1b2c3d4";
+
+    digitToEnd(s);
+    ASSERT_STRING("abcd1234", s);
 }

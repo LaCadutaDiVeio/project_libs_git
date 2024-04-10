@@ -65,6 +65,9 @@ void test_compare();
 void test_copy();
 void test_copyIf();
 void test_copyIfReverse();
+void test_removeExtraSpaces();
+void test_removeAdjacentEqualLetters();
+void testWordsWithDigits();
 
 
 

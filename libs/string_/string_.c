@@ -3,7 +3,6 @@
 #include <stdio.h>
 
 
-
 size_t strlen_(const char *begin) {
     char *end = begin;
     while (*end != '\0')
@@ -79,10 +78,10 @@ char *copyIf(char *beginSource, const char *endSource, char *beginDestination, i
     return beginDestination;
 }
 
-char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int)) {
+char *copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int)) {
     char *rbegin_dst = beginDestination;
-    while ( *rbeginSource >= -1 && *rbeginSource <= 255 && rbeginSource >= rendSource ) {
-        if ( f( *rbeginSource ) ) {
+    while (*rbeginSource >= -1 && *rbeginSource <= 255 && rbeginSource >= rendSource) {
+        if (f(*rbeginSource)) {
             *rbegin_dst = *rbeginSource;
             ++rbegin_dst;
         }
@@ -90,7 +89,7 @@ char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDesti
         --rbeginSource;
     }
 
-    //*rbegin_dst = '\0';
+    *rbegin_dst = '\0';
     return rbegin_dst;
 }
 
@@ -109,10 +108,82 @@ void assertString(const char *expected, char *got,
 //------------------------------------
 
 void removeAdjacentEqualLetters(char *s) {
+/*    char *write = s;
 
+    while (*s != '\0') {
+        printf("%c", *s);
+        if (*s != *(s - 1)) {
+            *write = *s;
+            write++;
+        }
+        s++;
+    }
+
+    *write = '\0';
+    printf("%s", s);
+}*/
+    if (*s != '\0')
+        s++;
+
+    char *read = s;
+    //printf("%p\n", s);
+    while (*read != '\0') {
+        //printf("%p %p\n", read, s);
+        //printf("%c", *s);
+        if (*read != *(--s))
+            *(++s) = *read;
+
+        ++s;
+        ++read;
+    }
+
+    *s = '\0';
+    //printf("%s", s);
 }
 
 void removeExtraSpaces(char *s) {
+    char *read = s;
+    while (*read != '\0') {
+        if (isspace(*read)) {
+            char *write = s;
+            if (!isspace(*(write--))) {
+                *(++s) = *read;
+            }
+        } else {
+            *(++s) = *read;
+        }
 
+        ++read;
+    }
+    *(++s) = '\0';
 }
+
+int getWord(char *beginSearch, WordDescriptor *word) {
+    word->begin = findNonSpace(beginSearch);
+    if (*word->begin == '\0')
+        return 0;
+
+    word->end = findSpace(word->begin);
+
+    return 1;
+}
+
+void digitToEnd_(WordDescriptor word) {
+    char _stringBuffer[MAX_STRING_SIZE + 1];
+    char *endStringBuffer = strcopy(word.begin, word.end,_stringBuffer);
+
+    char *digitPos = copyIf(_stringBuffer, endStringBuffer, word.begin, isalpha);
+    copyIf(_stringBuffer, endStringBuffer, digitPos, isdigit);
+}
+
+void digitToEnd(char *s) {
+    WordDescriptor word;
+    char *read = s;
+    while (getWord(read, &word)) {
+        digitToEnd_(word);
+        read = word.end;
+    }
+}
+
+
 
