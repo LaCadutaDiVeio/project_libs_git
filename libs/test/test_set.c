@@ -948,6 +948,8 @@ void test_string() {
     test_removeExtraSpaces();
     test_removeAdjacentEqualLetters();
     testWordsWithDigits();
+    testDigitsToSpace();
+    testEquals();
 }
 
 void test_len() {
@@ -1046,4 +1048,24 @@ void testWordsWithDigits() {
 
     digitToEnd(s);
     ASSERT_STRING("abcd1234", s);
+    digitToEndReverse(s);
+    ASSERT_STRING("abcd4321", s);
+    digitToStart(s);
+    ASSERT_STRING("4321abcd", s);
+}
+
+void testDigitsToSpace() {
+    char s1[] = "a1b";
+    replaceDigitsWithSpaces(s1);
+    ASSERT_STRING("a b", s1);
+}
+
+void testEquals() {
+    char s1[] = "Aaaugh";
+    WordDescriptor w1;
+    getWord(s1, &w1);
+    char s2[] = "Aaaugh";
+    WordDescriptor w2;
+    getWord(s2, &w2);
+    assert(areWordsEqual(w1, w2));
 }

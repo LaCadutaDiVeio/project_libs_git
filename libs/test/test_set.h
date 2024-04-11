@@ -68,6 +68,8 @@ void test_copyIfReverse();
 void test_removeExtraSpaces();
 void test_removeAdjacentEqualLetters();
 void testWordsWithDigits();
+void testDigitsToSpace();
+void testEquals();
 
 
 

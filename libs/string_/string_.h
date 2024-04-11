@@ -19,7 +19,7 @@ typedef struct WordDescriptor {
     char *end;
 } WordDescriptor;
 
-//char _stringBuffer[MAX_STRING_SIZE + 1];
+extern char _stringBuffer[MAX_STRING_SIZE + 1];
 
 
 size_t strlen_(const char *begin);
@@ -52,10 +52,24 @@ void removeAdjacentEqualLetters(char *s);
 
 void removeExtraSpaces(char *s);
 
-//int getWord(char *beginSearch, WordDescriptor *word);
+int getWord(char *beginSearch, WordDescriptor *word);
 
-//void digitToEnd_(WordDescriptor word);
+void digitToEnd_(WordDescriptor word);
 
-//void digitToEnd(char *s);
+void digitToEnd(char *s);
+
+void digitToEndReverse_(WordDescriptor word);
+
+void digitToEndReverse(char *s);
+
+void digitToStart_(WordDescriptor word);
+
+void digitToStart(char *s);
+
+void replaceDigitsWithSpaces(char *s);
+
+void replaceWords (char *source, char *w1, char *w2);
+
+int areWordsEqual(WordDescriptor w1, WordDescriptor w2);
 
 #endif //PROJECT_LIBS_STRING__H
