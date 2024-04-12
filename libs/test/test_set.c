@@ -950,6 +950,7 @@ void test_string() {
     testWordsWithDigits();
     testDigitsToSpace();
     testEquals();
+    testReplaceWordToWord();
 }
 
 void test_len() {
@@ -1058,6 +1059,10 @@ void testDigitsToSpace() {
     char s1[] = "a1b";
     replaceDigitsWithSpaces(s1);
     ASSERT_STRING("a b", s1);
+
+    char s2[] = "a20b";
+    replaceDigitsWithSpaces(s2);
+    ASSERT_STRING("a  b", s2);
 }
 
 void testEquals() {
@@ -1068,4 +1073,25 @@ void testEquals() {
     WordDescriptor w2;
     getWord(s2, &w2);
     assert(areWordsEqual(w1, w2));
+}
+
+void testReplaceWordToWord() {
+    char s1[] = "long string is long";
+    replaceWords(s1, "long", "bad");
+    //printf("%s", s1);
+    ASSERT_STRING("bad string is bad", s1);
+
+    char s2[] = "long string is long";
+    replaceWordsSS_ryzen(s2, "long", "bruv");
+    //printf("%s", s2);
+    ASSERT_STRING("bruv string is bruv", s2);
+
+    char s3[] = "long string is long";
+    replaceWords(s3, "long", "short");
+    //printf("%s", s1);
+    ASSERT_STRING("short string is short", s3);
+}
+
+void testOrdered() {
+
 }

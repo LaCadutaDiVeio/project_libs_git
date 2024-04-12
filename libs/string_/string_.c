@@ -170,7 +170,7 @@ int getWord(char *beginSearch, WordDescriptor *word) {
 
 void digitToEnd_(WordDescriptor word) {
     char _stringBuffer[MAX_STRING_SIZE + 1];
-    char *endStringBuffer = strcopy(word.begin, word.end,_stringBuffer);
+    char *endStringBuffer = strcopy(word.begin, word.end, _stringBuffer);
 
     char *digitPos = copyIf(_stringBuffer, endStringBuffer, word.begin, isalpha);
     copyIf(_stringBuffer, endStringBuffer, digitPos, isdigit);
@@ -187,7 +187,7 @@ void digitToEnd(char *s) {
 
 void digitToEndReverse_(WordDescriptor word) {
     char _stringBuffer[MAX_STRING_SIZE + 1];
-    char *endStringBuffer = strcopy(word.begin, word.end,_stringBuffer);
+    char *endStringBuffer = strcopy(word.begin, word.end, _stringBuffer);
 
     char *digitPos = copyIf(_stringBuffer, endStringBuffer, word.begin, isalpha);
     copyIfReverse(endStringBuffer, _stringBuffer, digitPos, isdigit);
@@ -204,7 +204,7 @@ void digitToEndReverse(char *s) {
 
 void digitToStart_(WordDescriptor word) {
     char _stringBuffer[MAX_STRING_SIZE + 1];
-    char *endStringBuffer = strcopy(word.begin, word.end,_stringBuffer);
+    char *endStringBuffer = strcopy(word.begin, word.end, _stringBuffer);
 
     char *digitPos = copyIf(_stringBuffer, endStringBuffer, word.begin, isdigit);
     copyIf(_stringBuffer, endStringBuffer, digitPos, isalpha);
@@ -239,6 +239,18 @@ void replaceDigitsWithSpaces(char *s) {
     *s = '\0';
 }
 
+/*int areWordsEqual(WordDescriptor w1, WordDescriptor w2) {
+    char *c1 = w1.begin;
+    char *c2 = w2.begin;
+    while ((*c1 != ' ' || *c2 != ' ') && (*c1 != '\0' && *c2 != '\0')) {
+        if ((*c1 != *c2) && (*c1 != '\0' && *c2 != '\0'))
+            return 0;
+        c1++;
+        c2++;
+    }
+    return c1 == w1.end && c2 == w2.end;
+}*/
+
 int areWordsEqual(WordDescriptor w1, WordDescriptor w2) {
     char *c1 = w1.begin;
     char *c2 = w2.begin;
@@ -251,31 +263,85 @@ int areWordsEqual(WordDescriptor w1, WordDescriptor w2) {
     return 1;
 }
 
-void replaceWords (char *source, char *w1, char *w2) {
+void replaceWords(char *source, char *w1, char *w2) {
     size_t len1 = strlen_(w1);
     WordDescriptor word1 = {w1, w1 + len1};
     size_t len2 = strlen_(w2);
     WordDescriptor word2 = {w2, w2 + len2};
 
     WordDescriptor word;
-    char *read = source;
+    char buffer[MAX_STRING_SIZE];
+    char *read;
     char *rec = source;
-    char buffer[MAX_STRING_SIZE + 1];
-    if (len2 > len1) {
+    if (len1 >= len2) {
+        read = source;
+    } else {
         strcopy(source, source + strlen_(source), buffer);
         read = buffer;
-        rec = source;
     }
 
     while (getWord(read, &word)) {
-        WordDescriptor result = word2;
-        for (char *c = result.begin; c != result.end; ++c) {
+        WordDescriptor write = word2;
+        //printf("%c %c \n", *word.begin, *(word.end - 1));
+        if (!areWordsEqual(word, word1))
+            write = word;
+        //легче делать перезапись в любом случае:
+        for (char *c = write.begin; c != write.end; ++c) {
             *rec++ = *c;
+            //printf("%p, %c\n", (rec - 1), *(rec - 1));
         }
         *rec++ = ' ';
         read = word.end;
     }
-    *(rec) = '\0';
+    *(rec - 1) = '\0';
+}
+
+void replaceWordsSS_ryzen(char *source, char *w1, char *w2) {
+    char buf[MAX_STRING_SIZE];
+    memset(buf, 0, sizeof(char) * MAX_STRING_SIZE);
+
+    size_t len1 = strlen_(w1);
+    WordDescriptor wo1 = {w1, w1 + len1};
+    size_t len2 = strlen_(w2);
+    WordDescriptor wo2 = {w2, w2 + len2};
+
+    char *read = source;
+
+    int size = 0;
+    WordDescriptor word;
+    while (getWord(read, &word)) {
+        if (areWordsEqual(word, wo1)) {
+            for (char *b = wo2.begin; b != wo2.end; ++b) {
+                buf[size++] = *b;
+            }
+            buf[size++] = ' ';
+        } else {
+            for (char *b = word.begin; b != word.end; ++b) {
+                buf[size++] = *b;
+            }
+            buf[size++] = ' ';
+        }
+        read = word.end;
+    }
+
+    buf[--size] = '\0';
+    strcopy(buf, buf + size, source);
+}
+
+int areWordsOrdered(char *s) {
+    WordDescriptor w1, w2;
+    if (getWord(s, &w1)) {
+        w2 = w1;
+        s = w1.end;
+        while (getWord(s, &w1)) {
+            if (!areWordsEqual(w1, w2))
+                return 0;
+            w2 = w1;
+            s = w1.end;
+        }
+        return 1;
+    } else
+        return 1;
 }
 
 

@@ -19,6 +19,11 @@ typedef struct WordDescriptor {
     char *end;
 } WordDescriptor;
 
+typedef struct BagOfWords {
+    WordDescriptor words[MAX_N_WORDS_IN_STRING];
+    size_t size;
+} BagOfWords;
+
 extern char _stringBuffer[MAX_STRING_SIZE + 1];
 
 
@@ -71,5 +76,9 @@ void replaceDigitsWithSpaces(char *s);
 void replaceWords (char *source, char *w1, char *w2);
 
 int areWordsEqual(WordDescriptor w1, WordDescriptor w2);
+
+void replaceWordsSS_ryzen(char *source, char *w1, char *w2);
+
+int areWordsOrdered(char *s);
 
 #endif //PROJECT_LIBS_STRING__H

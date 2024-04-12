@@ -70,6 +70,8 @@ void test_removeAdjacentEqualLetters();
 void testWordsWithDigits();
 void testDigitsToSpace();
 void testEquals();
+void testReplaceWordToWord();
+void testOrdered();
 
 
 
