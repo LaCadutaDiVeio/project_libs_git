@@ -951,6 +951,9 @@ void test_string() {
     testDigitsToSpace();
     testEquals();
     testReplaceWordToWord();
+    //
+    testPalindrome();
+    testJoinStrings();
 }
 
 void test_len() {
@@ -1082,7 +1085,8 @@ void testReplaceWordToWord() {
     ASSERT_STRING("bad string is bad", s1);
 
     char s2[] = "long string is long";
-    replaceWordsSS_ryzen(s2, "long", "bruv");
+    //replaceWordsSS_ryzen(s2, "long", "bruv");
+    replaceWords(s2, "long", "bruv");
     //printf("%s", s2);
     ASSERT_STRING("bruv string is bruv", s2);
 
@@ -1094,4 +1098,26 @@ void testReplaceWordToWord() {
 
 void testOrdered() {
 
+}
+
+void testPalindrome() {
+    char *s1 = "amoma, sugoma, maam";
+    assert(getAmountPalindromes(s1) == 2);
+
+    char *s2 = "";
+    assert(getAmountPalindromes(s2) == 0);
+}
+
+void testJoinStrings() {
+    char s1[MAX_STRING_SIZE];
+    join2StrInStr(s1, "Not single was", "a f*ck given");
+    ASSERT_STRING("Not a single f*ck was given", s1);
+
+    char s2[MAX_STRING_SIZE];
+    join2StrInStr(s2, "Never give you up", "gonna");
+    ASSERT_STRING("Never gonna give you up", s2);
+
+    char s3[MAX_STRING_SIZE];
+    join2StrInStr(s3, "Cake", "is a lie");
+    ASSERT_STRING("Cake is a lie", s3);
 }

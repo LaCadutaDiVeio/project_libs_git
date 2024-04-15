@@ -25,6 +25,8 @@ typedef struct BagOfWords {
 } BagOfWords;
 
 extern char _stringBuffer[MAX_STRING_SIZE + 1];
+extern BagOfWords _bag;
+extern BagOfWords _bag2;
 
 
 size_t strlen_(const char *begin);
@@ -80,5 +82,13 @@ int areWordsEqual(WordDescriptor w1, WordDescriptor w2);
 void replaceWordsSS_ryzen(char *source, char *w1, char *w2);
 
 int areWordsOrdered(char *s);
+
+void getBagOfWords(char *s, BagOfWords *bag);
+
+int isWordPalindrome(char *begin, char *end);
+
+size_t getAmountPalindromes(char *s);
+
+void join2StrInStr(char *result, char *s1, char *s2);
 
 #endif //PROJECT_LIBS_STRING__H

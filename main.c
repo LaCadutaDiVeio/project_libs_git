@@ -19,10 +19,13 @@ int main() {
     //testMatrix_2();
     test_string();
 
-    /*char *s = "ab      ab";
-    removeExtraSpaces(s);
-    printf("%s", s);*/
-
+    char s1[] = "string";
+    WordDescriptor w1;
+    getWord(s1, &w1);
+    char s2[] = "string";
+    WordDescriptor w2;
+    getWord(s2, &w2);
+    //printf("%d", areWordsEqual(w1, w2));
 
     return 0;
 }

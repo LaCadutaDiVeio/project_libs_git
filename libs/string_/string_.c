@@ -254,7 +254,8 @@ void replaceDigitsWithSpaces(char *s) {
 int areWordsEqual(WordDescriptor w1, WordDescriptor w2) {
     char *c1 = w1.begin;
     char *c2 = w2.begin;
-    while (*c1 != '\0' && *c2 != '\0') {
+    //while (*c1 != '\0' && *c2 != '\0') {
+    while ((c1 != w1.end && c2 != w2.end) && (*c1 != ' ' && *c2 != ' ')) {
         if (*c1 != *c2)
             return 0;
         c1++;
@@ -344,7 +345,84 @@ int areWordsOrdered(char *s) {
         return 1;
 }
 
+void getBagOfWords(char *s, BagOfWords *bag) {
+    WordDescriptor word;
+    bag->size = 0;
+    while (getWord(s, &word)) {
+        bag->words[(bag->size)++] = word;
+        s = word.end;
+    }
+}
 
+int isWordPalindrome(char *begin, char *end) {
+    end--;//исключает ноль-символ или запятую
+    while (end > begin) {
+        if (*begin != *end)
+            return 0;
+
+        begin++;
+        end--;
+    }
+
+    return 1;
+}
+
+size_t getAmountPalindromes(char *s) {
+    char *begin = findNonSpace(s);
+    char *end = s + strlen_(s);
+    char *l = strfind(begin, end, ',');
+    int is_final = *l == '\0' && end > begin;
+
+    size_t count = 0;
+    while (*l != '\0' || is_final) {
+        count += isWordPalindrome(begin, l);
+
+        if (is_final)
+            break;
+        if (end <= begin)
+            break;
+
+        begin = findNonSpace(l + 1);
+        l = strfind(begin, end, ',');
+        is_final = *l == '\0' && end > begin;
+    }
+
+    return count;
+}
+
+void join2StrInStr(char *result, char *s1, char *s2) {
+    WordDescriptor w1, w2;
+    int isW1Found, isW2Found;
+    //int iter = 1;
+    while (isW1Found = getWord(s1,&w1), isW2Found = getWord(s2, &w2), isW1Found || isW2Found) {
+        //printf("%d", iter++);
+        if (isW1Found) {
+            //printf("w1");
+            for (char *c = w1.begin; c != w1.end; c++) {
+                //printf(".");
+                *result++ = *c;
+                //result++;
+            }
+            s1 = w1.end;
+            isW1Found = getWord(s1, &w1);
+
+            if (isW1Found || isW2Found)
+                *result++ = ' ';
+        }
+        if (isW2Found) {
+            //printf("w2");
+            for (char *c = w2.begin; c != w2.end; c++) {
+                *result++ = *c;
+            }
+            s2 = w2.end;
+            isW2Found = getWord(s2, &w2);
+
+            if (isW1Found || isW2Found)
+                *result++ = ' ';
+        }
+    }
+    *result = '\0';
+}
 
 
 

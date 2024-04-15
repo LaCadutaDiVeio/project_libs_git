@@ -72,6 +72,8 @@ void testDigitsToSpace();
 void testEquals();
 void testReplaceWordToWord();
 void testOrdered();
+void testPalindrome();
+void testJoinStrings();
 
 
 
