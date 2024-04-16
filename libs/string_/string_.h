@@ -91,4 +91,6 @@ size_t getAmountPalindromes(char *s);
 
 void join2StrInStr(char *result, char *s1, char *s2);
 
+void reverseStrOrder(char *s);
+
 #endif //PROJECT_LIBS_STRING__H

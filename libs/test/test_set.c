@@ -954,6 +954,7 @@ void test_string() {
     //
     testPalindrome();
     testJoinStrings();
+    testReverse();
 }
 
 void test_len() {
@@ -1120,4 +1121,23 @@ void testJoinStrings() {
     char s3[MAX_STRING_SIZE];
     join2StrInStr(s3, "Cake", "is a lie");
     ASSERT_STRING("Cake is a lie", s3);
+}
+
+void testReverse() {
+    char s1[] = "reversed is string";
+    reverseStrOrder(s1);
+    ASSERT_STRING("string is reversed", s1);
+
+    char s2[] = "word";
+    reverseStrOrder(s2);
+    ASSERT_STRING("word", s2);
+
+    //несовсем уверен, что это ожидаемое поведение, но оно логичное
+    char s3[] = " ";
+    reverseStrOrder(s3);
+    ASSERT_STRING("", s3);
+
+    char s4[] = "";
+    reverseStrOrder(s4);
+    ASSERT_STRING("", s4);
 }

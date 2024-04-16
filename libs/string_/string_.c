@@ -424,5 +424,26 @@ void join2StrInStr(char *result, char *s1, char *s2) {
     *result = '\0';
 }
 
+void reverseStrOrder(char *s) {
+    char destination[MAX_STRING_SIZE];
+
+    BagOfWords bag;
+    getBagOfWords(s, &bag);
+
+    size_t write = 0;
+    for (int i = bag.size - 1; i != -1; i--) {
+        for (char *c = bag.words[i].begin; c != bag.words[i].end; c++) {
+            destination[write] = *c;
+            write++;
+        }
+        if (i != 0) {
+            destination[write] = ' ';
+            write++;
+        }
+    }
+    destination[write++] = '\0';
+    strcopy(destination, destination + write, s);
+}
+
 
 

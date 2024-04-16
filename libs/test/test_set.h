@@ -74,6 +74,7 @@ void testReplaceWordToWord();
 void testOrdered();
 void testPalindrome();
 void testJoinStrings();
+void testReverse();
 
 
 
