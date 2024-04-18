@@ -1,6 +1,7 @@
 
 #include <string_/string_.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 
 size_t strlen_(const char *begin) {
@@ -500,10 +501,37 @@ void wordDescriptorToString(WordDescriptor word, char *destination) {
 
 int isWordInBag(WordDescriptor word, BagOfWords bag) {
     char data[MAX_STRING_SIZE];
-    char data_[MAX_STRING_SIZE];
+    char data_from_str[MAX_STRING_SIZE];
     wordDescriptorToString(word, data);
     for (size_t i = 0; i < bag.size; i++) {
-        wordDescriptorToString(bag.words[i], data_)
+        wordDescriptorToString(bag.words[i], data_from_str);
+        if (strcmp(data, data_from_str) == 0)
+            return 1;
     }
+
+    return 0;
+}
+
+//за возвращаемый тип не сказано, так что пусть будет указатель на отдельное словов
+char *lastWordFromFirstInSecond(char *s1, char *s2) {
+    BagOfWords b1, b2;
+    getBagOfWords(s1, &b1);
+    getBagOfWords(s2, &b2);
+
+    char *res = (char*)malloc(MAX_STRING_SIZE * sizeof(char));
+    for (int i = b1.size - 1; i != -1; i--) {
+        printf("1");
+        for (int j = 0; j < b2.size; j++) {
+            printf("2");
+            if (isWordInBag(b1.words[i], b2)) {
+                printf("3");
+                //так как i идёт с конца, то мы сразу находим такое слово
+                wordDescriptorToString(b1.words[i], res);
+                printf("%s", res);
+                return res;
+            }
+        }
+    }
+    return "";
 }
 

@@ -956,6 +956,7 @@ void test_string() {
     testJoinStrings();
     testReverse();
     testWordsBeforeWordsWithA();
+    testLastWordFromFirstInSecond();
 }
 
 void test_len() {
@@ -1146,4 +1147,14 @@ void testReverse() {
 void testWordsBeforeWordsWithA() {
     char *s1 = "";
     assert(getWordBeforeFirstWordWithA_Status(s1) == EMPTY_STRING);
+    char *s2 = "a student";
+    assert(getWordBeforeFirstWordWithA_Status(s2) == FIRST_WORD_WITH_A);
+    char *s3 = "some ward";
+    assert(getWordBeforeFirstWordWithA_Status(s3) == WORD_FOUND);
+    char *s4 = "non letters";
+    assert(getWordBeforeFirstWordWithA_Status(s4) == NOT_FOUND_A_WORD_WITH_A);
+}
+
+void testLastWordFromFirstInSecond() {
+    ASSERT_STRING("word", lastWordFromFirstInSecond("first second word", "first third second"));
 }

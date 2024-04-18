@@ -108,4 +108,8 @@ void printWordBeforeFirstWithA(char *s);
 
 void wordDescriptorToString(WordDescriptor word, char *destination);
 
+int isWordInBag(WordDescriptor word, BagOfWords bag);
+
+char *lastWordFromFirstInSecond(char *s1, char *s2);
+
 #endif //PROJECT_LIBS_STRING__H
