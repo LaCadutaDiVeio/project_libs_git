@@ -24,6 +24,13 @@ typedef struct BagOfWords {
     size_t size;
 } BagOfWords;
 
+typedef enum WordBeforeFirstWordWithAReturnCode {
+    FIRST_WORD_WITH_A,
+    NOT_FOUND_A_WORD_WITH_A,
+    WORD_FOUND,
+    EMPTY_STRING
+} WordBeforeFirstWordWithAReturnCode;
+
 extern char _stringBuffer[MAX_STRING_SIZE + 1];
 extern BagOfWords _bag;
 extern BagOfWords _bag2;
@@ -92,5 +99,13 @@ size_t getAmountPalindromes(char *s);
 void join2StrInStr(char *result, char *s1, char *s2);
 
 void reverseStrOrder(char *s);
+
+int isWordContainChar(WordDescriptor w, char ch);
+
+WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA_Status(char *s);
+
+void printWordBeforeFirstWithA(char *s);
+
+void wordDescriptorToString(WordDescriptor word, char *destination);
 
 #endif //PROJECT_LIBS_STRING__H

@@ -394,7 +394,7 @@ void join2StrInStr(char *result, char *s1, char *s2) {
     WordDescriptor w1, w2;
     int isW1Found, isW2Found;
     //int iter = 1;
-    while (isW1Found = getWord(s1,&w1), isW2Found = getWord(s2, &w2), isW1Found || isW2Found) {
+    while (isW1Found = getWord(s1, &w1), isW2Found = getWord(s2, &w2), isW1Found || isW2Found) {
         //printf("%d", iter++);
         if (isW1Found) {
             //printf("w1");
@@ -445,5 +445,65 @@ void reverseStrOrder(char *s) {
     strcopy(destination, destination + write, s);
 }
 
+int isWordContainChar(WordDescriptor w, char ch) {
+    for (char *c = w.begin; c != w.end; c++) {
+        if (*c == ch)
+            return 1;
+    }
+    return 0;
+}
 
+WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA_Status(char *s) {
+    if (*s == '\0')
+        return EMPTY_STRING;
+
+    WordDescriptor word, track = {NULL};
+    while (getWord(s, &word)) {
+        if (isWordContainChar(word, 'a') || isWordContainChar(word, 'a')) {
+            if (track.begin == NULL)
+                return FIRST_WORD_WITH_A;
+            else
+                return WORD_FOUND;
+        }
+        track = word;
+        s = word.end;
+    }
+    return NOT_FOUND_A_WORD_WITH_A;
+}
+
+void printWordBeforeFirstWithA(char *s) {
+    if (*s == '\0')
+        return;
+
+    WordDescriptor word, track = {NULL};
+    while (getWord(s, &word)) {
+        if (isWordContainChar(word, 'a') || isWordContainChar(word, 'A')) {
+            if (track.begin == NULL)
+                for (char *c = word.begin; c != word.end; c++)
+                    printf("%c", *c);
+            else
+                for (char *c = track.begin; c != track.end; c++)
+                    printf("%c", *c);
+            printf("\n");
+        }
+        track = word;
+        s = word.end;
+    }
+}
+
+void wordDescriptorToString(WordDescriptor word, char *destination) {
+    for (char *c = word.begin; c != word.end; c++)
+        *destination++ = *c;
+
+    *destination = '\0';
+}
+
+int isWordInBag(WordDescriptor word, BagOfWords bag) {
+    char data[MAX_STRING_SIZE];
+    char data_[MAX_STRING_SIZE];
+    wordDescriptorToString(word, data);
+    for (size_t i = 0; i < bag.size; i++) {
+        wordDescriptorToString(bag.words[i], data_)
+    }
+}
 

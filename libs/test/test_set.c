@@ -955,6 +955,7 @@ void test_string() {
     testPalindrome();
     testJoinStrings();
     testReverse();
+    testWordsBeforeWordsWithA();
 }
 
 void test_len() {
@@ -1140,4 +1141,9 @@ void testReverse() {
     char s4[] = "";
     reverseStrOrder(s4);
     ASSERT_STRING("", s4);
+}
+
+void testWordsBeforeWordsWithA() {
+    char *s1 = "";
+    assert(getWordBeforeFirstWordWithA_Status(s1) == EMPTY_STRING);
 }
