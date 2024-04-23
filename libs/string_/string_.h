@@ -112,4 +112,16 @@ int isWordInBag(WordDescriptor word, BagOfWords bag);
 
 char *lastWordFromFirstInSecond(char *s1, char *s2);
 
+int areSameWordInStr(char *s);
+
+//void sortLettersInWordToABCD(WordDescriptor *w);
+
+//void areTwoSortedWordsEqual(WordDescriptor w1, WordDescriptor w2);
+
+int areWordsHasSimilarAlphSTR(char *s1, char *s2);
+
+int areWordsHasSimilarAlphWORD_DES(WordDescriptor w1, WordDescriptor w2);
+
+int hasWordWithSimilarAlp(char *s);
+
 #endif //PROJECT_LIBS_STRING__H

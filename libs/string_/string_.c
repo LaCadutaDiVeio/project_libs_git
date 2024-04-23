@@ -518,20 +518,115 @@ char *lastWordFromFirstInSecond(char *s1, char *s2) {
     getBagOfWords(s1, &b1);
     getBagOfWords(s2, &b2);
 
-    char *res = (char*)malloc(MAX_STRING_SIZE * sizeof(char));
+    char *res = (char *) malloc(MAX_STRING_SIZE * sizeof(char));
     for (int i = b1.size - 1; i != -1; i--) {
-        printf("1");
         for (int j = 0; j < b2.size; j++) {
-            printf("2");
             if (isWordInBag(b1.words[i], b2)) {
-                printf("3");
                 //так как i идёт с конца, то мы сразу находим такое слово
                 wordDescriptorToString(b1.words[i], res);
-                printf("%s", res);
                 return res;
             }
         }
     }
     return "";
+}
+
+int areSameWordInStr(char *s) {
+    BagOfWords bag;
+    getBagOfWords(s, &bag);
+    for (int i = 0; i < bag.size; i++) {
+        for (int j = i + 1; j < bag.size; j++) {
+            if (areWordsEqual(bag.words[i], bag.words[j]))
+                return 1;
+        }
+    }
+    return 0;
+}
+
+/*void sortLettersInWordToABCD(WordDescriptor *w) {
+    //char *word = (char *) malloc(MAX_STRING_SIZE * sizeof(char));
+    char temp;
+    for (char *c1 = w->begin; c1 != w->end - 1; c1++) {
+        for (char *c2 = (c1 + 1); c2 != w->end; c2++) {
+            if (*c1 > *c2) {
+                temp = *c1;
+                *c1 = *c2;
+                *c2 = temp;
+            }
+        }
+    }
+}
+
+int areWordsWithSimilarLettersInStr(char *s) {
+    BagOfWords bag;
+    getBagOfWords(s, &bag);
+    *//*char ss[] = {};
+    sortLettersInWordToABCD(&bag.words[0]);
+    wordDescriptorToString(bag.words[0], ss);
+    printf("%s", ss);*//*
+
+    for (int i = 0; i < bag.size; i++) {
+        //printf("%d", bag.size);
+        sortLettersInWordToABCD(&bag.words[i]);
+    }
+
+    for (int i = 0; i < bag.size - 1; i++) {
+        for (int j = i + 1; j < bag.size; j++) {
+             if (areWordsEqual(bag.words[i], bag.words[j]))
+                 return 1;
+        }
+    }
+    return 0;
+}*/
+
+int areWordsHasSimilarAlphSTR(char *s1, char *s2) {
+    int alp1[26] = {0};
+    int alp2[26] = {0};
+    for (int i = 0; i < strlen_(s1); i++) {
+        alp1[s1[i] = 'a'] = 1;
+    }
+    for (int i = 0; i < strlen_(s2); i++) {
+        alp2[s2[i] = 'a'] = 1;
+    }
+
+    for (int i = 0; i < 26; i++) {
+        if (alp1[i] != alp2[i])
+            return 0;
+    }
+
+    return 1;
+}
+
+int areWordsHasSimilarAlphWORD_DES(WordDescriptor w1, WordDescriptor w2) {
+    int alp1[26] = {0};
+    int alp2[26] = {0};
+    for (char *c = w1.begin; c != w1.end; c++) {
+        alp1[*c - 'a'] = 1;
+    }
+    for (char *c = w2.begin; c != w2.end; c++) {
+        alp2[*c - 'a'] = 1;
+    }
+
+    for (int i = 0; i < 26; i++) {
+        if (alp1[i] != alp2[i])
+            return 0;
+    }
+
+    return 1;
+}
+
+int hasWordWithSimilarAlp(char *s) {
+    BagOfWords bag;
+    getBagOfWords(s, &bag);
+
+    for (int i = 0; i < bag.size; i++) {
+        for (int j = i + 1; j < bag.size; j++) {
+            if (areWordsHasSimilarAlphWORD_DES(bag.words[i], bag.words[j])) {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
 }
 

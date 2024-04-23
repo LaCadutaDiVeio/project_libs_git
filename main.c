@@ -19,17 +19,13 @@ int main() {
     //testMatrix_2();
     test_string();
 
-    char s[] = "Words for bag";
-    BagOfWords bag;
-    getBagOfWords(s, &bag);
-    char w[] = "for";
-    WordDescriptor word;
-    getWord(w, &word);
-    printf("%d", isWordInBag(word, bag));
-
-    char str[] = "";
-    wordDescriptorToString(word, str);
-    printf("%s", str);
+    /*char s[] = "ACDB";
+    WordDescriptor w;
+    getWord(s, &w);
+    sortLettersInWordToABCD(w);
+    char ss[] = {};
+    wordDescriptorToString(w, ss);
+    printf("%s", ss);*/
 
     return 0;
 }

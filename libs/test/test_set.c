@@ -957,6 +957,8 @@ void test_string() {
     testReverse();
     testWordsBeforeWordsWithA();
     testLastWordFromFirstInSecond();
+    testSameWords();
+    testWordsWithSimilarLetters();
 }
 
 void test_len() {
@@ -1156,5 +1158,21 @@ void testWordsBeforeWordsWithA() {
 }
 
 void testLastWordFromFirstInSecond() {
-    ASSERT_STRING("word", lastWordFromFirstInSecond("first second word", "first third second"));
+    ASSERT_STRING("second", lastWordFromFirstInSecond("first second word", "first third second"));
+    ASSERT_STRING("word", lastWordFromFirstInSecond("first second word", "first third word"));
+    ASSERT_STRING("", lastWordFromFirstInSecond("one two three", "four five six"));
 }
+
+void testSameWords() {
+    assert(areSameWordInStr("word1 word1 word3"));
+    assert(!areSameWordInStr("word1 word2 word3"));
+    assert(!areSameWordInStr(""));
+    assert(!areSameWordInStr("word1"));
+}
+
+void testWordsWithSimilarLetters() {
+    assert(hasWordWithSimilarAlp("Abba abab adn sdfghjk"));
+    assert(!hasWordWithSimilarAlp("abc bcd cde def"));
+    assert(!hasWordWithSimilarAlp(""));
+}
+

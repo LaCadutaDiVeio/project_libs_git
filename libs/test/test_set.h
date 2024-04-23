@@ -77,6 +77,8 @@ void testJoinStrings();
 void testReverse();
 void testWordsBeforeWordsWithA();
 void testLastWordFromFirstInSecond();
+void testSameWords();
+void testWordsWithSimilarLetters();
 
 
 
