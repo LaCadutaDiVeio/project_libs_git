@@ -959,6 +959,8 @@ void test_string() {
     testLastWordFromFirstInSecond();
     testSameWords();
     testWordsWithSimilarLetters();
+    testStringWithoutWordsIdenticToLast();
+    testWordPrecedingFirstCommonWord_Status();
 }
 
 void test_len() {
@@ -1176,3 +1178,30 @@ void testWordsWithSimilarLetters() {
     assert(!hasWordWithSimilarAlp(""));
 }
 
+void testStringWithoutWordsIdenticToLast() {
+    char s1[] = "a b c d a a";
+    getStringWithoutWordsIdenticToLast(s1);
+    ASSERT_STRING("b c d", s1);
+
+    char s2[] = "";
+    getStringWithoutWordsIdenticToLast(s2);
+    ASSERT_STRING("", s2);
+}
+
+void testWordPrecedingFirstCommonWord_Status() {
+    char s1[] = "a b c d";
+    char s2[] = "b c d";
+    char s3[] = "a b c d";
+    char s4[] = "";
+    char s5[] = "e f g";
+    char c[MAX_STRING_SIZE];
+    WordDescriptor w;
+    int stat = WordPrecedingFirstCommonWord_Status(s1, s2, &w);
+
+    wordDescriptorToString(w, c);
+    ASSERT_STRING("a", c);
+    assert(stat == WORD_FOUND_preceding);
+    assert(WordPrecedingFirstCommonWord_Status(s1, s3, NULL) == FIRST_WORD_IS_COMMON_preceding);
+    assert(WordPrecedingFirstCommonWord_Status(s1, s4, NULL) == EMPTY_STRING_preceding);
+    assert(WordPrecedingFirstCommonWord_Status(s1, s5, NULL) == NOT_FOUND_COMMON_WORD_preceding);
+}

@@ -579,6 +579,8 @@ int areWordsWithSimilarLettersInStr(char *s) {
     return 0;
 }*/
 
+
+//решил сделать одинаковую функцию для двух типовых представлений
 int areWordsHasSimilarAlphSTR(char *s1, char *s2) {
     int alp1[26] = {0};
     int alp2[26] = {0};
@@ -628,5 +630,55 @@ int hasWordWithSimilarAlp(char *s) {
     }
 
     return 0;
+}
+
+void getStringWithoutWordsIdenticToLast(char *s) {
+    char buffer[MAX_STRING_SIZE];
+    int len_buf = 0;
+    BagOfWords bag;
+    getBagOfWords(s, &bag);
+
+    if (bag.size == 0)
+        return;
+
+    WordDescriptor last = bag.words[bag.size - 1];
+    for (int i = 0; i < bag.size - 1; i++) {
+        if (!areWordsEqual(bag.words[i], last)) {
+            for (char *c = bag.words[i].begin; c != bag.words[i].end; c++)
+                buffer[len_buf++] = *c;
+
+            buffer[len_buf++] = ' ';
+        }
+    }
+    buffer[len_buf--] = '\0';
+    strcopy(buffer, buffer + len_buf, s);
+}
+
+//напишем функцию, которая сразу и слово найдёт, и статус вернёт
+//___за идею спасибо коллеге SS_Ryzen___
+WordPrecedingFirstCommonWordReturnCode WordPrecedingFirstCommonWord_Status(char *s1, char *s2, WordDescriptor *word) {
+    if (*s1 == '\0' || *s2 == '\0')
+        return EMPTY_STRING_preceding;
+
+    BagOfWords bag1, bag2;
+    getBagOfWords(s1, &bag1);
+    getBagOfWords(s2, &bag2);
+
+    for (int i = 0; i < bag1.size; i++) {
+        for (int j = 0; j < bag2.size; j++) {
+            if (areWordsEqual(bag1.words[i], bag2.words[j])) {
+                if (word != NULL) {
+                    *word = i == 0 ? bag1.words[i] : bag1.words[i - 1];
+                }
+
+                if (i == 0)
+                    return FIRST_WORD_IS_COMMON_preceding;
+                else
+                    return WORD_FOUND_preceding;
+            }
+        }
+    }
+
+    return NOT_FOUND_COMMON_WORD_preceding;
 }
 

@@ -79,6 +79,8 @@ void testWordsBeforeWordsWithA();
 void testLastWordFromFirstInSecond();
 void testSameWords();
 void testWordsWithSimilarLetters();
+void testStringWithoutWordsIdenticToLast();
+void testWordPrecedingFirstCommonWord_Status();
 
 
 

@@ -31,6 +31,13 @@ typedef enum WordBeforeFirstWordWithAReturnCode {
     EMPTY_STRING
 } WordBeforeFirstWordWithAReturnCode;
 
+typedef enum WordPrecedingFirstCommonWordReturnCode {
+    FIRST_WORD_IS_COMMON_preceding,
+    NOT_FOUND_COMMON_WORD_preceding,
+    WORD_FOUND_preceding,
+    EMPTY_STRING_preceding,
+} WordPrecedingFirstCommonWordReturnCode;
+
 extern char _stringBuffer[MAX_STRING_SIZE + 1];
 extern BagOfWords _bag;
 extern BagOfWords _bag2;
@@ -123,5 +130,9 @@ int areWordsHasSimilarAlphSTR(char *s1, char *s2);
 int areWordsHasSimilarAlphWORD_DES(WordDescriptor w1, WordDescriptor w2);
 
 int hasWordWithSimilarAlp(char *s);
+
+void getStringWithoutWordsIdenticToLast(char *s);
+
+WordPrecedingFirstCommonWordReturnCode WordPrecedingFirstCommonWord_Status(char *s1, char *s2, WordDescriptor *word);
 
 #endif //PROJECT_LIBS_STRING__H
