@@ -81,6 +81,7 @@ void testSameWords();
 void testWordsWithSimilarLetters();
 void testStringWithoutWordsIdenticToLast();
 void testWordPrecedingFirstCommonWord_Status();
+void testDeletePalindromes();
 
 
 

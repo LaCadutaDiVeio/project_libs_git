@@ -135,4 +135,6 @@ void getStringWithoutWordsIdenticToLast(char *s);
 
 WordPrecedingFirstCommonWordReturnCode WordPrecedingFirstCommonWord_Status(char *s1, char *s2, WordDescriptor *word);
 
+void deletePalindromesFromStr(char *s);
+
 #endif //PROJECT_LIBS_STRING__H

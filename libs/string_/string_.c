@@ -682,3 +682,20 @@ WordPrecedingFirstCommonWordReturnCode WordPrecedingFirstCommonWord_Status(char 
     return NOT_FOUND_COMMON_WORD_preceding;
 }
 
+void deletePalindromesFromStr(char *s) {
+    char buffer[MAX_STRING_SIZE];
+    int len = 0;
+
+    BagOfWords bag;
+    getBagOfWords(s, &bag);
+    for (int i = 0; i < bag.size; i++) {
+        if (!isWordPalindrome(bag.words[i].begin, bag.words[i].end)) {
+            for (char *c = bag.words[i].begin; c != bag.words[i].end; c++) {
+                buffer[len++] = *c;
+            }
+            buffer[len++] = ' ';
+        }
+    }
+    buffer[len--] = '\0';
+    strcopy(buffer, buffer + len, s);
+}

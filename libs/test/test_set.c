@@ -961,6 +961,7 @@ void test_string() {
     testWordsWithSimilarLetters();
     testStringWithoutWordsIdenticToLast();
     testWordPrecedingFirstCommonWord_Status();
+    testDeletePalindromes();
 }
 
 void test_len() {
@@ -1204,4 +1205,14 @@ void testWordPrecedingFirstCommonWord_Status() {
     assert(WordPrecedingFirstCommonWord_Status(s1, s3, NULL) == FIRST_WORD_IS_COMMON_preceding);
     assert(WordPrecedingFirstCommonWord_Status(s1, s4, NULL) == EMPTY_STRING_preceding);
     assert(WordPrecedingFirstCommonWord_Status(s1, s5, NULL) == NOT_FOUND_COMMON_WORD_preceding);
+}
+
+void testDeletePalindromes() {
+    char s1[] = "word aboba is palindrome";
+    deletePalindromesFromStr(s1);
+    ASSERT_STRING("word is palindrome", s1);
+
+    char s2[] = "no palindromes here";
+    deletePalindromesFromStr(s2);
+    ASSERT_STRING("no palindromes here", s2);
 }
