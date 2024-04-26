@@ -962,6 +962,8 @@ void test_string() {
     testStringWithoutWordsIdenticToLast();
     testWordPrecedingFirstCommonWord_Status();
     testDeletePalindromes();
+    testExpandStr();
+    testIsStringHasWordAlp();
 }
 
 void test_len() {
@@ -1215,4 +1217,20 @@ void testDeletePalindromes() {
     char s2[] = "no palindromes here";
     deletePalindromesFromStr(s2);
     ASSERT_STRING("no palindromes here", s2);
+}
+
+void testExpandStr() {
+    char s1[] = "a b c";
+    char s2[] = "d e f g a";
+
+    expandSmallStrWithBigStr(s1, s2);
+    ASSERT_STRING("a b c g a", s1);
+}
+
+void testIsStringHasWordAlp() {
+    assert(isStringHasAlphabetOfWord("abcde", "abc"));
+    assert(isStringHasAlphabetOfWord("ab cde", "abc"));
+    assert(!isStringHasAlphabetOfWord("abcde", ""));
+    assert(!isStringHasAlphabetOfWord("abcde", "fg"));
+    assert(!isStringHasAlphabetOfWord("ab c de", "fg"));
 }

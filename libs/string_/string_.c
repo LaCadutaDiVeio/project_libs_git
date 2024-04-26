@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 size_t strlen_(const char *begin) {
     char *end = begin;
     while (*end != '\0')
@@ -698,4 +697,62 @@ void deletePalindromesFromStr(char *s) {
     }
     buffer[len--] = '\0';
     strcopy(buffer, buffer + len, s);
+}
+
+void expandSmallStrWithBigStr(char *s1, char *s2) {
+    BagOfWords bag1, bag2;
+    getBagOfWords(s1, &bag1);
+    getBagOfWords(s2, &bag2);
+
+    if (bag1.size > bag2.size) {
+        char *begin = s2 + strlen_(s2);
+        *begin = ' ';
+        begin++;
+        for (int i = bag2.size; i < bag1.size; i++) {
+            for (char *c = bag1.words[i].begin; c != bag1.words[i].end; c++) {
+                *begin++ = *c;
+            }
+            *begin++ = ' ';
+        }
+        *--begin = '\0';
+    } else {
+        char *begin = s1 + strlen_(s1);
+        *begin = ' ';
+        begin++;
+        for (int i = bag1.size; i < bag2.size; i++) {
+            for (char *c = bag2.words[i].begin; c != bag2.words[i].end; c++) {
+                *begin++ = *c;
+            }
+            *begin++ = ' ';
+        }
+        *--begin = '\0';
+    }
+}
+
+//сначала писал для слова типа WordDescriptor, но потом передумал
+int isStringHasAlphabetOfWord(char *s, char *w) {
+    int len_w = strlen_(w);
+    int len_s = strlen_(s);
+
+    if (len_w == 0)
+        return 0;
+
+    int alph_s[26] = {0};
+    for (char *c = s; c < s + len_s; c++)
+        if (!isspace(*c))
+            alph_s[*c - 'a'] = 1;
+
+    int alph_w[26] = {0};
+    for (char *c = w; c < w + len_w; c++)
+        if (!isspace(*c))
+            alph_w[*c - 'a'] = 1;
+
+    int buf[26] = {0};
+    for (int i = 0; i < 26; i++) {
+        buf[i] = alph_s[i] || alph_w[i];
+        if (alph_s[i] != buf[i])
+            return 0;
+    }
+
+    return 1;
 }

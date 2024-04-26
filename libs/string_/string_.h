@@ -137,4 +137,8 @@ WordPrecedingFirstCommonWordReturnCode WordPrecedingFirstCommonWord_Status(char 
 
 void deletePalindromesFromStr(char *s);
 
+void expandSmallStrWithBigStr (char *s1, char *s2);
+
+int isStringHasAlphabetOfWord (char *s, char *w);
+
 #endif //PROJECT_LIBS_STRING__H

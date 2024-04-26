@@ -82,6 +82,8 @@ void testWordsWithSimilarLetters();
 void testStringWithoutWordsIdenticToLast();
 void testWordPrecedingFirstCommonWord_Status();
 void testDeletePalindromes();
+void testExpandStr();
+void testIsStringHasWordAlp();
 
 
 
