@@ -7,6 +7,7 @@
 #include <vectors_void/void_vector.h>
 #include <matrix/matrix.h>
 #include <string_/string_.h>
+#include <files/files.h>
 #include <test/test_set.h>
 
 bitset bitset1;
@@ -128,8 +129,8 @@ unordered_array_set un_set1;
 unordered_array_set un_set2;
 
 void create_unordered_sets_for_tests() {
-    un_set1 = unordered_array_set_create_from_array((int[]) {1, 3, 2, 4}, 4);
-    un_set2 = unordered_array_set_create_from_array((int[]) {3, 4, 5}, 3);
+    un_set1 = unordered_array_set_create_from_array((int[]){1, 3, 2, 4}, 4);
+    un_set2 = unordered_array_set_create_from_array((int[]){3, 4, 5}, 3);
 }
 
 void test_unordered_array_set() {
@@ -168,57 +169,57 @@ void test_unordered_array_set_in() {
 }
 
 void test_unordered_array_set_isSubset() {
-    unordered_array_set subset = unordered_array_set_create_from_array((int[]) {1, 2}, 2);
+    unordered_array_set subset = unordered_array_set_create_from_array((int[]){1, 2}, 2);
     assert(unordered_array_set_isSubset(subset, un_set1));
     assert(!unordered_array_set_isSubset(subset, un_set2));
 }
 
 void test_unordered_array_set_isEqual() {
-    unordered_array_set set = unordered_array_set_create_from_array((int[]) {5, 3, 4}, 3);
+    unordered_array_set set = unordered_array_set_create_from_array((int[]){5, 3, 4}, 3);
     assert(unordered_array_set_isEqual(un_set2, set));
     assert(!unordered_array_set_isEqual(un_set1, set));
 }
 
 void test_unordered_array_set_insert() {
-    unordered_array_set set = unordered_array_set_create_from_array((int[]) {5, 3}, 2);
+    unordered_array_set set = unordered_array_set_create_from_array((int[]){5, 3}, 2);
     set.capacity++;
     unordered_array_set_insert(&set, 4);
     assert(unordered_array_set_isEqual(set, un_set2));
 }
 
 void test_unordered_array_set_deleteElement() {
-    unordered_array_set set = unordered_array_set_create_from_array((int[]) {5, 3, 4, 10}, 4);
+    unordered_array_set set = unordered_array_set_create_from_array((int[]){5, 3, 4, 10}, 4);
     unordered_array_set_deleteElement(&set, 10);
     assert(unordered_array_set_isEqual(set, un_set2));
 }
 
 void test_unordered_array_set_union() {
-    unordered_array_set set1 = unordered_array_set_create_from_array((int[]) {1, 3}, 2);
-    unordered_array_set set2 = unordered_array_set_create_from_array((int[]) {2, 4}, 2);
+    unordered_array_set set1 = unordered_array_set_create_from_array((int[]){1, 3}, 2);
+    unordered_array_set set2 = unordered_array_set_create_from_array((int[]){2, 4}, 2);
 
     unordered_array_set union_set = unordered_array_set_union(set1, set2);
     assert(unordered_array_set_isEqual(un_set1, union_set));
 }
 
 void test_unordered_array_set_intersection() {
-    unordered_array_set set1 = unordered_array_set_create_from_array((int[]) {1, 3, 4, 5}, 4);
-    unordered_array_set set2 = unordered_array_set_create_from_array((int[]) {3, 4, 5, 7}, 4);
+    unordered_array_set set1 = unordered_array_set_create_from_array((int[]){1, 3, 4, 5}, 4);
+    unordered_array_set set2 = unordered_array_set_create_from_array((int[]){3, 4, 5, 7}, 4);
 
     unordered_array_set inter_set = unordered_array_set_intersection(set1, set2);
     assert(unordered_array_set_isEqual(un_set2, inter_set));
 }
 
 void test_unordered_array_set_difference() {
-    unordered_array_set set1 = unordered_array_set_create_from_array((int[]) {1, 3, 4, 5}, 4);
-    unordered_array_set set2 = unordered_array_set_create_from_array((int[]) {1, 2}, 2);
+    unordered_array_set set1 = unordered_array_set_create_from_array((int[]){1, 3, 4, 5}, 4);
+    unordered_array_set set2 = unordered_array_set_create_from_array((int[]){1, 2}, 2);
 
     unordered_array_set diff_set = unordered_array_set_difference(set1, set2);
     assert(unordered_array_set_isEqual(un_set2, diff_set));
 }
 
 void test_unordered_array_set_sym_difference() {
-    unordered_array_set set1 = unordered_array_set_create_from_array((int[]) {1, 4, 5}, 3);
-    unordered_array_set set2 = unordered_array_set_create_from_array((int[]) {3, 2, 5}, 3);
+    unordered_array_set set1 = unordered_array_set_create_from_array((int[]){1, 4, 5}, 3);
+    unordered_array_set set2 = unordered_array_set_create_from_array((int[]){3, 2, 5}, 3);
 
     unordered_array_set sym_diff_set = unordered_array_set_sym_difference(set1, set2);
 
@@ -226,8 +227,8 @@ void test_unordered_array_set_sym_difference() {
 }
 
 void test_unordered_array_set_complement() {
-    unordered_array_set uni = unordered_array_set_create_from_array((int[]) {1, 3, 5, 4, 2}, 5);
-    unordered_array_set comp = unordered_array_set_create_from_array((int[]) {1, 2}, 2);
+    unordered_array_set uni = unordered_array_set_create_from_array((int[]){1, 3, 5, 4, 2}, 5);
+    unordered_array_set comp = unordered_array_set_create_from_array((int[]){1, 2}, 2);
 
     unordered_array_set comp_set = unordered_array_set_complement(un_set2, uni);
 
@@ -241,8 +242,8 @@ ordered_array_set or_set1;
 ordered_array_set or_set2;
 
 void create_ordered_sets_for_tests() {
-    or_set1 = ordered_array_set_create_from_array((int[]) {1, 2, 3, 4}, 4);
-    or_set2 = ordered_array_set_create_from_array((int[]) {3, 4, 5}, 3);
+    or_set1 = ordered_array_set_create_from_array((int[]){1, 2, 3, 4}, 4);
+    or_set2 = ordered_array_set_create_from_array((int[]){3, 4, 5}, 3);
 }
 
 void test_ordered_array_set() {
@@ -281,57 +282,57 @@ void test_ordered_array_set_in() {
 }
 
 void test_ordered_array_set_isSubset() {
-    ordered_array_set subset = ordered_array_set_create_from_array((int[]) {1, 2}, 2);
+    ordered_array_set subset = ordered_array_set_create_from_array((int[]){1, 2}, 2);
     assert(ordered_array_set_isSubset(subset, or_set1));
     assert(!ordered_array_set_isSubset(subset, or_set2));
 }
 
 void test_ordered_array_set_isEqual() {
-    ordered_array_set set = ordered_array_set_create_from_array((int[]) {3, 4, 5}, 3);
+    ordered_array_set set = ordered_array_set_create_from_array((int[]){3, 4, 5}, 3);
     assert(ordered_array_set_isEqual(or_set2, set));
     assert(!ordered_array_set_isEqual(or_set1, set));
 }
 
 void test_ordered_array_set_insert() {
-    ordered_array_set set = ordered_array_set_create_from_array((int[]) {3, 5}, 2);
+    ordered_array_set set = ordered_array_set_create_from_array((int[]){3, 5}, 2);
     set.capacity++;
     ordered_array_set_insert(&set, 4);
     assert(ordered_array_set_isEqual(set, or_set2));
 }
 
 void test_ordered_array_set_deleteElement() {
-    ordered_array_set set = ordered_array_set_create_from_array((int[]) {3, 4, 5, 10}, 4);
+    ordered_array_set set = ordered_array_set_create_from_array((int[]){3, 4, 5, 10}, 4);
     ordered_array_set_deleteElement(&set, 10);
     assert(ordered_array_set_isEqual(set, or_set2));
 }
 
 void test_ordered_array_set_union() {
-    ordered_array_set set1 = ordered_array_set_create_from_array((int[]) {1, 3}, 2);
-    ordered_array_set set2 = ordered_array_set_create_from_array((int[]) {2, 4}, 2);
+    ordered_array_set set1 = ordered_array_set_create_from_array((int[]){1, 3}, 2);
+    ordered_array_set set2 = ordered_array_set_create_from_array((int[]){2, 4}, 2);
 
     ordered_array_set union_set = ordered_array_set_union(set1, set2);
     assert(ordered_array_set_isEqual(or_set1, union_set));
 }
 
 void test_ordered_array_set_intersection() {
-    ordered_array_set set1 = ordered_array_set_create_from_array((int[]) {1, 3, 4, 5}, 4);
-    ordered_array_set set2 = ordered_array_set_create_from_array((int[]) {3, 4, 5, 7}, 4);
+    ordered_array_set set1 = ordered_array_set_create_from_array((int[]){1, 3, 4, 5}, 4);
+    ordered_array_set set2 = ordered_array_set_create_from_array((int[]){3, 4, 5, 7}, 4);
 
     ordered_array_set inter_set = ordered_array_set_intersection(set1, set2);
     assert(ordered_array_set_isEqual(or_set2, inter_set));
 }
 
 void test_ordered_array_set_difference() {
-    ordered_array_set set1 = ordered_array_set_create_from_array((int[]) {1, 3, 4, 5}, 4);
-    ordered_array_set set2 = ordered_array_set_create_from_array((int[]) {1, 2}, 2);
+    ordered_array_set set1 = ordered_array_set_create_from_array((int[]){1, 3, 4, 5}, 4);
+    ordered_array_set set2 = ordered_array_set_create_from_array((int[]){1, 2}, 2);
 
     ordered_array_set diff_set = ordered_array_set_difference(set1, set2);
     assert(ordered_array_set_isEqual(or_set2, diff_set));
 }
 
 void test_ordered_array_set_sym_difference() {
-    ordered_array_set set1 = ordered_array_set_create_from_array((int[]) {1, 4, 5}, 3);
-    ordered_array_set set2 = ordered_array_set_create_from_array((int[]) {2, 3, 5}, 3);
+    ordered_array_set set1 = ordered_array_set_create_from_array((int[]){1, 4, 5}, 3);
+    ordered_array_set set2 = ordered_array_set_create_from_array((int[]){2, 3, 5}, 3);
 
     ordered_array_set sym_diff_set = ordered_array_set_sym_difference(set1, set2);
 
@@ -339,8 +340,8 @@ void test_ordered_array_set_sym_difference() {
 }
 
 void test_ordered_array_set_complement() {
-    ordered_array_set uni = ordered_array_set_create_from_array((int[]) {1, 2, 3, 4, 5}, 5);
-    ordered_array_set comp = ordered_array_set_create_from_array((int[]) {1, 2}, 2);
+    ordered_array_set uni = ordered_array_set_create_from_array((int[]){1, 2, 3, 4, 5}, 5);
+    ordered_array_set comp = ordered_array_set_create_from_array((int[]){1, 2}, 2);
 
     ordered_array_set comp_set = ordered_set_complement(or_set2, uni);
 
@@ -521,30 +522,30 @@ void test_void_vector() {
 
 void testMatrix_1() {
     matrix mat = getMemMatrix(3, 3);
-    assert (mat.values != NULL && mat.nRows == 3 && mat.nCols == 3);
+    assert(mat.values != NULL && mat.nRows == 3 && mat.nCols == 3);
     freeMemMatrix(&mat);
 
     matrix sorted = createMatrixFromArray(
-            (int[]) {
-                    1, 2, 3,
-                    4, 5, 6,
-                    7, 8, 9
-            }, 3, 3
+        (int[]){
+            1, 2, 3,
+            4, 5, 6,
+            7, 8, 9
+        }, 3, 3
     );
 
     matrix uns1 = createMatrixFromArray(
-            (int[]) {
-                    1, 2, 3,
-                    7, 8, 9,
-                    4, 5, 6
-            }, 3, 3
+        (int[]){
+            1, 2, 3,
+            7, 8, 9,
+            4, 5, 6
+        }, 3, 3
     );
     matrix uns2 = createMatrixFromArray(
-            (int[]) {
-                    3, 1, 2,
-                    6, 4, 5,
-                    9, 7, 8
-            }, 3, 3
+        (int[]){
+            3, 1, 2,
+            6, 4, 5,
+            9, 7, 8
+        }, 3, 3
     );
     insertionSortRowsMatrixByRowCriteria(uns1, getSum);
     insertionSortColsMatrixByColCriteria(uns2, getSum);
@@ -554,38 +555,38 @@ void testMatrix_1() {
     freeMemMatrix(&uns2);
 
     mat = createMatrixFromArray(
-            (int[]) {
-                    1, 2,
-                    2, 1
-            }, 2, 2
+        (int[]){
+            1, 2,
+            2, 1
+        }, 2, 2
     );
     assert(isSquareMatrix(&mat));
 
     matrix E = createMatrixFromArray(
-            (int[]) {
-                    1, 0,
-                    0, 1
-            }, 2, 2
+        (int[]){
+            1, 0,
+            0, 1
+        }, 2, 2
     );
     assert(isEMatrix(&E) && !isEMatrix(&mat));
     assert(isSymmetricMatrix(&mat));
     freeMemMatrix(&E);
 
     mat = createMatrixFromArray(
-            (int[]) {
-                    1, 2, 3,
-                    4, 5, 6,
-                    7, 8, 9
-            }, 3, 3
+        (int[]){
+            1, 2, 3,
+            4, 5, 6,
+            7, 8, 9
+        }, 3, 3
     );
     transposeSquareMatrix(&mat);
 
     matrix transpose = createMatrixFromArray(
-            (int[]) {
-                    1, 4, 7,
-                    2, 5, 8,
-                    3, 6, 9
-            }, 3, 3
+        (int[]){
+            1, 4, 7,
+            2, 5, 8,
+            3, 6, 9
+        }, 3, 3
     );
     assert(areTwoMatricesEqual(&mat, &transpose));
 
@@ -593,19 +594,19 @@ void testMatrix_1() {
     freeMemMatrix(&transpose);
 
     mat = createMatrixFromArray(
-            (int[]) {
-                    1, 2, 3,
-                    4, 5, 6,
-            }, 2, 3
+        (int[]){
+            1, 2, 3,
+            4, 5, 6,
+        }, 2, 3
     );
     transposeMatrix(&mat);
 
     transpose = createMatrixFromArray(
-            (int[]) {
-                    1, 4,
-                    2, 5,
-                    3, 6,
-            }, 3, 2
+        (int[]){
+            1, 4,
+            2, 5,
+            3, 6,
+        }, 3, 2
     );
     assert(areTwoMatricesEqual(&mat, &transpose));
     freeMemMatrix(&mat);
@@ -616,18 +617,18 @@ void testMatrix_1() {
 void testMatrix_2() {
     //__1__
     matrix m = createMatrixFromArray(
-            (int[]) {
-                    1, 2, 3,
-                    4, 5, 6,
-                    7, 8, 9
-            }, 3, 3
+        (int[]){
+            1, 2, 3,
+            4, 5, 6,
+            7, 8, 9
+        }, 3, 3
     );
     matrix swapped = createMatrixFromArray(
-            (int[]) {
-                    7, 8, 9,
-                    4, 5, 6,
-                    1, 2, 3
-            }, 3, 3
+        (int[]){
+            7, 8, 9,
+            4, 5, 6,
+            1, 2, 3
+        }, 3, 3
     );
     swapColsWithMinMaxElements(&m);
     assert(areTwoMatricesEqual(&m, &swapped));
@@ -635,18 +636,18 @@ void testMatrix_2() {
     freeMemMatrix(&swapped);
     //__2__
     m = createMatrixFromArray(
-            (int[]) {
-                    7, 1, 2,
-                    1, 8, 1,
-                    3, 2, 3
-            }, 3, 3
+        (int[]){
+            7, 1, 2,
+            1, 8, 1,
+            3, 2, 3
+        }, 3, 3
     );
     swapped = createMatrixFromArray(
-            (int[]) {
-                    3, 2, 3,
-                    7, 1, 2,
-                    1, 8, 1
-            }, 3, 3
+        (int[]){
+            3, 2, 3,
+            7, 1, 2,
+            1, 8, 1
+        }, 3, 3
     );
     sortRowsByMinElement(m);
     assert(areTwoMatricesEqual(&m, &swapped));
@@ -654,18 +655,18 @@ void testMatrix_2() {
     freeMemMatrix(&swapped);
     //__3__
     m = createMatrixFromArray(
-            (int[]) {
-                    3, 5, 2, 4, 3, 3,
-                    2, 5, 1, 8, 2, 7,
-                    6, 1, 4, 4, 8, 3
-            }, 3, 6
+        (int[]){
+            3, 5, 2, 4, 3, 3,
+            2, 5, 1, 8, 2, 7,
+            6, 1, 4, 4, 8, 3
+        }, 3, 6
     );
     swapped = createMatrixFromArray(
-            (int[]) {
-                    5, 2, 3, 3, 3, 4,
-                    5, 1, 2, 2, 7, 8,
-                    1, 4, 6, 8, 3, 4
-            }, 3, 6
+        (int[]){
+            5, 2, 3, 3, 3, 4,
+            5, 1, 2, 2, 7, 8,
+            1, 4, 6, 8, 3, 4
+        }, 3, 6
     );
     sortColsByMinElement(m);
     assert(areTwoMatricesEqual(&m, &swapped));
@@ -674,28 +675,28 @@ void testMatrix_2() {
     freeMemMatrices_(2, &m, &swapped);
     //__4__
     m = createMatrixFromArray(
-            (int[]) {
-                    1, 2,
-                    3, 4
-            }, 2, 2
+        (int[]){
+            1, 2,
+            3, 4
+        }, 2, 2
     );
     matrix m_mul_m = createMatrixFromArray(
-            (int[]) {
-                    7, 10,
-                    15, 22
-            }, 2, 2
+        (int[]){
+            7, 10,
+            15, 22
+        }, 2, 2
     );
     matrix mm = createMatrixFromArray(
-            (int[]) {
-                    1, 2,
-                    2, 1
-            }, 2, 2
+        (int[]){
+            1, 2,
+            2, 1
+        }, 2, 2
     );
     matrix square_if_sym = createMatrixFromArray(
-            (int[]) {
-                    5, 4,
-                    4, 5
-            }, 2, 2
+        (int[]){
+            5, 4,
+            4, 5
+        }, 2, 2
     );
     getSquareOfMatrixIfSymmetric(&mm);
     assert(areTwoMatricesEqual(&square_if_sym, &mm));
@@ -706,228 +707,228 @@ void testMatrix_2() {
     freeMemMatrices_(4, &m, &mm, &m_mul_m, &square_if_sym);
     //__5__
     m = createMatrixFromArray(
-            (int[]) {
-                    2, 4,
-                    2, 3
-            }, 2, 2
+        (int[]){
+            2, 4,
+            2, 3
+        }, 2, 2
     );
     mm = createMatrixFromArray(
-            (int[]) {
-                    2, 2,
-                    4, 3
-            }, 2, 2
+        (int[]){
+            2, 2,
+            4, 3
+        }, 2, 2
     );
     transposeIfMatrixHasNotEqualSumOfRows(&m);
     assert(areTwoMatricesEqual(&m, &mm));
     freeMemMatrices_(2, &m, &mm);
 
     m = createMatrixFromArray(
-            (int[]) {
-                    2, 4,
-                    1, 5
-            }, 2, 2
+        (int[]){
+            2, 4,
+            1, 5
+        }, 2, 2
     );
     mm = createMatrixFromArray(
-            (int[]) {
-                    2, 4,
-                    1, 5
-            }, 2, 2
+        (int[]){
+            2, 4,
+            1, 5
+        }, 2, 2
     );
     transposeIfMatrixHasNotEqualSumOfRows(&m);
     assert(areTwoMatricesEqual(&m, &mm));
     freeMemMatrices_(2, &m, &mm);
     //__6__
     m = createMatrixFromArray(
-            (int[]) {
-                    3, -5,
-                    1, -2
-            }, 2, 2
+        (int[]){
+            3, -5,
+            1, -2
+        }, 2, 2
     );
     mm = createMatrixFromArray(
-            (int[]) {
-                    2, -5,
-                    1, -3
-            }, 2, 2
+        (int[]){
+            2, -5,
+            1, -3
+        }, 2, 2
     );
     matrix mmm = createMatrixFromArray(
-            (int[]) {
-                    2, 1,
-                    1, -3
-            }, 2, 2
+        (int[]){
+            2, 1,
+            1, -3
+        }, 2, 2
     );
     assert(isMutuallyInverseMatrices(m, mm));
     assert(!isMutuallyInverseMatrices(m, mmm));
     freeMemMatrices_(3, &m, &mm, &mmm);
     //__7__
     m = createMatrixFromArray(
-            (int[]) {
-                    3, 2, 5, 4,
-                    1, 3, 6, 3,
-                    3, 2, 1, 2
-            }, 3, 4
+        (int[]){
+            3, 2, 5, 4,
+            1, 3, 6, 3,
+            3, 2, 1, 2
+        }, 3, 4
     );
     assert(20 == findSumOfMaxesOfPseudoDiagonal(m));
     freeMemMatrices_(1, &m);
     //__8__
     m = createMatrixFromArray(
-            (int[]) {
-                    10, 7, 5, 6,
-                    3, 11, 8, 9,
-                    4, 1, 12, 2
-            }, 3, 4
+        (int[]){
+            10, 7, 5, 6,
+            3, 11, 8, 9,
+            4, 1, 12, 2
+        }, 3, 4
     );
     mm = createMatrixFromArray(
-            (int[]) {
-                    6, 8, 9, 2,
-                    7, 12, 3, 4,
-                    10, 11, 5, 1
-            }, 3, 4
+        (int[]){
+            6, 8, 9, 2,
+            7, 12, 3, 4,
+            10, 11, 5, 1
+        }, 3, 4
     );
     assert(getMinInArea(m) == 5);
     assert(getMinInArea(mm) == 6);
     freeMemMatrices_(2, &m, &mm);
     //__9__
     m = createMatrixFromArray(
-            (int[]) {
-                    5, 11,
-                    2, 12,
-                    11, 3,
-                    4, 2
-            }, 4, 2
+        (int[]){
+            5, 11,
+            2, 12,
+            11, 3,
+            4, 2
+        }, 4, 2
     );
     mm = createMatrixFromArray(
-            (int[]) {
-                    4, 2,
-                    11, 3,
-                    5, 11,
-                    2, 12
-            }, 4, 2
+        (int[]){
+            4, 2,
+            11, 3,
+            5, 11,
+            2, 12
+        }, 4, 2
     );
     sortByDistances(&m);
     assert(areTwoMatricesEqual(&m, &mm));
     freeMemMatrices_(2, &m, &mm);
     //__10__
     m = createMatrixFromArray(
-            (int[]) {
-                    7, 1,
-                    2, 7,
-                    5, 4,
-                    4, 3,
-                    1, 6,
-                    8, 0
-            }, 6, 2
+        (int[]){
+            7, 1,
+            2, 7,
+            5, 4,
+            4, 3,
+            1, 6,
+            8, 0
+        }, 6, 2
     );
     assert(countEqClassesByRowsSum(m) == 3);
     freeMemMatrices_(1, &m);
     //__11__
     m = createMatrixFromArray(
-            (int[]) {
-                    3, 5, 5, 4,
-                    2, 3, 6, 7,
-                    12, 2, 1, 1
-            }, 3, 4
+        (int[]){
+            3, 5, 5, 4,
+            2, 3, 6, 7,
+            12, 2, 1, 1
+        }, 3, 4
     );
     assert(getNSpecialElement(m) == 2);
     freeMemMatrices_(1, &m);
     //__12__
     m = createMatrixFromArray(
-            (int[]) {
-                    1, 2, 3,
-                    4, 5, 6,
-                    7, 8, 1
-            }, 3, 3
+        (int[]){
+            1, 2, 3,
+            4, 5, 6,
+            7, 8, 1
+        }, 3, 3
     );
     mm = createMatrixFromArray(
-            (int[]) {
-                    1, 2, 3,
-                    1, 4, 7,
-                    7, 8, 1
-            }, 3, 3
+        (int[]){
+            1, 2, 3,
+            1, 4, 7,
+            7, 8, 1
+        }, 3, 3
     );
     swapPenultimateRow(&m);
     assert(areTwoMatricesEqual(&m, &mm));
     freeMemMatrices_(2, &m, &mm);
     //__13__
     matrix *ms = createArrayOfMatrixFromArray(
-            (int[]) {
-                    7, 1,
-                    1, 1,
-                    1, 6,
-                    2, 2,
-                    5, 4,
-                    2, 3,
-                    1, 3,
-                    7, 9
-            }, 4, 2, 2
+        (int[]){
+            7, 1,
+            1, 1,
+            1, 6,
+            2, 2,
+            5, 4,
+            2, 3,
+            1, 3,
+            7, 9
+        }, 4, 2, 2
     );
     assert(countNonDescendingRowsMatrices(ms, 4) == 2);
     freeMemMatrices(ms, 4);
     //__14__
     ms = createArrayOfMatrixFromArray(
-            (int[]) {
-                    0, 1,
-                    1, 0,
-                    0, 0,
-                    1, 1,
-                    2, 1,
-                    1, 1,
-                    0, 0,
-                    0, 0,
-                    4, 7,
-                    0, 0,
-                    1, 0,
-                    0, 0,
-                    0, 1,
-                    0, 2,
-                    0, 3,
-            },
-            5, 3, 2
+        (int[]){
+            0, 1,
+            1, 0,
+            0, 0,
+            1, 1,
+            2, 1,
+            1, 1,
+            0, 0,
+            0, 0,
+            4, 7,
+            0, 0,
+            1, 0,
+            0, 0,
+            0, 1,
+            0, 2,
+            0, 3,
+        },
+        5, 3, 2
     );
     //printMatrixWithMaxZeroRows(ms, 5);
     freeMemMatrices(ms, 5);
-//    __15__
+    //    __15__
     ms = createArrayOfMatrixFromArray(
-            (int[]) {
-                    1, 4,
-                    5, 7,
-                    2, 4,
-                    6, 9,
-                    5, 5,
-                    9, 1,
-                    1, 1,
-                    1, 1
-            },
-            4, 2, 2
+        (int[]){
+            1, 4,
+            5, 7,
+            2, 4,
+            6, 9,
+            5, 5,
+            9, 1,
+            1, 1,
+            1, 1
+        },
+        4, 2, 2
     );
     //printMatrixWithMinNorm(ms, 4);
     freeMemMatrices(ms, 4);
     //__16__
     m = createMatrixFromArray(
-            (int[]) {
-                    2, 3, 5, 5, 4,
-                    6, 2, 3, 8, 12,
-                    12, 12, 2, 1, 2
-            }, 3, 5
+        (int[]){
+            2, 3, 5, 5, 4,
+            6, 2, 3, 8, 12,
+            12, 12, 2, 1, 2
+        }, 3, 5
     );
     assert(getNSpecialElement2(m) == 4);
     //__17__
     m = createMatrixFromArray(
-            (int[]) {
-                    1, 2, 3,
-                    4, 5, 6,
-                    7, 8, 9
-            }, 3, 3
+        (int[]){
+            1, 2, 3,
+            4, 5, 6,
+            7, 8, 9
+        }, 3, 3
     );
     int b[] = {1, 4, 7};
     assert(getVectorIndexWithMaxAngle(m, b) == 0);
     freeMemMatrices_(1, &m);
     //__18__
     m = createMatrixFromArray(
-            (int[]) {
-                    1, 2, 3,
-                    4, 5, 6,
-                    7, 8, 9
-            }, 3, 3
+        (int[]){
+            1, 2, 3,
+            4, 5, 6,
+            7, 8, 9
+        }, 3, 3
     );
     assert(getSpecialScalarProduct(m, 3) == 102);
     freeMemMatrices_(1, &m);
@@ -1033,7 +1034,7 @@ void test_copyIf() {
 void test_copyIfReverse() {
     char *source = "1a2 3 b";
     char destination[3];
-    char *end = copyIfReverse(source + strlen_(source),source, destination, isalpha);
+    char *end = copyIfReverse(source + strlen_(source), source, destination, isalpha);
     //printf("%s", destination);
     assert(strcmp(destination, "ba") == 0);
 }
@@ -1107,7 +1108,6 @@ void testReplaceWordToWord() {
 }
 
 void testOrdered() {
-
 }
 
 void testPalindrome() {
@@ -1233,4 +1233,28 @@ void testIsStringHasWordAlp() {
     assert(!isStringHasAlphabetOfWord("abcde", ""));
     assert(!isStringHasAlphabetOfWord("abcde", "fg"));
     assert(!isStringHasAlphabetOfWord("ab c de", "fg"));
+}
+
+
+//тесты для 19 лаб.
+void test_files() {
+}
+
+void test_01() {
+    void_vector tests = void_vector_create(2, sizeof(matrix));
+    matrix m1 = createMatrixFromArray((int[])
+                                      {
+                                          1, 2,
+                                          3, 4
+                                      }, 2, 2
+    );
+    matrix m2 = createMatrixFromArray((int[])
+                                      {
+                                          1, 2, 3,
+                                          4, 5, 6
+                                      }, 3, 3
+    );
+    void_vector_pushBack(&tests, &m1);
+    void_vector_pushBack(&tests, &m2);
+    writeMatrixInFile("data_for_tasks/exercise01.txt")
 }

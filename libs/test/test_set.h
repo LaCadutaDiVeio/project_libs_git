@@ -85,6 +85,9 @@ void testDeletePalindromes();
 void testExpandStr();
 void testIsStringHasWordAlp();
 
+//-------------
+void test_files();
+
 
 
 
