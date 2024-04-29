@@ -3,6 +3,7 @@
 #include <matrix/matrix.h>
 #include <vectors_void/void_vector.h>
 #include <malloc.h>
+#include "../test/test_set.h"
 
 
 /*За отличную идею с вводом и выводом через пустые вектора спасибо
@@ -17,10 +18,10 @@ void writeMatrixInFile (const char *f_name, void_vector m) {
     for (int i = 0; i < m.size; i++) {
         matrix mat;
         void_vector_getValueByPos(&m, i, &mat);
-        fprintf(write, "%d\n", mat.nCols);
+        fprintf(write, "%d\n", mat.nRows);
         for (int row = 0; row < mat.nRows; row++) {
             for (int col = 0; col < mat.nCols; col++) {
-                fprintf(write, "%d", mat.values[row][col]);
+                fprintf(write, "%d ", mat.values[row][col]);
             }
             fprintf(write, "\n");
         }

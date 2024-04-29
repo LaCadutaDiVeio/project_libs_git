@@ -1238,6 +1238,7 @@ void testIsStringHasWordAlp() {
 
 //тесты для 19 лаб.
 void test_files() {
+    test_01();
 }
 
 void test_01() {
@@ -1251,10 +1252,32 @@ void test_01() {
     matrix m2 = createMatrixFromArray((int[])
                                       {
                                           1, 2, 3,
-                                          4, 5, 6
+                                          4, 5, 6,
+                                          7, 8, 9
                                       }, 3, 3
     );
     void_vector_pushBack(&tests, &m1);
     void_vector_pushBack(&tests, &m2);
-    writeMatrixInFile("data_for_tasks/exercise01.txt")
+    writeMatrixInFile("data_for_tasks/exercise01.txt", tests);
+
+    void_vector mats = void_vector_create(2, sizeof(matrix));
+    matrix m01 = createMatrixFromArray((int[])
+                                      {
+                                          1, 3,
+                                          2, 4
+                                      }, 2, 2
+    );
+    matrix m02 = createMatrixFromArray((int[])
+                                      {
+                                          1, 4, 7,
+                                          2, 5, 8,
+                                          3, 6, 9
+                                      }, 3, 3
+    );
+    void_vector_pushBack(&mats, &m01);
+    void_vector_pushBack(&mats, &m02);
+    void_vector res = void_vector_create(0, sizeof(matrix));
+    lab_19_exercise1(&res);
+
+
 }

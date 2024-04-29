@@ -17,7 +17,8 @@ int main() {
     //test_void_vector();
     //testMatrix_1();
     //testMatrix_2();
-    test_string();
+    //test_string();
+    test_files();
 
     /*char s[] = "ACDB";
     WordDescriptor w;
