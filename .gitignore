@@ -4,7 +4,7 @@
 cmake-build-debug/
 Отдельные лабораторные/
 Лабораторная работа №19.pdf
-libs\files\data_for_tasks\
+libs/files/data_for_tasks/
 
 # User-specific files
 *.suo
@@ -90,3 +90,4 @@ _ReSharper*/
 # Executables
 *.dll
 *.exe
+
