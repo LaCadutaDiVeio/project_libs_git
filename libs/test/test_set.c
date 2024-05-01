@@ -1239,6 +1239,7 @@ void testIsStringHasWordAlp() {
 //тесты для 19 лаб.
 void test_files() {
     test_01();
+    test_02();
 }
 
 void test_01() {
@@ -1278,6 +1279,22 @@ void test_01() {
     void_vector_pushBack(&mats, &m02);
     void_vector res = void_vector_create(0, sizeof(matrix));
     lab_19_exercise1(&res);
+
+    for (int i = 0; i < mats.size; i++) {
+        matrix a, b;
+        void_vector_getValueByPos(&mats, i, &a);
+        void_vector_getValueByPos(&res, i, &b);
+        assert(areTwoMatricesEqual(&a, &b));
+    }
+}
+
+void test_02() {
+    void_vector tests = void_vector_create(4, sizeof(int));
+    float f_arr[4] = {0.0, 1.0, 1.1113, -3.1322};
+    for (int i = 0; i < 4; i++) {
+        void_vector_pushBack(&tests, &f_arr[i]);
+    }
+    writeFloatInFile("data_for_tasks/exercise02.txt", "%f ", tests);
 
 
 }

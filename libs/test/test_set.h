@@ -88,6 +88,7 @@ void testIsStringHasWordAlp();
 //-------------
 void test_files();
 void test_01();
+void test_02();
 
 
 
