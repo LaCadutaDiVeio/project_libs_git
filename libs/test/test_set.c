@@ -1240,6 +1240,8 @@ void testIsStringHasWordAlp() {
 void test_files() {
     test_01();
     test_02();
+    test_03();
+    test_04();
 }
 
 void test_01() {
@@ -1297,4 +1299,40 @@ void test_02() {
     writeFloatInFile("data_for_tasks/exercise02.txt", "%f ", tests);
 
 
+}
+
+void test_03() {
+    int result;
+
+    writeStrInFile("data_for_tasks/exercise03.txt", "1 + 10");
+    lab_19_exercise3(&result);
+    assert(result == 11);
+    writeStrInFile("data_for_tasks/exercise03.txt", "1 - 10");
+    lab_19_exercise3(&result);
+    assert(result == -9);
+    writeStrInFile("data_for_tasks/exercise03.txt", "2 * 5");
+    lab_19_exercise3(&result);
+    assert(result == 10);
+    writeStrInFile("data_for_tasks/exercise03.txt", "15 / 3");
+    lab_19_exercise3(&result);
+    assert(result == 5);
+}
+
+void test_04() {
+    writeStrInFile("data_for_tasks/exercise04.txt", "word school sort nuts");
+    lab_19_exercise4("or");
+
+    char *test[] = {"word", "sort"};
+    char buffer[100u];
+    void_vector result = void_vector_create(0, sizeof(char *));
+    FILE *file1 = fopen("data_for_tasks/exercise04.txt", "r");
+    while (fscanf(file1, "%s", &buffer) == 1)
+        void_vector_pushBack(&result, buffer);
+
+    for (int i = 0; i < result.size; i++) {
+        void_vector_getValueByPos(&result, i, &buffer);
+        assert(strcmp(test[i], buffer) == 0);
+    }
+
+    fclose(file1);
 }
