@@ -91,7 +91,8 @@ void test_01();
 void test_02();
 void test_03();
 void test_04();
-
+void test_05();
+void test_06();
 
 
 #endif //PROJECT_LIBS_TEST_SET_H

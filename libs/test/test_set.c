@@ -1242,6 +1242,7 @@ void test_files() {
     test_02();
     test_03();
     test_04();
+    test_05();
 }
 
 void test_01() {
@@ -1335,4 +1336,29 @@ void test_04() {
     }
 
     fclose(file1);
+}
+
+void test_05() {
+    FILE *file = fopen("data_for_tasks/exercise05.txt", "w");
+    fprintf(file, "a bbbbb aa\nc\naaa bbb ccc\n\0\n");
+    fclose(file);
+    lab_19_exercise5();
+
+    FILE *read = fopen("data_for_tasks/exercise05.txt", "r");
+    char buffer[100u];
+    char *answer[] = {"bbbbb", "c", "aaa", "\0"};
+    int i = 0;
+    while (fgets(buffer, 100u, read) != NULL) {
+        printf("%s", buffer);
+        assert(strcmp(buffer, answer[i]));
+        i++;
+    }
+}
+
+void test_06() {
+    polynomial poly[3] = {
+            {2, 1},
+            {1, 1},
+            {0, 1},
+    };
 }

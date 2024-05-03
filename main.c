@@ -6,6 +6,7 @@
 #include <vectors_void/void_vector.h>
 #include <matrix/matrix.h>
 #include <string_/string_.h>
+#include <files/files.h>
 #include <test/test_set.h>
 
 
@@ -19,6 +20,7 @@ int main() {
     //testMatrix_2();
     //test_string();
     test_files();
+
 
     /*char s[] = "ACDB";
     WordDescriptor w;

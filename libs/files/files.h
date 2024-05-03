@@ -4,6 +4,11 @@
 #include <matrix/matrix.h>
 #include <vectors_void/void_vector.h>
 
+typedef struct polynomial {
+    int power;
+    int coefficient;
+} polynomial;
+
 void writeMatrixInFile (const char *f_name, void_vector m);
 void lab_19_exercise1(void_vector *matricies);
 void writeFloatInFile(const char *file_name, const char *format, void_vector f);
@@ -15,5 +20,7 @@ int isValidOperator(char c);
 void lab_19_exercise3(int *res);
 int isStrContainCharSequence(char *str, char *sequence);
 void lab_19_exercise4(char *str);
+void lab_19_exercise5();
+void lab_19_exercise6(float x, void_vector *v);
 
 #endif //FILES_H

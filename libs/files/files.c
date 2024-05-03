@@ -4,6 +4,7 @@
 #include <vectors_void/void_vector.h>
 #include <malloc.h>
 #include <string_/string_.h>
+#include <math.h>
 
 
 /*За отличную идею с вводом и выводом через пустые вектора спасибо
@@ -213,5 +214,80 @@ void lab_19_exercise4(char *sequence) {
     fclose(write);
 }
 
+void lab_19_exercise5() {
+    FILE *file = fopen("data_for_tasks/exercise05.txt", "r");
+    if (file == NULL)
+        perror("cant acces file");
 
+    void_vector words = void_vector_create(0, sizeof(char *));
+    char longest_word[MAX_STRING_SIZE];
+    char buffer[MAX_STRING_SIZE];
+
+    int max_len = 0;
+    while (fgets(buffer, 100u, file) != NULL) {
+        int len = 0;
+        char word[MAX_STRING_SIZE];
+
+        for (int i = 0; buffer[i] != '\0' && i < strlen_(buffer); i++) {
+            if (isspace(buffer[i])) {
+                if (len > max_len) {
+                    max_len = len;
+                    word[len] = '\0';
+                    memcpy(&longest_word, &word, sizeof(char) * (len + 1));
+                }
+                len = 0;
+                continue;
+            }
+            word[len] = buffer[i];
+            len++;
+        }
+
+        if (max_len == 0) {
+            memcpy(&longest_word, &buffer, sizeof(char) * MAX_STRING_SIZE);
+        }
+
+        //перед новой строкой обнуляем max;
+        max_len = 0;
+
+        void_vector_pushBack(&words, &longest_word);
+    }
+
+    FILE *write = fopen("data_for_tasks/exercise05.txt", "w");
+    if (write == NULL)
+        perror("cant acces file");
+    char write_buf[MAX_STRING_SIZE];
+    for (int i = 0; i < words.size; i++) {
+        void_vector_getValueByPos(&words, i, &write_buf);
+        fprintf(write, "%s\n", write_buf);
+    }
+
+    fclose(write);
+}
+
+void lab_19_exercise6(float x, void_vector *v) {
+    FILE *file = fopen("data_for_tasks/exercise06.bin", "rb");
+    if (file == NULL)
+        perror("cant acces file");
+
+    polynomial poly;
+    while (fread(&poly, sizeof(polynomial), 1, file) == 1) {
+        int res = poly.coefficient; //коэф. при x^0
+        for (int i = 1; i <= poly.power; i++)
+            res += poly.coefficient * pow(x, i);
+        if (res != 0)
+            void_vector_pushBack(v, &poly);
+    }
+    fclose(file);
+
+    FILE *write = fopen("data_for_tasks/exercise06.bin", "wb");
+    if (write == NULL)
+        perror("cant acces file");
+
+    for (int i = 0; i< v->size; i++) {
+        polynomial p;
+        void_vector_getValueByPos(v, i, &p);
+        fwrite(&p, sizeof(polynomial), 1, write);
+    }
+    fclose(write);
+}
 
