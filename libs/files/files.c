@@ -291,3 +291,38 @@ void lab_19_exercise6(float x, void_vector *v) {
     fclose(write);
 }
 
+void lab_19_exercise7(void_vector *nums) {
+    FILE *file = fopen("data_for_tasks/exercise07.bin", "rb");
+    if (file == NULL)
+        perror("cant acces file");
+
+    void_vector positive = void_vector_create(0, sizeof(int));
+    void_vector negative = void_vector_create(0, sizeof(int));
+    int num;
+    while (fread(&num, sizeof(int), 1, file) == 1) {
+        if (num >= 0)
+            void_vector_pushBack(&positive, &num);
+        else
+            void_vector_pushBack(&negative, &num);
+    }
+
+    fclose(file);
+
+    FILE *write = fopen("data_for_tasks/exercise07.bin", "wb");
+    if (write == NULL)
+        perror("cant acces file");
+
+    for (int i = 0; i < positive.size; i++) {
+        void_vector_getValueByPos(&positive, i, &num);
+        fwrite(&num, sizeof(int), 1, write);
+        void_vector_pushBack(nums, &num);
+    }
+    for (int i = 0; i < negative.size; i++) {
+        void_vector_getValueByPos(&negative, i, &num);
+        fwrite(&num, sizeof(int), 1, write);
+        void_vector_pushBack(nums, &num);
+    }
+
+    fclose(write);
+}
+

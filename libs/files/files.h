@@ -22,5 +22,6 @@ int isStrContainCharSequence(char *str, char *sequence);
 void lab_19_exercise4(char *str);
 void lab_19_exercise5();
 void lab_19_exercise6(float x, void_vector *v);
+void lab_19_exercise7(void_vector *nums);
 
 #endif //FILES_H
