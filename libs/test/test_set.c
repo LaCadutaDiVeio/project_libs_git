@@ -1247,6 +1247,7 @@ void test_files() {
     test_07();
     test_08();
     test_09();
+    test_10();
 }
 
 void test_01() {
@@ -1297,7 +1298,7 @@ void test_01() {
 
 void test_02() {
     void_vector tests = void_vector_create(4, sizeof(int));
-    float f_arr[4] = {0.0, 1.0, 1.1113, -3.1322};
+    float f_arr[4] = {0.0f, 1.0f, 1.1113f, -3.1322f};
     for (int i = 0; i < 4; i++) {
         void_vector_pushBack(&tests, &f_arr[i]);
     }
@@ -1454,4 +1455,43 @@ void test_09() {
         void_vector_getValueByPos(&result, i, &sp);
         assert(sp.result == answer[i].result);
     }
+}
+
+void test_10() {
+    product products[] = {
+            {"missile", 1000, 10000, 10},
+            {"soap", 5, 25, 5},
+            {"meat", 50, 500, 10},
+    };
+    order orders[] = {
+            {"meat", 5},
+            {"missile", 5},
+            {"meat", 5},
+            {"soap", 1},
+            {"soap", 2},
+    };
+
+    FILE *f = fopen("data_for_tasks/exercise10f.bin", "wb");
+    fwrite(products, sizeof(product), 3, f);
+    fclose(f);
+
+    FILE *g = fopen("data_for_tasks/exercise10g.bin", "wb");
+    fwrite(orders, sizeof(order), 5, g);
+    fclose(g);
+
+    void_vector result = void_vector_create(0, sizeof(product));
+    lab_19_exercise10(&result);
+
+    product ans1 = {"missile", 1000, 5000, 5};
+    product ans2 = {"soap", 5, 10, 2};
+    product answer[] = {ans1, ans2};
+
+    for (int i = 0; i < 2; i++) {
+        product pr;
+        void_vector_getValueByPos(&result, i, &pr);
+
+        assert(strcmp(pr.name, answer[i].name) == 0 && pr.price == answer[i].price
+        && pr.full_price == answer[i].full_price && pr.count == answer[i].count);
+    }
+
 }

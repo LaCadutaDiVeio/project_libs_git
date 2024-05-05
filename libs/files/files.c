@@ -75,7 +75,7 @@ void lab_19_exercise2(void_vector *f) {
     while (fscanf(file, "%f", &fl) == 1) {
         void_vector_pushBack(f, &fl);
     }
-    writeFloatInFile("data_for_tasks/exercise02.txt", "%f ", *f);
+    writeFloatInFile("data_for_tasks/exercise02.txt", "%E ", *f);
 
     fclose(file);
 }
@@ -383,5 +383,47 @@ void lab_19_exercise9(int n, void_vector *team) {
         fwrite(&sp, sizeof(sportsman), 1, write);
     }
 
+    fclose(write);
+}
+
+void lab_19_exercise10(void_vector *v) {
+
+    FILE *f = fopen("data_for_tasks/exercise10f.bin", "rb");
+    if (f == NULL)
+        perror("cant acces file");
+    FILE *g = fopen("data_for_tasks/exercise10g.bin", "rb");
+    if (g == NULL)
+        perror("cant acces file");
+
+    void_vector orders = void_vector_create(0, sizeof(order));
+    order ord;
+    while (fread(&ord, sizeof(order), 1, g) == 1) {
+        void_vector_pushBack(&orders, &ord);
+    }
+    fclose(g);
+
+    product pr;
+    while (fread(&pr, sizeof(product), 1, f) == 1) {
+       for (int i = 0; i < orders.size; i++) {
+           void_vector_getValueByPos(&orders, i, &ord);
+           if (strcmp(pr.name, ord.name) == 0) {
+               pr.count -= ord.count;
+               pr.full_price -= pr.price * ord.count;
+           }
+       }
+       if (pr.count > 0)
+           void_vector_pushBack(v, &pr);
+    }
+
+    fclose(f);
+
+    FILE *write = fopen("data_for_tasks/exercise10f.bin", "wb");
+    if (write == NULL)
+        perror("cant acces file");
+
+    for (int i = 0; i < v->size; i++) {
+        void_vector_getValueByPos(v, i, &pr);
+        fwrite(&pr, sizeof(product), 1, write);
+    }
     fclose(write);
 }

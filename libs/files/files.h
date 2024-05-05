@@ -11,8 +11,20 @@ typedef struct polynomial {
 
 typedef struct sportsman {
     char *name;
-    int   result;
+    int result;
 } sportsman;
+
+typedef struct product {
+    char *name;
+    int price;
+    int full_price;
+    int count;
+} product;
+
+typedef struct order {
+    char *name;
+    int count;
+} order;
 
 void writeMatrixInFile (const char *f_name, void_vector m);
 void lab_19_exercise1(void_vector *matricies);
@@ -31,5 +43,6 @@ void lab_19_exercise7(void_vector *nums);
 void lab_19_exercise8(void_vector *matrices);
 void lab_19_exercise9(int n, void_vector *team);
 int compareSportsmans(const void *p1, const void *p2);
+void lab_19_exercise10(void_vector *v);
 
 #endif //FILES_H
