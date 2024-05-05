@@ -5,6 +5,7 @@
 #include <malloc.h>
 #include <string_/string_.h>
 #include <math.h>
+#include <algorithms/algorithms.h>
 
 
 /*За отличную идею с вводом и выводом через пустые вектора спасибо
@@ -194,7 +195,7 @@ void lab_19_exercise4(char *sequence) {
     if (file == NULL)
         perror("cant acces file");
 
-    void_vector words = void_vector_create(0, sizeof(char*));
+    void_vector words = void_vector_create(0, sizeof(char *));
     char read[MAX_STRING_SIZE];
     while (fscanf(file, "%s", &read) == 1) {
         if (isStrContainCharSequence(read, sequence))
@@ -283,7 +284,7 @@ void lab_19_exercise6(float x, void_vector *v) {
     if (write == NULL)
         perror("cant acces file");
 
-    for (int i = 0; i< v->size; i++) {
+    for (int i = 0; i < v->size; i++) {
         polynomial p;
         void_vector_getValueByPos(v, i, &p);
         fwrite(&p, sizeof(polynomial), 1, write);
@@ -326,3 +327,61 @@ void lab_19_exercise7(void_vector *nums) {
     fclose(write);
 }
 
+void lab_19_exercise8(void_vector *matrices) {
+    FILE *file = fopen("data_for_tasks/exercise08.bin", "rb");
+    if (file == NULL)
+        perror("cant acces file");
+
+    matrix m;
+    while (fread(&m, sizeof(matrix), 1, file) == 1) {
+        if (!isSymmetricMatrix(&m))
+            transposeMatrix(&m);
+        void_vector_pushBack(matrices, &m);
+    }
+    fclose(file);
+
+    FILE *write = fopen("data_for_tasks/exercise07.bin", "wb");
+    if (write == NULL)
+        perror("cant acces file");
+
+    for (int i = 0; i < matrices->size; i++) {
+        void_vector_getValueByPos(matrices, i, &m);
+        fwrite(&m, sizeof(matrix), 1, write);
+    }
+    fclose(write);
+}
+
+int compareSportsmans(const void *p1, const void *p2) {
+    sportsman a = *(sportsman *) p1;
+    sportsman b = *(sportsman *) p2;
+
+    return b.result - a.result;
+}
+
+void lab_19_exercise9(int n, void_vector *team) {
+    FILE *file = fopen("data_for_tasks/exercise09.bin", "rb");
+    if (file == NULL)
+        perror("cant acces file");
+
+    void_vector sportsmans = void_vector_create(0, sizeof(sportsman));
+    sportsman sp;
+    while (fread(&sp, sizeof(sportsman), 1, file) == 1) {
+        void_vector_pushBack(&sportsmans, &sp);
+    }
+
+    fclose(file);
+
+    qsort(sportsmans.data, sportsmans.size, sizeof(sportsman), compareSportsmans);
+
+    FILE *write = fopen("data_for_tasks/exercise09.bin", "wb");
+    if (write == NULL)
+        perror("cant acces file");
+
+    for (int i = 0; i < n; i++) {
+        void_vector_getValueByPos(&sportsmans, i, &sp);
+        void_vector_pushBack(team, &sp);
+        fwrite(&sp, sizeof(sportsman), 1, write);
+    }
+
+    fclose(write);
+}

@@ -1243,7 +1243,10 @@ void test_files() {
     test_03();
     test_04();
     test_05();
+    test_06();
     test_07();
+    test_08();
+    test_09();
 }
 
 void test_01() {
@@ -1362,8 +1365,8 @@ void test_06() {
             {0, 1},
     };
 
-    FILE *write = fopen("data_for_tasks/exercise06.bin", "wb+");
-    fwrite(poly, sizeof(polynomial), 4, write);
+    FILE *write = fopen("data_for_tasks/exercise06.bin", "wb");
+    fwrite(poly, sizeof(polynomial), 3, write);
     fclose(write);
 
     void_vector result = void_vector_create(0, sizeof(polynomial));
@@ -1394,5 +1397,61 @@ void test_07() {
         int n;
         void_vector_getValueByPos(&numbers, i, &n);
         assert(n == test[i]);
+    }
+}
+
+void test_08() {
+    int n = 3;
+    int arr[] = {
+            1, 2, 3,
+            2, 1, 2,
+            3, 2, 1,
+            1, 2, 3,
+            4, 5, 6,
+            7, 8, 9,
+    };
+
+    //знаете, а ведь я хотел скипнуть это функцию...
+    matrix *matrices = createArrayOfMatrixFromArray(arr, 2, n, n);
+
+    FILE *file = fopen("data_for_tasks/exercise08.bin", "wb");
+    fwrite(matrices, sizeof(matrix) * 2, 1, file);
+    fclose(file);
+
+    void_vector result = void_vector_create(0, sizeof(matrix));
+    lab_19_exercise8(&result);
+
+    matrix answer1 = createMatrixFromArray((int[]){1,2,3,2,1,2,3,2,1},3,3);
+    matrix answer2 = createMatrixFromArray((int[]){1,4,7,2,5,8,3,6,9},3,3);
+    matrix answer[2] = {answer1, answer2};
+    for (int i = 0; i < 2; i++) {
+        matrix m;
+        void_vector_getValueByPos(&result, i, &m);
+        assert(areTwoMatricesEqual(&m, &answer[i]));
+    }
+}
+
+void test_09() {
+    sportsman sportsmans[] = {
+            {"Zmishenko I. I.", 50},
+            {"GITler A. A.", 25},
+            {"Sawwin B. B.", 100},
+            {"Pochitailo V. V.", 100},
+    };
+    FILE *file = fopen("data_for_tasks/exercise09.bin", "wb");
+    fwrite(sportsmans, sizeof(sportsman), 4, file);
+    fclose(file);
+
+    void_vector result = void_vector_create(2, sizeof(sportsman));
+    lab_19_exercise9(2, &result);
+
+    sportsman ans1 = {"Sawwin B. B.", 100};
+    sportsman ans2 = {"Pochitailo V. V.", 100};
+    sportsman answer[2] = {ans1, ans2};
+
+    for (int i = 0; i < 2; i++) {
+        sportsman sp;
+        void_vector_getValueByPos(&result, i, &sp);
+        assert(sp.result == answer[i].result);
     }
 }

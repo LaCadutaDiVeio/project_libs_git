@@ -33,4 +33,6 @@ int compareMin(int a, int req);
 
 int getMinElementIndexInArray(int *const array, const size_t size);
 
+void insertionSortDecreasing(int *arr, int size);
+
 #endif //PROJECT_LIBS_ALGPRITHMS_H

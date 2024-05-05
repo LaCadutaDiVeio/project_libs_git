@@ -9,6 +9,11 @@ typedef struct polynomial {
     int coefficient;
 } polynomial;
 
+typedef struct sportsman {
+    char *name;
+    int   result;
+} sportsman;
+
 void writeMatrixInFile (const char *f_name, void_vector m);
 void lab_19_exercise1(void_vector *matricies);
 void writeFloatInFile(const char *file_name, const char *format, void_vector f);
@@ -23,5 +28,8 @@ void lab_19_exercise4(char *str);
 void lab_19_exercise5();
 void lab_19_exercise6(float x, void_vector *v);
 void lab_19_exercise7(void_vector *nums);
+void lab_19_exercise8(void_vector *matrices);
+void lab_19_exercise9(int n, void_vector *team);
+int compareSportsmans(const void *p1, const void *p2);
 
 #endif //FILES_H

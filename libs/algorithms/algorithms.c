@@ -101,3 +101,17 @@ int compareMin(int a, int req) {
 int getMinElementIndexInArray(int *const array, const size_t size) {
     return getElementIndexInArrayIf_(array, size, compareMin);
 }
+
+void insertionSortDecreasing(int *arr, int size) {
+    int temp;
+    for (int i = 1; i < size; i++) {
+        temp = arr[i];
+        int j = i;
+
+        while (j > 0 && arr[j - 1] < temp) {
+            arr[j] = arr[j - 1];
+            j--;
+        }
+        arr[j] = temp;
+    }
+}

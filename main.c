@@ -21,14 +21,5 @@ int main() {
     //test_string();
     test_files();
 
-
-    /*char s[] = "ACDB";
-    WordDescriptor w;
-    getWord(s, &w);
-    sortLettersInWordToABCD(w);
-    char ss[] = {};
-    wordDescriptorToString(w, ss);
-    printf("%s", ss);*/
-
     return 0;
 }
