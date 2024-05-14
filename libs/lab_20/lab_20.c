@@ -197,7 +197,7 @@ int countPointsFromNeighbours(matrix *m,/*передача клетки:*/ int r
     int bot = min_(m->nRows - 1, row + 1);
     int left = max_(0, col - 1);
     int right = min_(m->nCols - 1, col + 1);
-    //с учётом угловых ик крайних клеток
+    //с учётом угловых и крайних клеток
 
     int count_p_neighbours = 0;
     for (int i = top; i <= bot; i++) {
@@ -221,6 +221,50 @@ void lab_20_task_02(matrix *m, matrix *m_res) {
             } else {
                 if (points != 3)
                     m_res->values[i][j] = 0;
+            }
+        }
+    }
+}
+
+void getPointsFromNeighbours(matrix *m, int row, int col, void_vector *neighbours) {
+    int top = max_(0, row - 1);
+    int bot = min_(m->nRows - 1, row + 1);
+    int left = max_(0, col - 1);
+    int right = min_(m->nCols - 1, col + 1);
+    //с учётом угловых и крайних клеток
+
+    for (int i = top; i <= bot; i++) {
+        for (int j = left; j <= right; j++) {
+            if (!(col == j && row == i))
+                void_vector_pushBack(neighbours, &m->values[i][j]);
+        }
+    }
+}
+
+/*честно, я до сих пор не до конца понимаю, как работает вся эта
+ерунда с указателями, пример compare для qsort был в методичке, а
+значит мне не стыдно :)*/
+int compareNeighbourPoints(const void *pa, const void *pb) {
+    int a = *(const int *) pa;
+    int b = *(const int *) pb;
+
+    return a - b;
+}
+
+void lab_20_task_03 (matrix *m, matrix *m_res) {
+    for (int i = 0; i < m->nRows; i++) {
+        for (int j = 0; j < m->nCols; j++) {
+            //пропуск краевых
+            if (i == 0 || i == m->nRows - 1 || j == 0 || j == m->nCols - 1)
+                m_res->values[i][j] = m->values[i][j];
+            else {
+                void_vector neighbors = void_vector_create(0, sizeof(int));
+                getPointsFromNeighbours(m, i, j, &neighbors);
+                qsort(neighbors.data, neighbors.size, neighbors.size_of_type, compareNeighbourPoints);
+
+                int middle;
+                void_vector_getValueByPos(&neighbors, neighbors.size / 2, &middle);
+                m_res->values[i][j] = middle;
             }
         }
     }

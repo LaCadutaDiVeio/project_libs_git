@@ -6,6 +6,7 @@
 #include <string.h>
 #include <string_/string_.h>
 #include <matrix/matrix.h>
+#include <vectors_void/void_vector.h>
 
 #define ALPHABET_SIZE 26
 
@@ -28,5 +29,8 @@ int lab_20_task_11_FORTESTS(char *words, char *requests, char **testRequests);
 void lab_20_task_01(matrix *m, int queries[][4], int size_q);
 int countPointsFromNeighbours(matrix *m,/*передача клетки:*/ int row, int col);
 void lab_20_task_02(matrix *m, matrix *m_res);
+void getPointsFromNeighbours(matrix *m, int row, int col, void_vector *neighbours);
+int compareNeighbourPoints(const void *pa, const void *pb);
+void lab_20_task_03 (matrix *m, matrix *m_res);
 
 #endif //PROJECT_LIBS_LAB_20_H
