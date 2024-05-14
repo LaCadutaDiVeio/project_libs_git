@@ -190,3 +190,38 @@ void lab_20_task_01(matrix *m, int queries[][4], int size_q) {
         }
     }
 }
+
+//по сути задача сводится просто к подсчёты очков соседей:
+int countPointsFromNeighbours(matrix *m,/*передача клетки:*/ int row, int col) {
+    int top = max_(0, row - 1);
+    int bot = min_(m->nRows - 1, row + 1);
+    int left = max_(0, col - 1);
+    int right = min_(m->nCols - 1, col + 1);
+    //с учётом угловых ик крайних клеток
+
+    int count_p_neighbours = 0;
+    for (int i = top; i <= bot; i++) {
+        for (int j = left; j <= right; j++) {
+            if (!(col == j && row == i) && m->values[i][j])
+                count_p_neighbours++;
+        }
+    }
+    return count_p_neighbours;
+}
+
+void lab_20_task_02(matrix *m, matrix *m_res) {
+    for (int i = 0; i < m->nRows; i++) {
+        for (int j = 0; j < m->nCols; j++) {
+            int points = countPointsFromNeighbours(m, i, j);
+
+            m_res->values[i][j] = 1;
+            if (m->values[i][j] == 1) {
+                if (points < 2 || points > 3)
+                    m_res->values[i][j] = 0;
+            } else {
+                if (points != 3)
+                    m_res->values[i][j] = 0;
+            }
+        }
+    }
+}

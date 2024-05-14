@@ -1501,6 +1501,7 @@ void test_10() {
 void test_lab20() {
     test_lab20_11();
     test_lab20_01();
+    test_lab20_02();
 }
 
 void test_lab20_11() {
@@ -1560,4 +1561,24 @@ void test_lab20_01() {
                                          }, 5, 5
     );
     assert(areTwoMatricesEqual(&m2, &test2));
+}
+
+void test_lab20_02() {
+    matrix m1 = createMatrixFromArray((int[]) {
+        0,1,0,
+        0,0,1,
+        1,1,1,
+        0,0,0
+    }, 4, 3
+    );
+    matrix mm1 = getMemMatrix(4 ,3);
+    lab_20_task_02(&m1, &mm1);
+    matrix test1 = createMatrixFromArray((int[]) {
+                                              0,0,0,
+                                              1,0,1,
+                                              0,1,1,
+                                              0,1,0
+                                      }, 4, 3
+    );
+    assert(areTwoMatricesEqual(&mm1, &test1));
 }

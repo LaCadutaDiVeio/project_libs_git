@@ -26,5 +26,7 @@ int lab_20_task_11();
 int lab_20_task_11_FORTESTS(char *words, char *requests, char **testRequests);
 
 void lab_20_task_01(matrix *m, int queries[][4], int size_q);
+int countPointsFromNeighbours(matrix *m,/*передача клетки:*/ int row, int col);
+void lab_20_task_02(matrix *m, matrix *m_res);
 
 #endif //PROJECT_LIBS_LAB_20_H
