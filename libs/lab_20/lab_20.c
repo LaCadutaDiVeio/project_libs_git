@@ -1,4 +1,5 @@
 #include <lab_20/lab_20.h>
+#include <matrix/matrix.h>
 
 //создание новоой ветки дерева
 trie_node *getNode() {
@@ -36,7 +37,8 @@ int isNodeIsWord(trie_node *node) {
     return node->is_end_of_word;
 }
 
-char BAD_RESULT[] = {'-','1','\0'};
+char BAD_RESULT[] = {'-', '1', '\0'};
+
 //найти слово в словаре
 char *findWordInTrie(trie_node *root, const char *prefix, int number) {
     //prefix - последовательность по котороу будет поиск
@@ -141,39 +143,50 @@ int lab_20_task_11() {
     return 0;
 }
 
-int lab_20_task_11_FORTESTS( char *words, char *requests, char **testRequests ) {
-    trie_node *root = getNode( );
+int lab_20_task_11_FORTESTS(char *words, char *requests, char **testRequests) {
+    trie_node *root = getNode();
 
-    char *word = strtok( words, " " );
-    while ( word != NULL ) {
-        insertWordInTrie( root, word );
+    char *word = strtok(words, " ");
+    while (word != NULL) {
+        insertWordInTrie(root, word);
         //printf( "%s ", word );
-        word = strtok( NULL, " " );//классная штука, не знал о такой
+        word = strtok(NULL, " ");//классная штука, не знал о такой
     }
 
-    char *request = strtok( requests, " " );
+    char *request = strtok(requests, " ");
     int request_index = 0;
-    while ( request != NULL ) {
-        int k = atoi( request );
-        request = strtok( NULL, " " );
-        if ( request == NULL )
+    while (request != NULL) {
+        int k = atoi(request);
+        request = strtok(NULL, " ");
+        if (request == NULL)
             break;
         char *prefix = request;
         //printf( "%d %s ", k, prefix );
-        request = strtok( NULL, " " );
+        request = strtok(NULL, " ");
 
-        char *result = findWordInTrie( root, prefix, k );
+        char *result = findWordInTrie(root, prefix, k);
         //printf( "%s", result );
-        if ( strcmp( result, testRequests[ request_index ] ) != 0 ) {
+        if (strcmp(result, testRequests[request_index]) != 0) {
             //    free( result );
-            freeTrie( root );
+            freeTrie(root);
             return 0;
         }
 
         //  free( result );
         request_index++;
     }
-    freeTrie( root );
+    freeTrie(root);
 
     return 1;
+}
+
+void lab_20_task_01(matrix *m, int queries[][4], int size_q) {
+    for (int i = 0; i < size_q; i++) {
+        int *q = queries[i];
+        for (int row = q[0]; row <= q[2]; row++) {
+            for (int col = q[1]; col <= q[3]; col++) {
+                m->values[row][col] += 1;
+            }
+        }
+    }
 }

@@ -1500,6 +1500,7 @@ void test_10() {
 
 void test_lab20() {
     test_lab20_11();
+    test_lab20_01();
 }
 
 void test_lab20_11() {
@@ -1524,4 +1525,39 @@ void test_lab20_11() {
     } else {
         printf("\nassertion failed");
     }
+}
+
+void test_lab20_01() {
+    int n1 = 3;
+    matrix m1 = getMemMatrix(n1, n1);
+    int queries1[][4] = {
+            {1,1,2,2},
+            {0,0,1,1},
+    };
+    lab_20_task_01(&m1, queries1, 2);
+
+    matrix test1 = createMatrixFromArray((int[]) {
+        1,1,0,
+        1,2,1,
+        0,1,1
+    }, 3, 3
+            );
+    assert(areTwoMatricesEqual(&m1, &test1));
+
+    int n2 = 5;
+    matrix m2 = getMemMatrix(n2, n2);
+    int queries2[][4] = {
+            {0,0,4,4},
+            {2,2,2,2},
+    };
+    lab_20_task_01(&m2, queries2, 2);
+    matrix test2 = createMatrixFromArray((int[]) {
+                                                 1,1,1,1,1,
+                                                 1,1,1,1,1,
+                                                 1,1,2,1,1,
+                                                 1,1,1,1,1,
+                                                 1,1,1,1,1,
+                                         }, 5, 5
+    );
+    assert(areTwoMatricesEqual(&m2, &test2));
 }

@@ -15,8 +15,12 @@ matrix getMemMatrix(int nRows, int nCols) {
     int **values = (int **) malloc(sizeof(int *) * nRows);
     for (int i = 0; i < nRows; i++)
         values[i] = (int *) malloc(sizeof(int) * nCols);
-    return (matrix) {values, nRows, nCols};
 
+    for (int i = 0; i < nRows; i++)
+        for (int j = 0; j < nCols; j++)
+            values[i][j] = 0;
+
+            return (matrix) {values, nRows, nCols};
 }
 
 matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols) {
