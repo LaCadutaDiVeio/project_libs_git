@@ -8,6 +8,7 @@
 #include <matrix/matrix.h>
 #include <string_/string_.h>
 #include <files/files.h>
+#include <lab_20/lab_20.h>
 #include <test/test_set.h>
 
 bitset bitset1;
@@ -1303,8 +1304,6 @@ void test_02() {
         void_vector_pushBack(&tests, &f_arr[i]);
     }
     writeFloatInFile("data_for_tasks/exercise02.txt", "%f ", tests);
-
-
 }
 
 void test_03() {
@@ -1422,8 +1421,8 @@ void test_08() {
     void_vector result = void_vector_create(0, sizeof(matrix));
     lab_19_exercise8(&result);
 
-    matrix answer1 = createMatrixFromArray((int[]){1,2,3,2,1,2,3,2,1},3,3);
-    matrix answer2 = createMatrixFromArray((int[]){1,4,7,2,5,8,3,6,9},3,3);
+    matrix answer1 = createMatrixFromArray((int[]) {1, 2, 3, 2, 1, 2, 3, 2, 1}, 3, 3);
+    matrix answer2 = createMatrixFromArray((int[]) {1, 4, 7, 2, 5, 8, 3, 6, 9}, 3, 3);
     matrix answer[2] = {answer1, answer2};
     for (int i = 0; i < 2; i++) {
         matrix m;
@@ -1434,9 +1433,9 @@ void test_08() {
 
 void test_09() {
     sportsman sportsmans[] = {
-            {"Zmishenko I. I.", 50},
-            {"GITler A. A.", 25},
-            {"Sawwin B. B.", 100},
+            {"Zmishenko I. I.",  50},
+            {"GITler A. A.",     25},
+            {"Sawwin B. B.",     100},
             {"Pochitailo V. V.", 100},
     };
     FILE *file = fopen("data_for_tasks/exercise09.bin", "wb");
@@ -1460,15 +1459,15 @@ void test_09() {
 void test_10() {
     product products[] = {
             {"missile", 1000, 10000, 10},
-            {"soap", 5, 25, 5},
-            {"meat", 50, 500, 10},
+            {"soap",    5,    25,    5},
+            {"meat",    50,   500,   10},
     };
     order orders[] = {
-            {"meat", 5},
+            {"meat",    5},
             {"missile", 5},
-            {"meat", 5},
-            {"soap", 1},
-            {"soap", 2},
+            {"meat",    5},
+            {"soap",    1},
+            {"soap",    2},
     };
 
     FILE *f = fopen("data_for_tasks/exercise10f.bin", "wb");
@@ -1491,7 +1490,38 @@ void test_10() {
         void_vector_getValueByPos(&result, i, &pr);
 
         assert(strcmp(pr.name, answer[i].name) == 0 && pr.price == answer[i].price
-        && pr.full_price == answer[i].full_price && pr.count == answer[i].count);
+               && pr.full_price == answer[i].full_price && pr.count == answer[i].count);
     }
 
+}
+
+
+//Для лабораторной 20
+
+void test_lab20() {
+    test_lab20_11();
+}
+
+void test_lab20_11() {
+    char words[] = "aa aaa aab ab abc ac ba daa dab dadba";
+    char requests[] = "4 a 2 da 4 da";
+    char *test_requests[] = {"ab", "dab", "-1"};
+
+    int res = lab_20_task_11_FORTESTS(words, requests, test_requests);
+    if (res) {
+        //printf( "\nassertion passed" );
+    } else {
+        printf("\nassertion failed");
+    }
+
+    char words1[] = "aa aaaa";
+    char requests1[] = "1 a 2 a 1 aa 2 aa";
+    char *test_requests1[] = {"aa", "aaaa", "aa", "aaaa"};
+
+    int res1 = lab_20_task_11_FORTESTS(words1, requests1, test_requests1);
+    if (res1) {
+        //printf( "\nassertion passed" );
+    } else {
+        printf("\nassertion failed");
+    }
 }

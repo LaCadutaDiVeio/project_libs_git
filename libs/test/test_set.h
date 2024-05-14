@@ -98,4 +98,8 @@ void test_08();
 void test_09();
 void test_10();
 
+//--------------
+void test_lab20();
+void test_lab20_11();
+
 #endif //PROJECT_LIBS_TEST_SET_H

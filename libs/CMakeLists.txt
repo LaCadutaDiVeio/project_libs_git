@@ -11,6 +11,8 @@ file (GLOB_RECURSE src_files_vectors_void ${CMAKE_CURRENT_LIST_DIR}/vectors_void
 file (GLOB_RECURSE src_files_matrix ${CMAKE_CURRENT_LIST_DIR}/matrix/*.[ch])
 file (GLOB_RECURSE src_files_string ${CMAKE_CURRENT_LIST_DIR}/string_/*.[ch])
 file (GLOB_RECURSE src_files_files ${CMAKE_CURRENT_LIST_DIR}/files/*.[ch])
+file (GLOB_RECURSE src_files_lab_20 ${CMAKE_CURRENT_LIST_DIR}/lab_20/*.[ch])
+
 
 
 
@@ -28,4 +30,5 @@ set (src_libs
         ${src_files_string}
         ${src_files_test_set}
         ${src_files_files}
+        ${src_files_lab_20}
 )
