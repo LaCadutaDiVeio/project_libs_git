@@ -1,5 +1,6 @@
 #include <lab_20/lab_20.h>
 #include <matrix/matrix.h>
+#include <array/array.h>
 
 //создание новоой ветки дерева
 trie_node *getNode() {
@@ -226,12 +227,17 @@ void lab_20_task_02(matrix *m, matrix *m_res) {
     }
 }
 
-void getPointsFromNeighbours(matrix *m, int row, int col, void_vector *neighbours) {
-    int top = max_(0, row - 1);
-    int bot = min_(m->nRows - 1, row + 1);
-    int left = max_(0, col - 1);
-    int right = min_(m->nCols - 1, col + 1);
-    //с учётом угловых и крайних клеток
+void getPointsFromNeighbours(matrix *m, int row, int col, void_vector *neighbours, int filter) {
+    /*int top = max_(0, row - filter/2);
+    int bot = min_(m->nRows - filter/2 + 1, row + filter/2);
+    int left = max_(0, col - filter/2);
+    int right = min_(m->nCols - filter/2 + 1, col + filter/2);*/
+
+    int half_filter = filter / 2;
+    int top = max_(0, row - half_filter);
+    int bot = min_(m->nRows - 1, row + half_filter);
+    int left = max_(0, col - half_filter);
+    int right = min_(m->nCols - 1, col + half_filter);
 
     for (int i = top; i <= bot; i++) {
         for (int j = left; j <= right; j++) {
@@ -251,15 +257,15 @@ int compareNeighbourPoints(const void *pa, const void *pb) {
     return a - b;
 }
 
-void lab_20_task_03 (matrix *m, matrix *m_res) {
+void lab_20_task_03 (matrix *m, matrix *m_res, int filter) {
     for (int i = 0; i < m->nRows; i++) {
         for (int j = 0; j < m->nCols; j++) {
             //пропуск краевых
-            if (i == 0 || i == m->nRows - 1 || j == 0 || j == m->nCols - 1)
+            if (i < filter/2 || i >= m->nRows - filter/2 || j < filter/2 || j >= m->nCols - filter/2) {
                 m_res->values[i][j] = m->values[i][j];
-            else {
+            } else {
                 void_vector neighbors = void_vector_create(0, sizeof(int));
-                getPointsFromNeighbours(m, i, j, &neighbors);
+                getPointsFromNeighbours(m, i, j, &neighbors, filter);
                 qsort(neighbors.data, neighbors.size, neighbors.size_of_type, compareNeighbourPoints);
 
                 int middle;

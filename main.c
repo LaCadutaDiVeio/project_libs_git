@@ -26,7 +26,18 @@ int main() {
     //test_files();
     test_lab20();
 
-    //lab_20_task_11();
+    /*matrix m3 = createMatrixFromArray((int[]) {
+                                              1,2,3,1,1,
+                                              4,10,5,1,1,
+                                              6,7,8,7,6,
+                                              1,1,5,10,4,
+                                              1,1,1,2,3
+                                      }, 5, 5
+    );
+    void_vector v = void_vector_create(0, sizeof(int));
+    getPointsFromNeighbours(&m3, 3, 3, &v, 3);
+    printf("%d ", m3.values[3][3]);
+    outputArray_(v.data, v.size);*/
 
 
     /*trie_node *root = getNode();

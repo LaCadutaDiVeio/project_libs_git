@@ -20,7 +20,7 @@ matrix getMemMatrix(int nRows, int nCols) {
         for (int j = 0; j < nCols; j++)
             values[i][j] = 0;
 
-            return (matrix) {values, nRows, nCols};
+    return (matrix) {values, nRows, nCols};
 }
 
 matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols) {

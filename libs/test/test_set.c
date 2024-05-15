@@ -1533,32 +1533,32 @@ void test_lab20_01() {
     int n1 = 3;
     matrix m1 = getMemMatrix(n1, n1);
     int queries1[][4] = {
-            {1,1,2,2},
-            {0,0,1,1},
+            {1, 1, 2, 2},
+            {0, 0, 1, 1},
     };
     lab_20_task_01(&m1, queries1, 2);
 
     matrix test1 = createMatrixFromArray((int[]) {
-        1,1,0,
-        1,2,1,
-        0,1,1
-    }, 3, 3
-            );
+                                                 1, 1, 0,
+                                                 1, 2, 1,
+                                                 0, 1, 1
+                                         }, 3, 3
+    );
     assert(areTwoMatricesEqual(&m1, &test1));
 
     int n2 = 5;
     matrix m2 = getMemMatrix(n2, n2);
     int queries2[][4] = {
-            {0,0,4,4},
-            {2,2,2,2},
+            {0, 0, 4, 4},
+            {2, 2, 2, 2},
     };
     lab_20_task_01(&m2, queries2, 2);
     matrix test2 = createMatrixFromArray((int[]) {
-                                                 1,1,1,1,1,
-                                                 1,1,1,1,1,
-                                                 1,1,2,1,1,
-                                                 1,1,1,1,1,
-                                                 1,1,1,1,1,
+                                                 1, 1, 1, 1, 1,
+                                                 1, 1, 1, 1, 1,
+                                                 1, 1, 2, 1, 1,
+                                                 1, 1, 1, 1, 1,
+                                                 1, 1, 1, 1, 1,
                                          }, 5, 5
     );
     assert(areTwoMatricesEqual(&m2, &test2));
@@ -1566,20 +1566,20 @@ void test_lab20_01() {
 
 void test_lab20_02() {
     matrix m1 = createMatrixFromArray((int[]) {
-        0,1,0,
-        0,0,1,
-        1,1,1,
-        0,0,0
-    }, 4, 3
+                                              0, 1, 0,
+                                              0, 0, 1,
+                                              1, 1, 1,
+                                              0, 0, 0
+                                      }, 4, 3
     );
-    matrix mm1 = getMemMatrix(4 ,3);
+    matrix mm1 = getMemMatrix(4, 3);
     lab_20_task_02(&m1, &mm1);
     matrix test1 = createMatrixFromArray((int[]) {
-                                              0,0,0,
-                                              1,0,1,
-                                              0,1,1,
-                                              0,1,0
-                                      }, 4, 3
+                                                 0, 0, 0,
+                                                 1, 0, 1,
+                                                 0, 1, 1,
+                                                 0, 1, 0
+                                         }, 4, 3
     );
     assert(areTwoMatricesEqual(&mm1, &test1));
 }
@@ -1587,18 +1587,62 @@ void test_lab20_02() {
 void test_lab_20_03() {
     int filter = 3;
     matrix m1 = createMatrixFromArray((int[]) {
-        10,20,30,
-        25,35,45,
-        15,25,35
-    }, 3, 3
-    );
-    matrix res1 = getMemMatrix(filter, filter);
-    lab_20_task_03(&m1, &res1);
-    matrix test1 = createMatrixFromArray((int[]) {
-                                              10,20,30,
-                                              25,25,45,
-                                              15,25,35
+                                              10, 20, 30,
+                                              25, 35, 45,
+                                              15, 25, 35
                                       }, 3, 3
     );
+    matrix res1 = getMemMatrix(filter, filter);
+    lab_20_task_03(&m1, &res1, filter);
+    matrix test1 = createMatrixFromArray((int[]) {
+                                                 10, 20, 30,
+                                                 25, 25, 45,
+                                                 15, 25, 35
+                                         }, 3, 3
+    );
     assert(areTwoMatricesEqual(&res1, &test1));
+    freeMemMatrix(&res1);
+
+    filter = 5;
+    matrix m2 = createMatrixFromArray((int[]) {
+                                              1, 2, 3, 4, 5,
+                                              1, 2, 3, 4, 5,
+                                              1, 2, 10, 4, 5,
+                                              1, 2, 3, 4, 5,
+                                              1, 2, 3, 4, 5
+                                      }, 5, 5
+    );
+    matrix res2 = getMemMatrix(filter, filter);
+    lab_20_task_03(&m2, &res2, filter);
+    matrix test2 = createMatrixFromArray((int[]) {
+                                                 1, 2, 3, 4, 5,
+                                                 1, 2, 3, 4, 5,
+                                                 1, 2, 3, 4, 5,
+                                                 1, 2, 3, 4, 5,
+                                                 1, 2, 3, 4, 5
+                                         }, 5, 5
+    );
+    assert(areTwoMatricesEqual(&res2, &test2));
+    freeMemMatrix(&res2);
+
+    filter = 3;
+    matrix m3 = createMatrixFromArray((int[]) {
+                                              1, 1, 1, 1, 1,
+                                              1, 10, 1, 1, 1,
+                                              1, 1, 1, 1, 1,
+                                              1, 1, 1, 10, 1,
+                                              1, 1, 1, 1, 1
+                                      }, 5, 5
+    );
+    matrix res3 = getMemMatrix(5, 5);
+    lab_20_task_03(&m3, &res3, filter);
+    matrix test3 = createMatrixFromArray((int[]) {
+                                                1, 1, 1, 1, 1,
+                                                 1, 1, 1, 1, 1,
+                                                 1, 1, 1, 1, 1,
+                                                 1, 1, 1, 1, 1,
+                                                 1, 1, 1, 1, 1
+                                         }, 5, 5
+    );
+    assert(areTwoMatricesEqual(&res3, &test3));
 }
