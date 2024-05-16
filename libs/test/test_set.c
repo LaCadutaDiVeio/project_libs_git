@@ -1504,6 +1504,7 @@ void test_lab20() {
     test_lab20_02();
     test_lab_20_03();
     test_lab_20_04();
+    test_lab_20_05();
 }
 
 void test_lab20_11() {
@@ -1676,4 +1677,15 @@ void test_lab_20_04() {
             printf("error!!!");
         }
     }
+}
+
+void test_lab_20_05() {
+    matrix m1 = createMatrixFromArray((int[]) {
+        1,0,1,
+        1,1,0,
+        1,1,0
+    }, 3, 3);
+    int res;
+    lab_20_task_05(&m1, &res);
+    assert(res == 13);
 }

@@ -39,4 +39,9 @@ void getPointsFromNeighbours(matrix *m, int row, int col, void_vector *neighbour
 int compareNeighbourPoints(const void *pa, const void *pb);
 void lab_20_task_03 (matrix *m, matrix *m_res, int filter);
 void lab_20_task_04 (char *domains[], int amount, void_vector *sub_domains);
+
+int min3(int a, int b, int c);
+void lab_20_task_05(matrix *m, int *sub_m);
+
+
 #endif //PROJECT_LIBS_LAB_20_H

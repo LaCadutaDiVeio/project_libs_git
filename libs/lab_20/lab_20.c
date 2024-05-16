@@ -325,3 +325,48 @@ void lab_20_task_04(char *domains[], int amount, void_vector *sub_domains) {
         }
     }
 }
+
+//в моей задумке понадобится min для 3 значений
+int min3(int a, int b, int c) {
+    int min = a;
+    if (b < min) min = b;
+    if (c < min) min = c;
+
+    return min;
+}
+
+/*
+Вообще, хотел изначально использовать другой подход:
+в доп. матрице в каждой ячейке отмечать, сколько потенциальных
+матриц может заканчиваться в ней, однако у меня получилось реализовать
+такой подход только для квадратных матриц
+
+как работает алгоритм из методички мне, если честно, не до конца понятно
+*/
+
+void lab_20_task_05(matrix *m, int *sub_m) {
+    matrix dp = getMemMatrix(m->nRows, m->nCols);
+    for (int i = 0; i < m->nRows; i++) {
+        for (int j = 0; j < m->nCols; j++) {
+            //первая клетка
+            if (i == 0 && m->values[i][j] == 1) {
+                dp.values[i][j] = 1;
+            } else if (m->values[i][j] == 1) {
+                dp.values[i][j] = dp.values[i - 1][j] + 1;// + 1 т.к. в клетке уже 1
+            }
+        }
+    }
+
+    for (int i = 0; i < m->nRows; i++) {
+        for (int j = 0; j < m->nCols; j++) {
+            for (int k = j + 1; k < m->nCols + 1; k++) {
+                int n = dp.values[i][j];
+                for (int t = j; t < k; t++) {
+                    n = min_(n, dp.values[i][t]);
+                }
+                (*sub_m) += n;
+            }
+        }
+    }
+
+}
