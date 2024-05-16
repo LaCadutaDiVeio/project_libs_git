@@ -368,5 +368,45 @@ void lab_20_task_05(matrix *m, int *sub_m) {
             }
         }
     }
+}
 
+void lab_20_task_06(char *pattern, char *result) {
+    int n = strlen(pattern);
+    if (pattern[n - 1] == 'D')
+        pattern[n] = 'D';
+    else
+        pattern[n] = 'I';
+    n++;
+
+    char* num = (char*)malloc(sizeof(char) * (n + 2));
+    strcopy(pattern, pattern + n, num);
+    char values[] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    int ind = 0;
+    for (int i = 0; i <= n; i++) {
+        if (num[i] == 'I') {
+            num[i] = values[ind++];
+        }
+    }
+
+    int is_D = 0;
+    int count_D = 0;
+
+    for (int i = 0; i <= n; i++) {
+        if (num[i] == 'D') {
+            is_D = 1;
+            count_D++;
+        }
+
+        if (is_D && (num[i] != 'D')) {
+            is_D = 0;
+            int k =  i - 1;
+            while (count_D > 0) {
+                num[k--] = values[ind++];
+                count_D--;
+            }
+        }
+    }
+
+    num[n + 1] = '\0';
+    strcpy(result, num);
 }

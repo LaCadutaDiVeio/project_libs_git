@@ -43,5 +43,7 @@ void lab_20_task_04 (char *domains[], int amount, void_vector *sub_domains);
 int min3(int a, int b, int c);
 void lab_20_task_05(matrix *m, int *sub_m);
 
+void lab_20_task_06(char *pattern, char *result);
+
 
 #endif //PROJECT_LIBS_LAB_20_H

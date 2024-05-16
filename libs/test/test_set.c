@@ -1505,6 +1505,7 @@ void test_lab20() {
     test_lab_20_03();
     test_lab_20_04();
     test_lab_20_05();
+    test_lab_20_06();
 }
 
 void test_lab20_11() {
@@ -1688,4 +1689,16 @@ void test_lab_20_05() {
     int res;
     lab_20_task_05(&m1, &res);
     assert(res == 13);
+}
+
+void test_lab_20_06() {
+    char pattern1[] = "IIIDIDDD";
+    char res1[100];
+    lab_20_task_06(pattern1, res1);
+    assert(strcmp(res1, "123549876") == 0);
+
+    char pattern2[] = "DDD";
+    char res2[100];
+    lab_20_task_06(pattern2, res2);
+    assert(strcmp(res2, "4321") == 0);
 }
