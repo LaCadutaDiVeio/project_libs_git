@@ -1503,6 +1503,7 @@ void test_lab20() {
     test_lab20_01();
     test_lab20_02();
     test_lab_20_03();
+    test_lab_20_04();
 }
 
 void test_lab20_11() {
@@ -1645,4 +1646,34 @@ void test_lab_20_03() {
                                          }, 5, 5
     );
     assert(areTwoMatricesEqual(&res3, &test3));
+}
+
+void test_lab_20_04() {
+    char *domains[] = {"900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"};
+    void_vector v = void_vector_create(0, sizeof(Domain));
+    lab_20_task_04(domains, 4, &v);
+
+    Domain tests[] = {
+            "mail.com", 901,
+            "com", 951,
+            "yahoo.com", 50,
+            "intel.mail.com", 1,
+            "org", 5,
+            "wiki.org", 5,
+            "google.mail.com", 900
+    };
+    for (int i = 0; i < v.size; i++) {
+        Domain info;
+        void_vector_getValueByPos( &v, i, &info );
+
+        int is_in = 0;
+        for (int j = 0; j < 7; j++) {
+            if (strcmp(info.name, tests[j].name) == 0 && info.count == tests[j].count) {
+                is_in = 1;
+            }
+        }
+        if (!is_in) {
+            printf("error!!!");
+        }
+    }
 }

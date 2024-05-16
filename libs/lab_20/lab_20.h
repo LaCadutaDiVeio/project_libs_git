@@ -9,6 +9,7 @@
 #include <vectors_void/void_vector.h>
 
 #define ALPHABET_SIZE 26
+#define MAX_DOMAIN_SIZE 100
 
 //Для задания 11
 typedef struct trie_node {
@@ -16,6 +17,11 @@ typedef struct trie_node {
     int count;
     int is_end_of_word;
 } trie_node;
+
+typedef struct Domain {
+    char name[MAX_DOMAIN_SIZE];
+    int count;
+} Domain;
 
 trie_node *getNode();
 void insertWordInTrie (trie_node *root, const char *word);
@@ -32,4 +38,5 @@ void lab_20_task_02(matrix *m, matrix *m_res);
 void getPointsFromNeighbours(matrix *m, int row, int col, void_vector *neighbours, int filter);
 int compareNeighbourPoints(const void *pa, const void *pb);
 void lab_20_task_03 (matrix *m, matrix *m_res, int filter);
+void lab_20_task_04 (char *domains[], int amount, void_vector *sub_domains);
 #endif //PROJECT_LIBS_LAB_20_H

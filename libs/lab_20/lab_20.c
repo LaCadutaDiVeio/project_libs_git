@@ -257,11 +257,11 @@ int compareNeighbourPoints(const void *pa, const void *pb) {
     return a - b;
 }
 
-void lab_20_task_03 (matrix *m, matrix *m_res, int filter) {
+void lab_20_task_03(matrix *m, matrix *m_res, int filter) {
     for (int i = 0; i < m->nRows; i++) {
         for (int j = 0; j < m->nCols; j++) {
             //пропуск краевых
-            if (i < filter/2 || i >= m->nRows - filter/2 || j < filter/2 || j >= m->nCols - filter/2) {
+            if (i < filter / 2 || i >= m->nRows - filter / 2 || j < filter / 2 || j >= m->nCols - filter / 2) {
                 m_res->values[i][j] = m->values[i][j];
             } else {
                 void_vector neighbors = void_vector_create(0, sizeof(int));
@@ -271,6 +271,56 @@ void lab_20_task_03 (matrix *m, matrix *m_res, int filter) {
                 int middle;
                 void_vector_getValueByPos(&neighbors, neighbors.size / 2, &middle);
                 m_res->values[i][j] = middle;
+            }
+        }
+    }
+}
+
+void lab_20_task_04(char *domains[], int amount, void_vector *sub_domains) {
+    for (int i = 0; i < amount; i++) {
+        char domain[MAX_DOMAIN_SIZE];
+        memset(domain, 0, sizeof(char) * MAX_DOMAIN_SIZE);
+        int visits_count = 0;
+
+        sscanf(domains[i], "%d %s", &visits_count, &domain);
+        void_vector tokens = void_vector_create(0, sizeof(char *));
+        char *token = strtok(domain, ".");
+        while (token != NULL) {
+            void_vector_pushBack(&tokens, &token);
+            token = strtok(NULL, ".");
+        }
+
+        for (int j = 0; j < tokens.size; j++) {
+            char new_dom[MAX_DOMAIN_SIZE];
+            memset(new_dom, 0, sizeof(char) * MAX_DOMAIN_SIZE);
+            for (int k = j; k < tokens.size; k++) {
+                char *tok;
+                void_vector_getValueByPos(&tokens, k, &tok);
+
+                strcat(new_dom, tok);
+                if (k != tokens.size - 1) {
+                    strcat(new_dom, ".");
+                }
+            }
+
+            int is_in = 0;
+            for (int n = 0; n < sub_domains->size; n++) {
+                Domain d;
+                void_vector_getValueByPos(sub_domains, n, &d.name);
+
+                if (strcmp(new_dom, d.name) == 0) {
+                    is_in = 1;
+                    d.count += visits_count;
+                    void_vector_setValue(sub_domains, n, &d);
+                    break;
+                }
+            }
+
+            if (!is_in) {
+                Domain n_d;
+                strcpy(n_d.name, new_dom);
+                n_d.count = visits_count;
+                void_vector_pushBack(sub_domains, &n_d);
             }
         }
     }
