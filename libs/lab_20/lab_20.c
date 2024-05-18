@@ -562,3 +562,16 @@ void lab_20_task_07(int *nums, int size, char *result) {
 
     freeTreeArr(root);
 }
+
+void lab_20_task_08(char *s, int *indices, char *res) {
+    char buffer[MAX_STRING_SIZE];
+    memset(buffer, 0, sizeof(char) * MAX_STRING_SIZE);
+    int size = strlen(s);
+
+    for (int i = 0; i < size; i++) {
+        buffer[i] = s[indices[i]];
+    }
+
+    buffer[size] = '\0';
+    strcpy(res, buffer);
+}

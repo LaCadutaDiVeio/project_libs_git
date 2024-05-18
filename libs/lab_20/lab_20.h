@@ -63,5 +63,7 @@ void printByLevel(tree_arr* root, int level);
 void printByLevel_FOR_TESTS(tree_arr* root, int level, char *res);
 void printTreeLevelByLevel_FOR_TESTS(tree_arr * root, char *res);
 
+void lab_20_task_08(char *s, int *indices, char *res);
+
 
 #endif //PROJECT_LIBS_LAB_20_H
