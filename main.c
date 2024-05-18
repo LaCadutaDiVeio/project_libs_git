@@ -45,7 +45,7 @@ int main() {
     insertWordInTrie(root, "abde");
     printf("%d", root->children[0]->children[1]->children[2]->children[3]->count);*/
 
-
+    //lab_20_task_07((int[]){3,2,1,6,0,5}, 6);
 
     return 0;
 }

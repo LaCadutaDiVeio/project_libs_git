@@ -12,22 +12,28 @@
 #define MAX_DOMAIN_SIZE 100
 
 //Для задания 11
-typedef struct trie_node {
-    struct trie_node *children[ALPHABET_SIZE];
+typedef struct tree_node {
+    struct tree_node *children[ALPHABET_SIZE];
     int count;
     int is_end_of_word;
-} trie_node;
+} tree_node;
 
 typedef struct Domain {
     char name[MAX_DOMAIN_SIZE];
     int count;
 } Domain;
 
-trie_node *getNode();
-void insertWordInTrie (trie_node *root, const char *word);
-int isNodeIsWord(trie_node *node);
-void freeTrie (trie_node *node);
-char *findWordInTrie(trie_node *root, const char *prefix, int number);
+typedef struct tree_arr {
+    int value;
+    struct tree_arr *left_node;
+    struct tree_arr *right_node;
+} tree_arr;
+
+tree_node *getNode();
+void insertWordInTree (tree_node *root, const char *word);
+int isNodeIsWord(tree_node *node);
+void freeTree (tree_node *node);
+char *findWordInTree(tree_node *root, const char *prefix, int number);
 
 int lab_20_task_11();
 int lab_20_task_11_FORTESTS(char *words, char *requests, char **testRequests);
@@ -44,6 +50,18 @@ int min3(int a, int b, int c);
 void lab_20_task_05(matrix *m, int *sub_m);
 
 void lab_20_task_06(char *pattern, char *result);
+
+tree_arr* constructTreeArr(int *arr, int start, int end);
+void freeTreeArr(tree_arr *root);
+void printTreeArr(tree_arr *root);
+void lab_20_task_07(int *nums, int size, char *result);
+int findMaxIndex(int* nums, int start, int end);
+
+void printTreeLevelByLevel(tree_arr * root);
+int getDeep(tree_arr *root);
+void printByLevel(tree_arr* root, int level);
+void printByLevel_FOR_TESTS(tree_arr* root, int level, char *res);
+void printTreeLevelByLevel_FOR_TESTS(tree_arr * root, char *res);
 
 
 #endif //PROJECT_LIBS_LAB_20_H

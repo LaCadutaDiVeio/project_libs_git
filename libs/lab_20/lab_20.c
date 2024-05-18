@@ -1,10 +1,11 @@
 #include <lab_20/lab_20.h>
 #include <matrix/matrix.h>
 #include <array/array.h>
+#include <algorithms/algorithms.h>
 
 //создание новоой ветки дерева
-trie_node *getNode() {
-    trie_node *node = (trie_node *) malloc(sizeof(trie_node));
+tree_node *getNode() {
+    tree_node *node = (tree_node *) malloc(sizeof(tree_node));
     if (node) {
         node->count = 0;
         for (int i = 0; i < ALPHABET_SIZE; i++) {
@@ -17,9 +18,9 @@ trie_node *getNode() {
 }
 
 //добавление слова в словарь
-void insertWordInTrie(trie_node *root, const char *word) {//a=0 b =1 c =2   abc
+void insertWordInTree(tree_node *root, const char *word) {//a=0 b =1 c =2   abc
     int alp_index;
-    trie_node *node = root;
+    tree_node *node = root;
     /*проходим по всем буквам слова и создаём (или расширяем)
     ветку соответствующей буквы*/
     for (int i = 0; word[i]; i++) {
@@ -34,17 +35,17 @@ void insertWordInTrie(trie_node *root, const char *word) {//a=0 b =1 c =2   abc
     node->is_end_of_word = 1;
 }
 
-int isNodeIsWord(trie_node *node) {
+int isNodeIsWord(tree_node *node) {
     return node->is_end_of_word;
 }
 
 char BAD_RESULT[] = {'-', '1', '\0'};
 
 //найти слово в словаре
-char *findWordInTrie(trie_node *root, const char *prefix, int number) {
+char *findWordInTree(tree_node *root, const char *prefix, int number) {
     //prefix - последовательность по котороу будет поиск
     //number - искомый порядковый номер
-    trie_node *node = root;
+    tree_node *node = root;
     int alp_index;
     for (int i = 0; prefix[i]; i++) {
         //если нужной ветки не окажется - -1
@@ -101,12 +102,12 @@ char *findWordInTrie(trie_node *root, const char *prefix, int number) {
     return word;
 }
 
-void freeTrie(trie_node *node) {
+void freeTree(tree_node *node) {
     if (node == NULL)
         return;
 
     for (int i = 0; i < ALPHABET_SIZE; i++)
-        freeTrie(node->children[i]);
+        freeTree(node->children[i]);
 
     free(node);
 }
@@ -116,14 +117,14 @@ int lab_20_task_11() {
     int Q, N;
     scanf("%d %d", &Q, &N);
 
-    trie_node *root = getNode();
+    tree_node *root = getNode();
 
     // Чтение слов из словаря
     printf("Вводите слова:\n");
     for (int i = 0; i < Q; i++) {
         char word[1000001];
         scanf("%s", word);
-        insertWordInTrie(root, word);
+        insertWordInTree(root, word);
     }
     printf("Введите запросы:\n");
 
@@ -133,23 +134,23 @@ int lab_20_task_11() {
         char prefix[101];
         printf("Запрос %d:", i + 1);
         scanf("%d %s", &k, prefix);
-        char *result = findWordInTrie(root, prefix, k);
+        char *result = findWordInTree(root, prefix, k);
         printf("  %s\n", result);
         free(result);
     }
 
     // Освобождение памяти
-    freeTrie(root);
+    freeTree(root);
 
     return 0;
 }
 
 int lab_20_task_11_FORTESTS(char *words, char *requests, char **testRequests) {
-    trie_node *root = getNode();
+    tree_node *root = getNode();
 
     char *word = strtok(words, " ");
     while (word != NULL) {
-        insertWordInTrie(root, word);
+        insertWordInTree(root, word);
         //printf( "%s ", word );
         word = strtok(NULL, " ");//классная штука, не знал о такой
     }
@@ -165,18 +166,18 @@ int lab_20_task_11_FORTESTS(char *words, char *requests, char **testRequests) {
         //printf( "%d %s ", k, prefix );
         request = strtok(NULL, " ");
 
-        char *result = findWordInTrie(root, prefix, k);
+        char *result = findWordInTree(root, prefix, k);
         //printf( "%s", result );
         if (strcmp(result, testRequests[request_index]) != 0) {
             //    free( result );
-            freeTrie(root);
+            freeTree(root);
             return 0;
         }
 
         //  free( result );
         request_index++;
     }
-    freeTrie(root);
+    freeTree(root);
 
     return 1;
 }
@@ -409,4 +410,155 @@ void lab_20_task_06(char *pattern, char *result) {
 
     num[n + 1] = '\0';
     strcpy(result, num);
+}
+
+int findMaxIndex(int* nums, int start, int end) {
+    int maxIndex = start;
+    for (int i = start; i <= end; i++) {
+        if (nums[i] > nums[maxIndex]) {
+            maxIndex = i;
+        }
+    }
+    return maxIndex;
+}
+
+
+tree_arr* constructTreeArr(int *arr, int start, int end) {
+    if (start > end)
+        return NULL;
+
+    //int ind_max = findMaxIndex(arr, start, end);
+    int ind_max = getMaxElementIndexInArray(arr + start, end - start + 1);
+    //outputArray_(arr + start, end - start + 1);
+    ind_max += start;// индекс в исходном массиве
+
+    tree_arr *node = (tree_arr*)malloc(sizeof(tree_arr));
+    node->value = arr[ind_max];
+    node->left_node = node->right_node = NULL;
+    //printf(" %d ", node->value);
+
+    node->left_node = constructTreeArr(arr, start, ind_max - 1);
+    node->right_node = constructTreeArr(arr, ind_max + 1, end);
+
+    return node;
+}
+
+void freeTreeArr(tree_arr *root) {
+    if (root == NULL)
+        return;
+
+    freeTreeArr(root->left_node);
+    freeTreeArr(root->right_node);
+    free(root);
+}
+
+/*void printTreeArr(tree_arr *root) {
+    if (root == NULL) {
+        printf("null ");
+        return;
+    }
+    printf("%d ", root->value);
+    printTreeArr(root->left_node);
+    printTreeArr(root->right_node);
+}*/
+int getDeep(tree_arr *root) {
+    if (root == NULL) {
+        return 0;
+    } else {
+        int leftHeight = getDeep(root->left_node);
+        int rightHeight = getDeep(root->right_node);
+
+        if (leftHeight > rightHeight) {
+            return leftHeight + 1;
+        } else {
+            return rightHeight + 1;
+        }
+    }
+}
+
+void printByLevel(tree_arr* root, int level) {
+    if (root == NULL) {
+        printf("ошибка ветви! ");
+        return;
+    }
+    if (level == 1) {
+        printf("%d ", root->value);
+    } else if (level > 1) {
+        if (root->left_node != NULL && root->right_node != NULL) {
+            //printf("ветвь от: %d - ", root->value);
+            printByLevel(root->left_node, level - 1);
+            printByLevel(root->right_node, level - 1);
+        } else if (root->left_node != NULL) {
+            //printf("ветвь от: %d - ", root->value);
+            printByLevel(root->left_node, level - 1);
+            if (level - 1 == 1)
+                printf("null ");
+        } else if (root->right_node != NULL) {
+            //printf("ветвь от: %d - ", root->value);
+            if (level - 1 == 1)
+                printf("null ");
+            printByLevel(root->right_node, level - 1);
+        } else {
+            //ветка для отладки
+        }
+    }
+}
+
+void printTreeLevelByLevel(tree_arr * root) {
+    int height = getDeep(root);
+    for (int i = 1; i <= height; i++) {
+        printByLevel(root, i);
+        //printf("\n");
+    }
+}
+
+void printByLevel_FOR_TESTS(tree_arr* root, int level, char *res) {
+    if (root == NULL) {
+        printf("ошибка ветви! ");
+        return;
+    }
+    if (level == 1) {
+        char num_str[10];
+        sprintf(num_str, " %d", root->value);
+        strcat(res, num_str);
+    } else if (level > 1) {
+        if (root->left_node != NULL && root->right_node != NULL) {
+            //printf("ветвь от: %d - ", root->value);
+            printByLevel_FOR_TESTS(root->left_node, level - 1, res);
+            printByLevel_FOR_TESTS(root->right_node, level - 1, res);
+        } else if (root->left_node != NULL) {
+            //printf("ветвь от: %d - ", root->value);
+            printByLevel_FOR_TESTS(root->left_node, level - 1, res);
+            if (level - 1 == 1)
+                strcat(res, " null");
+        } else if (root->right_node != NULL) {
+            //printf("ветвь от: %d - ", root->value);
+            if (level - 1 == 1)
+                strcat(res, " null");
+            printByLevel_FOR_TESTS(root->right_node, level - 1, res);
+        } else {
+            //ветка для отладки
+        }
+    }
+}
+
+void printTreeLevelByLevel_FOR_TESTS(tree_arr * root, char *res) {
+    int height = getDeep(root);
+    for (int i = 1; i <= height; i++) {
+        printByLevel_FOR_TESTS(root, i, res);
+        //printf("\n");
+    }
+}
+
+void lab_20_task_07(int *nums, int size, char *result) {
+    tree_arr *root = constructTreeArr(nums, 0, size - 1);
+    char *res = (char*)malloc(sizeof(char) * (size * 20 + 1));
+    res[0] = '\0';
+
+    printTreeLevelByLevel_FOR_TESTS(root, res);
+    res++;//удалить первый пробел
+    strcpy(result, res);
+    //printf("%s\n", res);
+
+    freeTreeArr(root);
 }

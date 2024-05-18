@@ -1506,6 +1506,7 @@ void test_lab20() {
     test_lab_20_04();
     test_lab_20_05();
     test_lab_20_06();
+    test_lab_20_07();
 }
 
 void test_lab20_11() {
@@ -1701,4 +1702,14 @@ void test_lab_20_06() {
     char res2[100];
     lab_20_task_06(pattern2, res2);
     assert(strcmp(res2, "4321") == 0);
+}
+
+void test_lab_20_07() {
+    char *result1 = (char*)malloc(sizeof(char) * (20 + 1));
+    lab_20_task_07((int[]){3,2,1,6,0,5}, 6, result1);
+    assert(strcmp(result1, "6 3 5 null 2 0 null null 1") == 0);
+
+    char *result2 = (char*)malloc(sizeof(char) * (20 + 1));
+    lab_20_task_07((int[]){3,2,1}, 3, result2);
+    assert(strcmp(result2, "3 null 2 null 1") == 0);
 }
