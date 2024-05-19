@@ -1508,6 +1508,7 @@ void test_lab20() {
     test_lab_20_06();
     test_lab_20_07();
     test_lab_20_08();
+    test_lab_20_09();
 }
 
 void test_lab20_11() {
@@ -1722,6 +1723,13 @@ void test_lab_20_08() {
 
     char *result2 = (char*)malloc(sizeof(char) * (20 + 1));
     lab_20_task_08("abap", (int[]){0,3,2,1}, result2);
-    printf("%s", result2);
     assert(strcmp(result2, "apab") == 0);
+}
+
+void test_lab_20_09() {
+    int argc = 4;
+    char *argv[] = {"back","data_for_tasks/lab_20_task09_input.txt", "data_for_tasks/lab_20_task09_input.txt", "10"};
+
+    void_vector res = void_vector_create(0, sizeof(int));
+    lab_20_task_09(argc, argv, &res);
 }

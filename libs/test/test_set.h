@@ -109,5 +109,6 @@ void test_lab_20_05();
 void test_lab_20_06();
 void test_lab_20_07();
 void test_lab_20_08();
+void test_lab_20_09();
 
 #endif //PROJECT_LIBS_TEST_SET_H

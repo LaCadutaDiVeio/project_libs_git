@@ -575,3 +575,36 @@ void lab_20_task_08(char *s, int *indices, char *res) {
     buffer[size] = '\0';
     strcpy(res, buffer);
 }
+
+void lab_20_task_09(int argc, char **argv, void_vector *res) {
+    if (argc != 4) {
+        fprintf(stderr, "неверное кол-во аргументов\n", argv[0]);
+        exit(1);
+    }
+    const char *input_filename = argv[1];
+    const char *output_filename = argv[2];
+    int N = atoi(argv[3]);
+
+    FILE *input_file = fopen(input_filename, "r");
+    if (input_file == NULL) {
+        perror("Ошибка открытия входного файла");
+        exit(1);
+    }
+
+    FILE *output_file = fopen(output_filename, "w");
+    if (output_file == NULL) {
+        perror("Ошибка открытия выходного файла");
+        fclose(input_file);
+        exit(1);
+    }
+
+    int number;
+    while (fscanf(input_file, "%d", &number) == 1) {
+        if (number < N) {
+            fprintf(output_file, "%d\n", number);
+        }
+    }
+
+    fclose(input_file);
+    fclose(output_file);
+}

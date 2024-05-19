@@ -13,7 +13,7 @@
 #include <windows.h>
 
 
-int main() {
+int main(int argc, char **argv) {
     SetConsoleOutputCP(CP_UTF8);
     //test_bitset();
     //test_unordered_array_set();
@@ -26,6 +26,8 @@ int main() {
     //test_files();
     test_lab20();
 
+    /*void_vector res = void_vector_create(0, sizeof(int));
+    lab_20_task_09(argc, argv, &res);*/
     /*matrix m3 = createMatrixFromArray((int[]) {
                                               1,2,3,1,1,
                                               4,10,5,1,1,
@@ -45,7 +47,10 @@ int main() {
     insertWordInTrie(root, "abde");
     printf("%d", root->children[0]->children[1]->children[2]->children[3]->count);*/
 
+
     //lab_20_task_07((int[]){3,2,1,6,0,5}, 6);
+
+    //system("pause");
 
     return 0;
 }
