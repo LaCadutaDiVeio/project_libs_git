@@ -3,6 +3,9 @@
 #include <array/array.h>
 #include <algorithms/algorithms.h>
 
+#include <conio.h>
+
+
 //создание новоой ветки дерева
 tree_node *getNode() {
     tree_node *node = (tree_node *) malloc(sizeof(tree_node));
@@ -607,4 +610,48 @@ void lab_20_task_09(int argc, char **argv, void_vector *res) {
 
     fclose(input_file);
     fclose(output_file);
+}
+
+//тип для устраниния вероятности оптимизации; для переменных, изменяющихся извне
+volatile sig_atomic_t flag = 0;
+volatile int line = 0;
+void sigint_control(int plug) {
+    //flag = 1;
+    line = 0;
+}
+//просто решил оставить часть предыдущей попытки
+
+
+void lab_20_task_10(int argc, char **argv) {
+    if (argc != 3) {
+        printf("Неверное кол-во аргументов");
+        exit(1);
+    }
+
+    char *f_name = argv[1];
+    int N = atoi(argv[2]);
+
+    FILE *f = fopen(f_name, "r");
+    if (f == NULL) {
+        perror("ошибка открытия входного файла");
+        exit(1);
+    }
+
+    char buffer[100];
+    //int line = 0;
+
+    if (signal(SIGINT, sigint_control) == SIG_ERR) {
+        perror("Не удалось установить обработчик сигнала");
+        exit(1);
+    }
+
+    while (fgets(buffer, 100, f) != NULL) {
+        signal(SIGINT, sigint_control);
+        while (line == N);
+
+        printf("%s", buffer);
+        line++;
+    }
+
+    fclose(f);
 }

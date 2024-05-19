@@ -24,7 +24,12 @@ int main(int argc, char **argv) {
     //testMatrix_2();
     //test_string();
     //test_files();
-    test_lab20();
+    //test_lab20();
+    //printf("%d", argc);
+    //printf("%s", argv[1]);
+
+    lab_20_task_10(argc, argv);
+
 
     /*void_vector res = void_vector_create(0, sizeof(int));
     lab_20_task_09(argc, argv, &res);*/
@@ -50,7 +55,6 @@ int main(int argc, char **argv) {
 
     //lab_20_task_07((int[]){3,2,1,6,0,5}, 6);
 
-    //system("pause");
-
+    system("pause");
     return 0;
 }

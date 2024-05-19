@@ -5,6 +5,8 @@
 #include <windows.h>
 #include <stdlib.h>
 #include <string.h>
+#include <signal.h>
+#include <unistd.h>
 #include <string_/string_.h>
 #include <matrix/matrix.h>
 #include <vectors_void/void_vector.h>
@@ -67,6 +69,9 @@ void printTreeLevelByLevel_FOR_TESTS(tree_arr * root, char *res);
 void lab_20_task_08(char *s, int *indices, char *res);
 
 void lab_20_task_09(int argc, char **argv, void_vector *res);
+
+void sigint_control(int sigint);
+void lab_20_task_10(int argc, char **argv);
 
 
 #endif //PROJECT_LIBS_LAB_20_H
